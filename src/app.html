@@ -1,0 +1,973 @@
+<title>Todōfuken Atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: an atlas plate — the map as a framed survey sheet on the left, a field-guide panel on the right; stacks on phones. */
+:root {
+  --bg: #e8edf0;        /* page ground, cool washi grey */
+  --surface: #fbfcfc;   /* panel paper */
+  --sea: #d3dfe7;
+  --grat: #b9c9d5;      /* graticule lines */
+  --land: #f8f7f2;      /* neutral land for quizzes */
+  --edge: #87949f;      /* prefecture borders */
+  --ink: #1b2230;       /* sumi with an indigo bias */
+  --muted: #5a6474;
+  --rule: #d2dae0;
+  --ai: #284a8b;        /* 藍 indigo — UI accent */
+  --ai-soft: #e3e9f4;
+  --ai-ink: #ffffff;
+  --shu: #cc4a2c;       /* 朱 vermilion — selection and seals */
+  --halo: #fbfcfc;
+  --ok: #26754a; --bad: #b5372a;
+  --ok-fill: #a5d6b5; --late-fill: #f0d48e; --bad-fill: #eea79c;
+  --hover: brightness(.92);
+  --r-hokkaido: #a9d2c8; --r-tohoku: #cbd99c; --r-kanto: #efd08a; --r-chubu: #c6bde2;
+  --r-kansai: #f1c1cb; --r-chugoku: #f1bd95; --r-shikoku: #a5d1aa; --r-kyushu: #e6aea3;
+
+  --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif;
+  --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #5a6a80;
+    --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
+    --shu: #ff7b5a; --halo: #121a24;
+    --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #7a3731;
+    --hover: brightness(1.25);
+    --r-hokkaido: #3e6b65; --r-tohoku: #5c6a37; --r-kanto: #7a652f; --r-chubu: #554d7f;
+    --r-kansai: #7b4656; --r-chugoku: #7b5034; --r-shikoku: #3c6746; --r-kyushu: #794741;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #5a6a80;
+  --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
+  --shu: #ff7b5a; --halo: #121a24;
+  --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #7a3731;
+  --hover: brightness(1.25);
+  --r-hokkaido: #3e6b65; --r-tohoku: #5c6a37; --r-kanto: #7a652f; --r-chubu: #554d7f;
+  --r-kansai: #7b4656; --r-chugoku: #7b5034; --r-shikoku: #3c6746; --r-kyushu: #794741;
+  color-scheme: dark;
+}
+
+html, body { height: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+button, select, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+
+.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding-inline: 16px; padding-block: 12px 16px; box-sizing: border-box; }
+
+/* ---------- top bar ---------- */
+.bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+.brand-ja { font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: .06em; line-height: 1; }
+.brand-en { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
+.modes { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
+.modes button { border: 0; background: none; padding: 6px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; }
+.modes button[aria-pressed="true"] { background: var(--ai); color: var(--ai-ink); }
+
+/* ---------- layout ---------- */
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 16px; min-height: 0; }
+.mapwrap { position: relative; min-height: 0; background: var(--sea); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
+.panel { min-height: 0; min-width: 0; overflow: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
+.panel-inner { padding: 20px 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
+.panel-inner > *, .tabpanel > *, .field > * { min-width: 0; }
+
+/* ---------- map ---------- */
+#map { display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+#map.panning { cursor: grabbing; }
+#map .sea { fill: var(--sea); }
+#map .grat { fill: none; stroke: var(--grat); stroke-width: .8px; vector-effect: non-scaling-stroke; }
+#map .inset-box { fill: var(--sea); stroke: var(--edge); stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
+#map .inset-cap { fill: var(--muted); font-size: 13px; font-family: var(--f-body); letter-spacing: .03em; }
+#map .pref { cursor: pointer; }
+#map .shape { fill: var(--land); stroke: var(--edge); stroke-width: .7px; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill .25s; }
+#map .hit { fill: none; stroke: transparent; stroke-width: 14px; vector-effect: non-scaling-stroke; pointer-events: stroke; }
+#map:not(.panning) .pref:hover { filter: var(--hover); }
+
+#map.m-explore .pref[data-r="hokkaido"] .shape { fill: var(--r-hokkaido); }
+#map.m-explore .pref[data-r="tohoku"] .shape { fill: var(--r-tohoku); }
+#map.m-explore .pref[data-r="kanto"] .shape { fill: var(--r-kanto); }
+#map.m-explore .pref[data-r="chubu"] .shape { fill: var(--r-chubu); }
+#map.m-explore .pref[data-r="kansai"] .shape { fill: var(--r-kansai); }
+#map.m-explore .pref[data-r="chugoku"] .shape { fill: var(--r-chugoku); }
+#map.m-explore .pref[data-r="shikoku"] .shape { fill: var(--r-shikoku); }
+#map.m-explore .pref[data-r="kyushu"] .shape { fill: var(--r-kyushu); }
+#map .pref.fade { opacity: .35; }
+#map.m-explore .pref.sel .shape { fill: var(--shu); stroke: var(--ink); stroke-width: 1.4px; }
+
+#map .pref.dim { opacity: .28; pointer-events: none; }
+#map .pref.st-found .shape { fill: var(--ok-fill); }
+#map .pref.st-late .shape { fill: var(--late-fill); }
+#map .pref.st-missed .shape { fill: var(--bad-fill); }
+#map .pref.target .shape { fill: var(--shu); stroke: var(--ink); stroke-width: 1.4px; }
+#map .pref.flash .shape { animation: flash .6s ease-out; }
+@keyframes flash { 0%, 40% { fill: var(--bad); } 100% { fill: var(--land); } }
+
+#map .ring { fill: none; stroke: var(--ink); stroke-width: 2.5px; vector-effect: non-scaling-stroke; pointer-events: none; }
+#map .ring.pulse { animation: ring 1.4s ease-in-out infinite; }
+@keyframes ring { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .25; } }
+
+#map .lab { display: none; fill: var(--ink); stroke: var(--halo); paint-order: stroke; stroke-linejoin: round; text-anchor: middle; dominant-baseline: central; font-family: var(--f-body); font-weight: 700; pointer-events: none; }
+#map.names .lab, #map .lab.on { display: block; }
+#map .lab.cull { visibility: hidden; }
+#map .lab.pop { animation: pop .5s ease-out; }
+@keyframes pop { 0% { fill: var(--ok); } 100% { fill: var(--ink); } }
+
+.map-tools { position: absolute; top: 12px; left: 12px; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.tool-group { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
+.tool-group button { border: 0; background: none; padding: 5px 10px; cursor: pointer; font-size: 13px; line-height: 1.4; min-width: 34px; }
+.tool-group button + button { border-left: 1px solid var(--rule); }
+.tool-group button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
+.tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+
+.legend { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
+.legend button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 6px; font-size: 12px; cursor: pointer; }
+.legend button[aria-pressed="true"] { border-color: var(--ink); font-weight: 700; }
+.swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--edge); }
+.scale { font-size: 11px; color: var(--muted); display: grid; justify-items: start; gap: 2px; padding-left: 2px; font-variant-numeric: tabular-nums; pointer-events: none; }
+.scale-bar { height: 6px; border: 1.5px solid var(--ink); border-top: 0; }
+.tip { position: absolute; z-index: 3; pointer-events: none; background: var(--ink); color: var(--surface); padding: 4px 10px; border-radius: 6px; font-size: 13px; white-space: nowrap; }
+.tip b { font-weight: 700; }
+.tip span { opacity: .75; margin-left: 6px; }
+
+/* ---------- shared panel bits ---------- */
+.eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0; line-height: 1.25; text-wrap: balance; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 500; text-decoration: none; }
+.btn:hover { border-color: var(--edge); }
+.btn.primary { background: var(--ai); color: var(--ai-ink); border-color: var(--ai); font-weight: 700; }
+.btn.ghost { border-color: transparent; background: none; color: var(--muted); }
+.btn.small { padding: 4px 10px; font-size: 13px; }
+.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.muted { color: var(--muted); }
+.note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.note a { color: inherit; }
+
+/* ---------- explore ---------- */
+.nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: center; }
+.nav select { width: 100%; min-width: 0; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+.pf-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; }
+.pf-kanji { font-family: var(--f-display); font-weight: 800; font-size: 46px; line-height: 1.05; margin: 0; letter-spacing: .04em; }
+.pf-name { grid-column: 1; font-size: 21px; font-weight: 700; line-height: 1.3; }
+.pf-name .kana { font-size: 14px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: var(--shu); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
+.seal small { display: block; font-size: 9px; letter-spacing: .12em; }
+.seal span { font-size: 20px; font-family: var(--f-display); }
+.chips { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
+.tagline { margin: 0; font-size: 16px; line-height: 1.55; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; margin: 0; padding: 14px 0; border-block: 1px solid var(--rule); }
+.facts > div { min-width: 0; }
+.facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.facts dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.3; }
+.facts dd small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.facts .wide { grid-column: 1 / -1; }
+.down { color: var(--bad); } .up { color: var(--ok); }
+.ages { display: grid; gap: 6px; }
+.agebar { display: flex; height: 14px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); position: relative; }
+.agebar i { display: block; height: 100%; }
+.agebar .a1 { background: var(--r-shikoku); } .agebar .a2 { background: var(--sea); } .agebar .a3 { background: var(--r-chugoku); }
+.agebar .nat { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
+.agekey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.agekey b { color: var(--ink); }
+.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+.tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--shu); font-weight: 700; }
+.tabpanel { display: grid; gap: 14px; }
+.tabpanel h3 { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tabpanel p { margin: 0; }
+.items { list-style: none; margin: 0; padding: 0; display: grid; }
+.items li { padding: 10px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
+.items li:first-child { padding-top: 0; }
+.items li:last-child { border-bottom: 0; }
+.items .nm { font-weight: 700; }
+.items .jp { font-weight: 400; color: var(--muted); margin-left: 8px; font-size: 14px; }
+.items .ds { color: var(--muted); font-size: 14px; }
+.forecast { display: inline-flex; gap: 6px; color: var(--ai); font-weight: 700; text-decoration: none; }
+.forecast:hover { text-decoration: underline; }
+
+/* ---------- quiz ---------- */
+.choices-type { display: grid; gap: 8px; }
+.qtype { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; cursor: pointer; }
+.qtype:has(input:checked) { border-color: var(--ai); background: var(--ai-soft); }
+.qtype input { margin: 4px 0 0; accent-color: var(--ai); grid-row: span 2; }
+.qtype b { font-size: 15px; }
+.qtype span { font-size: 13px; color: var(--muted); }
+.field { display: grid; gap: 6px; }
+.field label, .field .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.field select { padding: 8px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; width: fit-content; }
+.seg button { border: 0; background: none; padding: 6px 14px; cursor: pointer; }
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
+.best { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.status { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; }
+.progress { display: grid; gap: 4px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.progress .track { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
+.progress .fill { height: 100%; background: var(--ai); transition: width .3s; }
+.clock { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 16px; }
+.prompt { border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: grid; gap: 4px; }
+.prompt .big { font-family: var(--f-display); font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: .04em; }
+.prompt .sub { font-size: 20px; font-weight: 700; }
+.feedback { min-height: 1.6em; font-weight: 500; }
+.feedback.ok { color: var(--ok); } .feedback.bad { color: var(--bad); }
+.answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.answers button { border: 1px solid var(--rule); background: var(--surface); border-radius: 10px; padding: 10px 12px; cursor: pointer; text-align: left; display: grid; gap: 0; line-height: 1.35; }
+.answers button:hover:not(:disabled) { border-color: var(--ai); }
+.answers button .k { font-size: 11px; color: var(--muted); }
+.answers button b { font-size: 16px; }
+.answers button span { font-size: 13px; color: var(--muted); }
+.answers button.right { border-color: var(--ok); background: var(--ok-fill); }
+.answers button.wrong { border-color: var(--bad); background: var(--bad-fill); }
+.answers button:disabled { cursor: default; }
+.typein { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.typein input { padding: 10px 12px; border: 1.5px solid var(--edge); border-radius: 8px; background: var(--surface); font-size: 17px; min-width: 0; }
+.typein input:focus { border-color: var(--ai); outline: none; }
+.regions-left { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 16px; font-size: 13px; font-variant-numeric: tabular-nums; }
+.regions-left div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding: 2px 0; }
+.regions-left .done { color: var(--ok); font-weight: 700; }
+.result { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; }
+.score { font-family: var(--f-display); font-weight: 800; font-size: 54px; line-height: 1; font-variant-numeric: tabular-nums; }
+.score small { font-size: 22px; color: var(--muted); }
+.hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 19px; line-height: 1.05; transform: rotate(-8deg); }
+.misslist { display: flex; flex-wrap: wrap; gap: 6px; }
+.misslist button { border: 1px solid var(--bad-fill); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; }
+.misslist button:hover { background: var(--bad-fill); }
+.legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
+
+/* ---------- small screens ---------- */
+@media (max-width: 860px) {
+  html, body { height: auto; }
+  .app { height: auto; }
+  .layout { grid-template-columns: minmax(0, 1fr); }
+  .mapwrap { aspect-ratio: 1 / 1.2; max-height: 75vh; }
+  .layout.quiz-live .panel { order: -1; }
+  .panel { overflow: visible; }
+  .legend { left: 8px; right: 8px; bottom: 8px; flex-direction: row; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; align-items: center; }
+  .legend button { flex: none; }
+  .pf-kanji { font-size: 40px; }
+}
+@media (max-width: 420px) {
+  .panel-inner { padding: 16px; }
+  .brand-en { display: none; }
+  .facts dd { font-size: 16px; }
+  .prompt .big { font-size: 34px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="app">
+  <header class="bar">
+    <div class="brand"><span class="brand-ja" lang="ja">都道府県</span><span class="brand-en">Todōfuken Atlas · Japan's 47 prefectures</span></div>
+    <nav class="modes" aria-label="Mode">
+      <button type="button" id="mode-explore" aria-pressed="true">Explore</button>
+      <button type="button" id="mode-quiz" aria-pressed="false">Quiz</button>
+    </nav>
+  </header>
+  <main class="layout" id="layout">
+    <section class="mapwrap" id="mapwrap" aria-label="Map">
+      <svg id="map" class="m-explore" role="img" aria-label="Map of Japan's 47 prefectures. Click a prefecture to select it." preserveAspectRatio="xMidYMid meet"></svg>
+      <div class="map-tools">
+        <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
+          <span class="tool-label">Names</span>
+          <button type="button" id="names-off" aria-pressed="true">Off</button>
+          <button type="button" id="names-romaji" aria-pressed="false">ABC</button>
+          <button type="button" id="names-kanji" aria-pressed="false" lang="ja">漢字</button>
+        </div>
+        <div class="tool-group" role="group" aria-label="Zoom">
+          <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
+          <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+          <button type="button" id="zoom-reset">Reset</button>
+        </div>
+        <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
+      </div>
+      <div class="legend" id="legend" aria-label="Regions"></div>
+      <div class="tip" id="tip" hidden></div>
+    </section>
+    <aside class="panel" id="panel"></aside>
+  </main>
+</div>
+
+<script>
+__PREFS__
+</script>
+<script>
+const SHAPES = __SHAPES__;
+</script>
+<script>
+(() => {
+'use strict';
+
+/* ================= helpers ================= */
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('todofuken.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('todofuken.' + k, JSON.stringify(v)); } catch (e) { /* storage unavailable */ } }
+};
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+/* ================= data ================= */
+const REGIONS = [
+  { key: 'Hokkaidō', slug: 'hokkaido', ja: '北海道' },
+  { key: 'Tōhoku', slug: 'tohoku', ja: '東北' },
+  { key: 'Kantō', slug: 'kanto', ja: '関東' },
+  { key: 'Chūbu', slug: 'chubu', ja: '中部' },
+  { key: 'Kansai', slug: 'kansai', ja: '関西' },
+  { key: 'Chūgoku', slug: 'chugoku', ja: '中国' },
+  { key: 'Shikoku', slug: 'shikoku', ja: '四国' },
+  { key: 'Kyūshū & Okinawa', slug: 'kyushu', ja: '九州・沖縄' }
+];
+const REGION = Object.fromEntries(REGIONS.map(r => [r.key, r]));
+const SUFFIX = {
+  ken: { ja: '県', en: 'Prefecture', kana: 'けん', roma: 'ken' },
+  fu: { ja: '府', en: 'Urban prefecture', kana: 'ふ', roma: 'fu' },
+  to: { ja: '都', en: 'Metropolis', kana: 'と', roma: 'to' },
+  'dō': { ja: '道', en: 'Circuit (territory)', kana: 'どう', roma: 'do' }
+};
+const NATIONAL = { u15: 11.2, o65: 29.3 }; // Japan, 1 Oct 2024
+const byId = {};
+PREFS.forEach(p => {
+  byId[p.id] = p;
+  p.slug = REGION[p.region].slug;
+  p.density = p.pop / p.area;
+  p.change = (p.pop - p.pop20) / p.pop20 * 100;
+});
+for (const key of ['pop', 'area', 'density']) [...PREFS].sort((a, b) => b[key] - a[key]).forEach((p, i) => { p[key + 'Rank'] = i + 1; });
+const TOTAL_POP = PREFS.reduce((s, p) => s + p.pop, 0);
+const jmaCode = id => id === '01' ? '016000' : id === '46' ? '460100' : id === '47' ? '471000' : id + '0000';
+
+/* ---- name matching: forgiving romaji, kanji or kana ---- */
+function norm(s) {
+  s = String(s).normalize('NFKC').trim().toLowerCase();
+  s = s.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60)); // katakana → hiragana
+  if (/[぀-ゟ一-鿿]/.test(s)) return s.replace(/[\s・]/g, '');
+  s = s.normalize('NFD').replace(/[̀-ͯ]/g, '');   // drop macrons
+  s = s.replace(/[^a-z]/g, '').replace(/(prefecture|pref)$/, '');
+  return s.replace(/ou/g, 'o').replace(/oo/g, 'o').replace(/uu/g, 'u');
+}
+const NAMES = new Map();
+PREFS.forEach(p => {
+  const suf = SUFFIX[p.suf];
+  const base = norm(p.en);
+  [base, base + suf.roma, p.ja, p.kana].forEach(k => NAMES.set(norm(k), p.id));
+  if (p.id !== '01') { NAMES.set(norm(p.ja.slice(0, -1)), p.id); NAMES.set(norm(p.kana.slice(0, -suf.kana.length)), p.id); }
+});
+NAMES.set('gumma', '10'); // older Hepburn spelling
+const matchName = s => NAMES.get(norm(s)) || null;
+
+/* ================= app state ================= */
+let mode = store.get('mode', 'explore');
+let sel = byId[store.get('sel', '26')] ? store.get('sel', '26') : '26';
+let tab = store.get('tab', 'overview');
+let names = store.get('names', 'off');         // off | romaji | kanji
+let exploreRegion = null;
+let Q = null;                                   // current quiz
+const setup = Object.assign({ type: 'find', scope: 'all', answer: 'choice' }, store.get('setup', {}));
+
+/* ================= map ================= */
+const NS = 'http://www.w3.org/2000/svg';
+const svg = $('#map');
+const mk = (tag, attrs, parent) => { const el = document.createElementNS(NS, tag); for (const k in attrs) el.setAttribute(k, attrs[k]); if (parent) parent.appendChild(el); return el; };
+const [VX, VY, VW, VH] = SHAPES.viewBox;
+const BASE = { x: VX, y: VY, w: VW, h: VH };
+
+mk('rect', { class: 'sea', x: VX - 3000, y: VY - 3000, width: VW + 6000, height: VH + 6000 }, svg);
+mk('path', { class: 'grat', d: SHAPES.grat }, svg);
+const ib = SHAPES.inset;
+mk('rect', { class: 'inset-box', x: ib.x, y: ib.y, width: ib.w, height: ib.h, rx: 8 }, svg);
+mk('text', { class: 'inset-cap', x: ib.x + ib.w - 14, y: ib.y + ib.h - 14, 'text-anchor': 'end' }, svg).textContent = 'Okinawa & Amami Islands (inset)';
+const gPrefs = mk('g', { class: 'prefs' }, svg);
+const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
+const gLabels = mk('g', { class: 'labels' }, svg);
+const prefEl = {}, labelEl = {};
+PREFS.forEach(p => {
+  const s = SHAPES.shapes[p.id];
+  const g = mk('g', { class: 'pref', 'data-id': p.id, 'data-r': p.slug }, gPrefs);
+  mk('path', { class: 'shape', d: (s.d || '') + (s.di || '') }, g);
+  if (s.di) mk('path', { class: 'hit', d: s.di }, g);
+  prefEl[p.id] = g;
+  const t = mk('text', { class: 'lab', x: s.l[0], y: s.l[1] }, gLabels);
+  labelEl[p.id] = t;
+});
+function setLabelText() {
+  const kanji = names === 'kanji';
+  PREFS.forEach(p => { labelEl[p.id].textContent = kanji ? p.ja : p.en; labelEl[p.id].setAttribute('lang', kanji ? 'ja' : 'en'); });
+  scheduleCull();
+}
+
+/* ---- view (zoom & pan via viewBox) ---- */
+let view = { ...BASE };
+const pxPerUnit = () => { const r = svg.getBoundingClientRect(); return Math.min(r.width / view.w, r.height / view.h) || 1; };
+function clampView(v) {
+  const w = Math.min(Math.max(v.w, BASE.w / 16), BASE.w), h = w * BASE.h / BASE.w;
+  return {
+    w, h,
+    x: Math.min(Math.max(v.x, BASE.x - w / 2), BASE.x + BASE.w - w / 2),
+    y: Math.min(Math.max(v.y, BASE.y - h / 2), BASE.y + BASE.h - h / 2)
+  };
+}
+function setView(v) {
+  view = clampView(v);
+  svg.setAttribute('viewBox', `${view.x.toFixed(2)} ${view.y.toFixed(2)} ${view.w.toFixed(2)} ${view.h.toFixed(2)}`);
+  const k = pxPerUnit();
+  gLabels.setAttribute('font-size', (12 / k).toFixed(2));
+  gLabels.setAttribute('stroke-width', (3.2 / k).toFixed(2));
+  ring.setAttribute('r', (22 / k).toFixed(2));
+  // scale bar: pick a round distance that fits ~120px
+  const pxPerKm = SHAPES.km200 / 200 * k;
+  const km = [10, 20, 50, 100, 200, 500].reverse().find(d => d * pxPerKm <= 120) || 10;
+  $('#scale-bar').style.width = (km * pxPerKm).toFixed(1) + 'px';
+  $('#scale-label').textContent = km + ' km';
+  scheduleCull();
+}
+/* hide labels that would overlap a bigger prefecture's label at the current zoom */
+let cullFrame = 0;
+function scheduleCull() { if (!cullFrame) cullFrame = requestAnimationFrame(() => { cullFrame = 0; cullLabels(); }); }
+function cullLabels() {
+  const namesOn = svg.classList.contains('names');
+  const shown = PREFS.filter(p => namesOn || labelEl[p.id].classList.contains('on'));
+  PREFS.forEach(p => labelEl[p.id].classList.remove('cull'));
+  const first = mode === 'explore' ? sel : (Q && Q.lastFound);
+  shown.sort((a, b) => ((b.id === first) - (a.id === first)) || (b.area - a.area));
+  const pad = 2 / pxPerUnit(), kept = [];
+  for (const p of shown) {
+    let bb; try { bb = labelEl[p.id].getBBox(); } catch (e) { continue; }
+    const r = [bb.x - pad, bb.y - pad, bb.x + bb.width + pad, bb.y + bb.height + pad];
+    if (kept.some(k => r[0] < k[2] && r[2] > k[0] && r[1] < k[3] && r[3] > k[1])) labelEl[p.id].classList.add('cull');
+    else kept.push(r);
+  }
+}
+let anim = 0;
+function animateTo(target) {
+  target = clampView(target);
+  cancelAnimationFrame(anim);
+  if (reduceMotion) return setView(target);
+  const from = { ...view }, t0 = performance.now(), dur = 420;
+  const step = now => {
+    const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 3);
+    setView({ x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e, h: 0 });
+    if (t < 1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+function fitBox(b, pad = 0.18) {
+  const w = Math.max(b[2], b[3] * BASE.w / BASE.h) * (1 + pad * 2);
+  animateTo({ x: b[0] + b[2] / 2 - w / 2, y: b[1] + b[3] / 2 - w * BASE.h / BASE.w / 2, w });
+}
+function unionBox(ids) {
+  let x0 = Infinity, y0 = Infinity, x1 = -Infinity, y1 = -Infinity;
+  ids.forEach(id => { const b = SHAPES.shapes[id].b; x0 = Math.min(x0, b[0]); y0 = Math.min(y0, b[1]); x1 = Math.max(x1, b[0] + b[2]); y1 = Math.max(y1, b[1] + b[3]); });
+  return [x0, y0, x1 - x0, y1 - y0];
+}
+const resetView = () => animateTo({ ...BASE });
+const toSvg = (cx, cy) => new DOMPoint(cx, cy).matrixTransform(svg.getScreenCTM().inverse());
+function zoomAt(p, f) {
+  const w = Math.min(Math.max(view.w / f, BASE.w / 16), BASE.w);
+  setView({ x: p.x - (p.x - view.x) * (w / view.w), y: p.y - (p.y - view.y) * (w / view.w), w });
+}
+function zoomCenter(f) {
+  const w = Math.min(Math.max(view.w / f, BASE.w / 16), BASE.w), cx = view.x + view.w / 2, cy = view.y + view.h / 2;
+  animateTo({ x: cx - w / 2, y: cy - w * BASE.h / BASE.w / 2, w });
+}
+
+/* ---- pointer: click vs drag, pinch, wheel ---- */
+const pointers = new Map();
+let drag = null, pinch = null;
+svg.addEventListener('pointerdown', e => {
+  if (e.button !== 0) return;
+  svg.setPointerCapture(e.pointerId);
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  cancelAnimationFrame(anim);
+  if (pointers.size === 1) {
+    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: e.target.closest('.pref') };
+  } else if (pointers.size === 2) {
+    if (drag) drag.moved = true;
+    const [a, b] = [...pointers.values()];
+    pinch = { d: Math.hypot(a.x - b.x, a.y - b.y) || 1, view: { ...view }, mid: toSvg((a.x + b.x) / 2, (a.y + b.y) / 2) };
+  }
+});
+svg.addEventListener('pointermove', e => {
+  if (!pointers.has(e.pointerId)) { hover(e); return; }
+  pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+  if (pinch && pointers.size >= 2) {
+    const [a, b] = [...pointers.values()];
+    const f = Math.hypot(a.x - b.x, a.y - b.y) / pinch.d;
+    const w = Math.min(Math.max(pinch.view.w / f, BASE.w / 16), BASE.w), m = pinch.mid;
+    setView({ x: m.x - (m.x - pinch.view.x) * (w / pinch.view.w), y: m.y - (m.y - pinch.view.y) * (w / pinch.view.w), w });
+    return;
+  }
+  if (!drag) return;
+  const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+  if (!drag.moved && Math.hypot(dx, dy) > 6) { drag.moved = true; svg.classList.add('panning'); hideTip(); }
+  if (drag.moved) { const k = pxPerUnit(); setView({ ...drag.view, x: drag.view.x - dx / k, y: drag.view.y - dy / k }); }
+});
+function pointerEnd(e) {
+  if (!pointers.has(e.pointerId)) return;
+  pointers.delete(e.pointerId);
+  if (pointers.size === 1 && pinch) {
+    pinch = null;
+    const [p] = [...pointers.values()];
+    drag = { x: p.x, y: p.y, view: { ...view }, moved: true, target: null };
+    return;
+  }
+  if (pointers.size === 0) {
+    if (drag && !drag.moved && e.type === 'pointerup') onMapClick(drag.target ? drag.target.dataset.id : null);
+    drag = null; pinch = null;
+    svg.classList.remove('panning');
+  }
+}
+svg.addEventListener('pointerup', pointerEnd);
+svg.addEventListener('pointercancel', pointerEnd);
+svg.addEventListener('pointerleave', hideTip);
+svg.addEventListener('wheel', e => { e.preventDefault(); cancelAnimationFrame(anim); zoomAt(toSvg(e.clientX, e.clientY), Math.exp(-e.deltaY * 0.0018)); }, { passive: false });
+$('#zoom-in').onclick = () => zoomCenter(1.6);
+$('#zoom-out').onclick = () => zoomCenter(1 / 1.6);
+$('#zoom-reset').onclick = () => { if (mode === 'explore') { exploreRegion = null; renderLegend(); paint(); } resetView(); };
+new ResizeObserver(() => setView(view)).observe(svg);
+
+/* ---- tooltip ---- */
+const tip = $('#tip');
+function hideTip() { tip.hidden = true; }
+function tipAllowed(id) {
+  if (mode === 'explore' || !Q || Q.phase === 'done') return true;
+  return !!Q.status[id];                         // during a quiz, only answered prefectures are named
+}
+function hover(e) {
+  if (e.pointerType === 'touch') return;
+  const g = e.target.closest && e.target.closest('.pref');
+  if (!g || !tipAllowed(g.dataset.id)) return hideTip();
+  const p = byId[g.dataset.id];
+  tip.innerHTML = `<b>${esc(p.en)}</b><span lang="ja">${esc(p.ja)}</span>`;
+  tip.hidden = false;
+  const r = $('#mapwrap').getBoundingClientRect();
+  let x = e.clientX - r.left + 14, y = e.clientY - r.top + 16;
+  x = Math.min(x, r.width - tip.offsetWidth - 8);
+  y = Math.min(y, r.height - tip.offsetHeight - 8);
+  tip.style.left = x + 'px'; tip.style.top = y + 'px';
+}
+
+/* ---- paint map from state ---- */
+function paint() {
+  const quiz = mode === 'quiz';
+  svg.classList.toggle('m-explore', !quiz);
+  svg.classList.toggle('m-quiz', quiz);
+  svg.classList.toggle('names', !quiz && names !== 'off');
+  let ringAt = null, ringPulse = false;
+  PREFS.forEach(p => {
+    const cls = ['pref'];
+    let labOn = false;
+    if (!quiz) {
+      if (p.id === sel) cls.push('sel');
+      if (exploreRegion && p.region !== exploreRegion) cls.push('fade');
+    } else if (!Q) {
+      if (setup.scope !== 'all' && p.region !== setup.scope) cls.push('dim');   // preview of the chosen region
+    } else {
+      if (!Q.scope.has(p.id)) cls.push('dim');
+      const st = Q.status[p.id];
+      if (st) { cls.push('st-' + st); labOn = true; }
+      if (Q.phase === 'running' && Q.type === 'name' && Q.current === p.id) { cls.push('target'); ringAt = p.id; ringPulse = true; }
+      if (Q.reveal === p.id) { ringAt = p.id; ringPulse = true; }
+      if (Q.flash === p.id) cls.push('flash');
+    }
+    prefEl[p.id].setAttribute('class', cls.join(' '));
+    labelEl[p.id].classList.toggle('on', labOn);
+  });
+  if (ringAt) {
+    const l = SHAPES.shapes[ringAt].l;
+    ring.setAttribute('cx', l[0]); ring.setAttribute('cy', l[1]);
+    ring.classList.toggle('pulse', ringPulse);
+  } else { ring.setAttribute('cx', -999); ring.setAttribute('cy', -999); }
+  scheduleCull();
+}
+
+function onMapClick(id) {
+  if (mode === 'explore') { if (id) selectPref(id); return; }
+  if (Q && Q.phase === 'running' && Q.type === 'find') findClick(id);
+}
+
+/* ---- names toggle & legend ---- */
+function renderNames() {
+  ['off', 'romaji', 'kanji'].forEach(n => $('#names-' + n).setAttribute('aria-pressed', String(names === n)));
+  $('#names-group').hidden = mode !== 'explore';
+}
+['off', 'romaji', 'kanji'].forEach(n => $('#names-' + n).onclick = () => {
+  names = n; store.set('names', n);
+  if (n !== 'off') setLabelText();
+  renderNames(); paint();
+});
+function renderLegend() {
+  const el = $('#legend');
+  el.hidden = mode !== 'explore';
+  el.innerHTML = REGIONS.map(r => `<button type="button" data-region="${esc(r.key)}" aria-pressed="${exploreRegion === r.key}"><span class="swatch" style="background:var(--r-${r.slug})"></span>${esc(r.key)}</button>`).join('');
+  el.querySelectorAll('button').forEach(b => b.onclick = () => {
+    const k = b.dataset.region;
+    exploreRegion = exploreRegion === k ? null : k;
+    renderLegend(); paint();
+    if (exploreRegion) fitBox(unionBox(PREFS.filter(p => p.region === k).map(p => p.id)), 0.1); else resetView();
+  });
+}
+
+/* ================= explore panel ================= */
+const panel = $('#panel');
+function selectPref(id, opts = {}) {
+  sel = id; store.set('sel', id);
+  gPrefs.appendChild(prefEl[id]);              // draw selected border on top
+  paint(); renderExplore();
+  if (opts.zoom) fitBox(SHAPES.shapes[id].b, 0.9);
+}
+const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
+
+function itemList(rows, withJa) {
+  return `<ul class="items">${rows.map(r => `<li><div><span class="nm">${esc(r[0])}</span>${withJa ? `<span class="jp" lang="ja">${esc(r[1])}</span>` : ''}</div><span class="ds">${esc(withJa ? r[2] : r[1])}</span></li>`).join('')}</ul>`;
+}
+function tabBody(p) {
+  if (tab === 'history') return `<p>${esc(p.history)}</p>`;
+  if (tab === 'sights') return `<h3>Landmarks &amp; monuments</h3>${itemList(p.sights, false)}`;
+  if (tab === 'food') return `<h3>Local food</h3>${itemList(p.food, true)}`;
+  if (tab === 'omiyage') return `<p class="muted">Omiyage (お土産) are the gifts people bring back from a trip for family and co-workers, usually something only sold in that region.</p><h3>Popular omiyage</h3>${itemList(p.omiyage, true)}`;
+  const forecast = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${jmaCode(p.id)}&lang=en`;
+  return `<h3>Climate &amp; weather</h3><p>${esc(p.climate)}</p>
+    <p><b>When to go:</b> ${esc(p.season)}</p>
+    <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency ↗</a>`;
+}
+function renderExplore() {
+  if (mode !== 'explore') return;
+  const p = byId[sel], i = PREFS.indexOf(p);
+  const prev = PREFS[(i + 46) % 47], next = PREFS[(i + 1) % 47];
+  const suf = SUFFIX[p.suf];
+  const mid = (100 - p.u15 - p.o65).toFixed(1);
+  const chg = p.change;
+  panel.innerHTML = `<div class="panel-inner">
+    <div class="nav">
+      <button type="button" class="btn small" id="prev" aria-label="Previous: ${esc(prev.en)}">‹ ${esc(prev.en)}</button>
+      <select id="pick" aria-label="Choose a prefecture">${REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === p.id ? ' selected' : ''}>${q.id} · ${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('')}</select>
+      <button type="button" class="btn small" id="next" aria-label="Next: ${esc(next.en)}">${esc(next.en)} ›</button>
+    </div>
+    <header class="pf-head">
+      <h1 class="pf-kanji" lang="ja">${esc(p.ja)}</h1>
+      <div class="seal" title="ISO 3166-2 code"><small>JP</small><span>${p.id}</span></div>
+      <div class="pf-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
+      <div class="chips">
+        <span class="chip"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} region</span>
+        <span class="chip"><span lang="ja">${suf.ja}</span>&nbsp;${esc(suf.en)}</span>
+      </div>
+    </header>
+    <p class="tagline">${esc(p.tag)}</p>
+    <dl class="facts">
+      <div class="wide"><dt>Capital</dt><dd>${esc(p.cap)} <span class="muted" style="font-weight:400" lang="ja">${esc(p.capJa)}</span></dd></div>
+      <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47 · <span class="${chg < 0 ? 'down' : 'up'}">${chg > 0 ? '+' : '−'}${Math.abs(chg).toFixed(1)}%</span> since 2020</small></dd></div>
+      <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
+      <div><dt>Density</dt><dd>${fmt(p.density)} /km²<small>#${p.densityRank} of 47</small></dd></div>
+      <div><dt>Share of Japan</dt><dd>${(p.pop / TOTAL_POP * 100).toFixed(1)}%<small>of ${fmt(TOTAL_POP)} people</small></dd></div>
+    </dl>
+    <div class="ages">
+      <div class="eyebrow">Age structure</div>
+      <div class="agebar" role="img" aria-label="Under 15: ${p.u15}%, 15 to 64: ${mid}%, 65 and over: ${p.o65}%">
+        <i class="a1" style="width:${p.u15}%"></i><i class="a2" style="width:${mid}%"></i><i class="a3" style="width:${p.o65}%"></i>
+        <span class="nat" style="left:${100 - NATIONAL.o65}%" title="National share aged 65+"></span>
+      </div>
+      <div class="agekey"><span>Under 15 <b>${p.u15}%</b></span><span>15–64 <b>${mid}%</b></span><span>65+ <b>${p.o65}%</b></span><span>Marker: Japan's 65+ share, ${NATIONAL.o65}%</span></div>
+    </div>
+    <div>
+      <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</div>
+    </div>
+    <div class="tabpanel" role="tabpanel">${tabBody(p)}</div>
+    <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.</p>
+  </div>`;
+  $('#prev').onclick = () => selectPref(prev.id);
+  $('#next').onclick = () => selectPref(next.id);
+  $('#pick').onchange = e => selectPref(e.target.value, { zoom: true });
+  panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; store.set('tab', tab); renderExplore(); });
+}
+
+/* ================= quiz ================= */
+const QTYPES = {
+  find: { title: 'Find it', desc: 'We name a prefecture, you click it on the map.' },
+  name: { title: 'Name it', desc: 'A prefecture lights up. Pick or type its name.' },
+  all: { title: 'Name them all', desc: 'Type every prefecture you can remember against the clock.' }
+};
+const scopeIds = scope => scope === 'all' ? PREFS.map(p => p.id) : PREFS.filter(p => p.region === scope).map(p => p.id);
+const scopeLabel = scope => scope === 'all' ? 'All Japan' : scope;
+const bestKey = (type, scope, answer) => `best.${type}.${scope}${type === 'name' ? '.' + answer : ''}`;
+const mmss = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
+let timer = 0;
+
+function startQuiz(opts = {}) {
+  const ids = scopeIds(setup.scope);
+  Q = {
+    type: setup.type, answer: setup.answer, scopeKey: setup.scope,
+    scope: new Set(ids), pool: opts.pool ? shuffle(opts.pool) : shuffle(ids), practice: !!opts.pool,
+    idx: -1, current: null, tries: 0, status: {}, firstTry: 0, misses: [],
+    t0: Date.now(), t1: 0, phase: 'running', locked: false, flash: null, reveal: null, feedback: '', fbClass: ''
+  };
+  if (setup.scope === 'all') resetView(); else fitBox(unionBox(ids), 0.08);
+  clearInterval(timer);
+  timer = setInterval(() => { const c = $('#clock'); if (c && Q && Q.phase === 'running') c.textContent = mmss(Date.now() - Q.t0); }, 250);
+  if (Q.type === 'all') { renderQuiz(); paint(); } else nextQuestion();
+}
+function nextQuestion() {
+  Q.idx++; Q.tries = 0; Q.locked = false; Q.reveal = null;
+  if (Q.idx >= Q.pool.length) return finishQuiz();
+  Q.current = Q.pool[Q.idx];
+  if (Q.type === 'name' && Q.answer === 'choice') {
+    const others = shuffle((Q.scope.size >= 4 ? [...Q.scope] : PREFS.map(p => p.id)).filter(id => id !== Q.current)).slice(0, 3);
+    Q.choices = shuffle([Q.current, ...others]);
+  }
+  Q.feedback = ''; Q.fbClass = '';
+  renderQuiz(); paint();
+  if (Q.type === 'name' && Q.answer === 'type') $('#answer') && $('#answer').focus();
+}
+function feedback(msg, cls) { Q.feedback = msg; Q.fbClass = cls || ''; const f = $('#feedback'); if (f) { f.textContent = msg; f.className = 'feedback ' + Q.fbClass; } }
+function flash(id) { Q.flash = id; paint(); setTimeout(() => { if (Q && Q.flash === id) { Q.flash = null; paint(); } }, 650); }
+
+function findClick(id) {
+  if (Q.locked || !id || !Q.scope.has(id)) return;
+  const target = byId[Q.current];
+  if (id === Q.current) {
+    const first = Q.tries === 0;
+    Q.status[id] = first ? 'found' : 'late';
+    if (first) Q.firstTry++;
+    feedback(first ? `Yes, that's ${target.en}.` : `Got it: ${target.en}.`, 'ok');
+    Q.locked = true; paint(); updateProgress();
+    setTimeout(nextQuestion, 550);
+    return;
+  }
+  Q.tries++;
+  flash(id);
+  const clicked = byId[id];
+  if (Q.tries >= 3) {
+    Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true;
+    feedback(`That's ${clicked.en}. ${target.en} is the one circled.`, 'bad');
+    paint(); updateProgress();
+    setTimeout(nextQuestion, 1900);
+  } else {
+    feedback(`That's ${clicked.en}. Try again (${3 - Q.tries} ${3 - Q.tries === 1 ? 'try' : 'tries'} left).`, 'bad');
+  }
+}
+function nameAnswer(id) {
+  if (Q.locked) return;
+  const target = byId[Q.current];
+  Q.locked = true;
+  if (id === Q.current) {
+    Q.status[Q.current] = 'found'; Q.firstTry++;
+    feedback(`Correct: ${target.en} ${target.ja}.`, 'ok');
+  } else {
+    Q.status[Q.current] = 'missed'; Q.misses.push(Q.current);
+    feedback(id ? `No, that's ${target.en} ${target.ja}.` : `It was ${target.en} ${target.ja}.`, 'bad');
+  }
+  if (Q.answer === 'choice') {
+    document.querySelectorAll('#answers button').forEach(b => {
+      b.disabled = true;
+      if (b.dataset.id === Q.current) b.classList.add('right'); else if (b.dataset.id === id) b.classList.add('wrong');
+    });
+  } else { const inp = $('#answer'); if (inp) inp.disabled = true; }
+  paint(); updateProgress();
+  setTimeout(nextQuestion, id === Q.current ? 700 : 1700);
+}
+function allInput(val, submitted) {
+  const id = matchName(val);
+  if (id && Q.scope.has(id) && !Q.status[id]) {
+    Q.status[id] = 'found'; Q.lastFound = id;
+    $('#answer').value = '';
+    feedback(`${byId[id].en} ${byId[id].ja}`, 'ok');
+    paint();
+    labelEl[id].classList.remove('pop'); void labelEl[id].getBBox(); labelEl[id].classList.add('pop');
+    updateProgress(); renderRegionsLeft();
+    if (Object.keys(Q.status).length === Q.scope.size) finishQuiz();
+    return;
+  }
+  if (!submitted || !val.trim()) return;
+  if (id && Q.status[id]) feedback(`You already found ${byId[id].en}.`, '');
+  else if (id) feedback(`${byId[id].en} is not in ${scopeLabel(Q.scopeKey)}.`, 'bad');
+  else feedback(`No prefecture called “${val.trim()}”. Check the spelling.`, 'bad');
+}
+function giveUp() {
+  if (!Q || Q.phase !== 'running') return;
+  [...Q.scope].forEach(id => { if (!Q.status[id]) { Q.status[id] = 'missed'; Q.misses.push(id); } });
+  finishQuiz();
+}
+function finishQuiz() {
+  Q.phase = 'done'; Q.t1 = Date.now(); Q.current = null; Q.reveal = null;
+  clearInterval(timer);
+  const total = Q.type === 'all' ? Q.scope.size : Q.pool.length;
+  const correct = Q.type === 'all' ? Object.values(Q.status).filter(s => s === 'found').length : Q.firstTry;
+  Q.result = { correct, total, pct: Math.round(correct / total * 100), ms: Q.t1 - Q.t0 };
+  if (!Q.practice) {
+    const k = bestKey(Q.type, Q.scopeKey, Q.answer), prev = store.get(k, null), r = Q.result;
+    if (!prev || r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) store.set(k, { pct: r.pct, ms: r.ms });
+    Q.result.prevBest = prev;
+  }
+  renderQuiz(); paint();
+}
+function updateProgress() {
+  const el = $('#progress'); if (!el || !Q) return;
+  const total = Q.type === 'all' ? Q.scope.size : Q.pool.length;
+  const done = Object.keys(Q.status).filter(id => Q.type === 'all' ? Q.scope.has(id) : Q.pool.includes(id)).length;
+  el.querySelector('.txt').textContent = Q.type === 'all' ? `${done} of ${total} named` : `${done} of ${total} answered · ${Q.firstTry} first try`;
+  el.querySelector('.fill').style.width = (done / total * 100) + '%';
+}
+function renderRegionsLeft() {
+  const el = $('#regions-left'); if (!el) return;
+  el.innerHTML = REGIONS.filter(r => PREFS.some(p => p.region === r.key && Q.scope.has(p.id))).map(r => {
+    const ids = PREFS.filter(p => p.region === r.key).map(p => p.id);
+    const got = ids.filter(id => Q.status[id] === 'found').length;
+    return `<div class="${got === ids.length ? 'done' : ''}"><span>${esc(r.key)}</span><span>${got}/${ids.length}</span></div>`;
+  }).join('');
+}
+
+function quizSetupHTML() {
+  const best = store.get(bestKey(setup.type, setup.scope, setup.answer), null);
+  return `<div class="panel-inner">
+    <div><div class="eyebrow">Quiz</div><h2>How well do you know the map?</h2></div>
+    <fieldset class="choices-type" style="border:0;padding:0;margin:0">
+      <legend class="eyebrow" style="padding:0;margin-bottom:8px">Game</legend>
+      ${Object.entries(QTYPES).map(([k, t]) => `<label class="qtype"><input type="radio" name="qtype" value="${k}"${setup.type === k ? ' checked' : ''}><b>${t.title}</b><span>${t.desc}</span></label>`).join('')}
+    </fieldset>
+    <div class="field">
+      <label for="scope">Region</label>
+      <select id="scope"><option value="all"${setup.scope === 'all' ? ' selected' : ''}>All Japan (47)</option>${REGIONS.map(r => `<option value="${esc(r.key)}"${setup.scope === r.key ? ' selected' : ''}>${esc(r.key)} (${scopeIds(r.key).length})</option>`).join('')}</select>
+    </div>
+    ${setup.type === 'name' ? `<div class="field"><span class="lbl">Answer by</span><div class="seg" role="group" aria-label="Answer by">
+      <button type="button" data-answer="choice" aria-pressed="${setup.answer === 'choice'}">Multiple choice</button>
+      <button type="button" data-answer="type" aria-pressed="${setup.answer === 'type'}">Typing</button></div></div>` : ''}
+    ${setup.type !== 'find' ? `<p class="note">Typing accepts romaji with or without long vowels (Kyoto, Kyōto, Kyouto), with or without -ken, as well as kanji (京都府, 京都) and kana.</p>` : ''}
+    <div class="row">
+      <button type="button" class="btn primary" id="start">Start ${QTYPES[setup.type].title}</button>
+      <span class="best">${best ? `Best: ${best.pct}% in ${mmss(best.ms)}` : 'No best score yet'}</span>
+    </div>
+    <div class="legend-q"><span><i style="background:var(--ok-fill)"></i>First try</span>${setup.type === 'find' ? `<span><i style="background:var(--late-fill)"></i>Found after a miss</span>` : ''}<span><i style="background:var(--bad-fill)"></i>Missed</span></div>
+  </div>`;
+}
+function quizRunHTML() {
+  const t = byId[Q.current];
+  let body = '';
+  if (Q.type === 'find') {
+    body = `<div class="prompt"><div class="eyebrow">Click on the map</div><div class="big" lang="ja">${esc(t.ja)}</div><div class="sub">${esc(t.en)}</div></div>
+      <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>
+      <div class="row"><button type="button" class="btn" id="skip">Show me &amp; skip</button></div>`;
+  } else if (Q.type === 'name') {
+    body = `<div class="prompt"><div class="eyebrow">Which prefecture is highlighted?</div><div class="sub">It's the vermilion one, circled on the map.</div></div>
+      ${Q.answer === 'choice'
+        ? `<div class="answers" id="answers">${Q.choices.map((id, i) => `<button type="button" data-id="${id}"><span class="k">${i + 1}</span><b>${esc(byId[id].en)}</b><span lang="ja">${esc(byId[id].ja)}</span></button>`).join('')}</div>`
+        : `<form class="typein" id="typein" autocomplete="off"><input id="answer" aria-label="Prefecture name" placeholder="Type the name…" autocapitalize="off" spellcheck="false"><button class="btn primary" type="submit">Check</button></form>
+           <div class="row"><button type="button" class="btn ghost small" id="skip">I don't know</button></div>`}
+      <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>`;
+  } else {
+    body = `<form class="typein" id="typein" autocomplete="off"><input id="answer" aria-label="Prefecture name" placeholder="Type a prefecture…" autocapitalize="off" spellcheck="false"><button class="btn" type="submit">Enter</button></form>
+      <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>
+      <div class="regions-left" id="regions-left"></div>
+      <div class="row"><button type="button" class="btn" id="giveup">Give up &amp; show the rest</button></div>`;
+  }
+  return `<div class="panel-inner">
+    <div class="status">
+      <div class="progress" id="progress"><span class="txt"></span><div class="track"><div class="fill" style="width:0"></div></div></div>
+      <span class="clock" id="clock">${mmss(Date.now() - Q.t0)}</span>
+      <button type="button" class="btn small" id="quit">Quit</button>
+    </div>
+    <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
+    ${body}
+  </div>`;
+}
+function quizDoneHTML() {
+  const r = Q.result, perfect = r.correct === r.total;
+  const missBtns = [...new Set(Q.misses)].map(id => `<button type="button" data-open="${id}">${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span></button>`).join('');
+  const prev = r.prevBest;
+  let bestLine = Q.practice ? 'Practice round — not counted for best scores.' : (!prev ? 'First score saved for this game.' : (r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) ? `New best! Previous: ${prev.pct}% in ${mmss(prev.ms)}.` : `Best so far: ${prev.pct}% in ${mmss(prev.ms)}.`);
+  return `<div class="panel-inner">
+    <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
+    <div class="result">
+      <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div></div>
+      ${perfect ? `<div class="hanko" lang="ja" aria-label="Perfect">全問<br>正解</div>` : ''}
+    </div>
+    <p class="muted" style="margin:0">${esc(bestLine)}</p>
+    ${missBtns ? `<div class="field"><span class="lbl">To review — tap to read about it</span><div class="misslist">${missBtns}</div></div>` : ''}
+    <div class="row">
+      <button type="button" class="btn primary" id="again">Play again</button>
+      ${missBtns ? `<button type="button" class="btn" id="practice">Practice the misses</button>` : ''}
+      <button type="button" class="btn ghost" id="settings">Change game</button>
+    </div>
+    <p class="note">Hover the map to see names. Green: right first time${Q.type === 'find' ? ' · yellow: found after a miss' : ''} · red: missed.</p>
+  </div>`;
+}
+function renderQuiz() {
+  if (mode !== 'quiz') return;
+  $('#layout').classList.toggle('quiz-live', !!(Q && Q.phase === 'running'));
+  if (!Q) {
+    panel.innerHTML = quizSetupHTML();
+    panel.querySelectorAll('input[name="qtype"]').forEach(r => r.onchange = () => { setup.type = r.value; store.set('setup', setup); renderQuiz(); });
+    $('#scope').onchange = e => { setup.scope = e.target.value; store.set('setup', setup); renderQuiz(); previewScope(); };
+    panel.querySelectorAll('[data-answer]').forEach(b => b.onclick = () => { setup.answer = b.dataset.answer; store.set('setup', setup); renderQuiz(); });
+    $('#start').onclick = () => startQuiz();
+    return;
+  }
+  if (Q.phase === 'running') {
+    panel.innerHTML = quizRunHTML();
+    $('#quit').onclick = () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); };
+    if (Q.type === 'find') $('#skip').onclick = () => { if (Q.locked) return; Q.tries = 2; const t = byId[Q.current]; Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true; feedback(`${t.en} is the one circled.`, 'bad'); paint(); updateProgress(); setTimeout(nextQuestion, 1700); };
+    if (Q.type === 'name') {
+      if (Q.answer === 'choice') panel.querySelectorAll('#answers button').forEach(b => b.onclick = () => nameAnswer(b.dataset.id));
+      else {
+        $('#typein').onsubmit = e => { e.preventDefault(); const v = $('#answer').value; if (!v.trim()) return; nameAnswer(matchName(v) || '?'); };
+        $('#skip').onclick = () => nameAnswer(null);
+      }
+    }
+    if (Q.type === 'all') {
+      const inp = $('#answer');
+      inp.oninput = () => allInput(inp.value, false);
+      $('#typein').onsubmit = e => { e.preventDefault(); allInput(inp.value, true); };
+      $('#giveup').onclick = giveUp;
+      renderRegionsLeft();
+      inp.focus({ preventScroll: true });
+    }
+    updateProgress();
+    return;
+  }
+  panel.innerHTML = quizDoneHTML();
+  $('#again').onclick = () => startQuiz();
+  if ($('#practice')) $('#practice').onclick = () => startQuiz({ pool: [...new Set(Q.misses)] });
+  $('#settings').onclick = () => { Q = null; renderQuiz(); paint(); previewScope(); };
+  panel.querySelectorAll('[data-open]').forEach(b => b.onclick = () => { setMode('explore'); selectPref(b.dataset.open, { zoom: true }); });
+}
+function previewScope() {
+  if (mode !== 'quiz' || Q) return;
+  paint();
+  if (setup.scope === 'all') resetView(); else fitBox(unionBox(scopeIds(setup.scope)), 0.08);
+}
+document.addEventListener('keydown', e => {
+  if (mode !== 'quiz' || !Q || Q.phase !== 'running' || Q.type !== 'name' || Q.answer !== 'choice') return;
+  const n = parseInt(e.key, 10);
+  if (n >= 1 && n <= 4 && Q.choices[n - 1]) nameAnswer(Q.choices[n - 1]);
+});
+
+/* ================= modes ================= */
+function setMode(m) {
+  mode = m; store.set('mode', m);
+  $('#mode-explore').setAttribute('aria-pressed', String(m === 'explore'));
+  $('#mode-quiz').setAttribute('aria-pressed', String(m === 'quiz'));
+  $('#layout').classList.toggle('quiz-live', m === 'quiz' && !!(Q && Q.phase === 'running'));
+  hideTip(); renderNames(); renderLegend();
+  setLabelText();
+  paint();
+  if (m === 'explore') renderExplore();
+  else { renderQuiz(); previewScope(); }
+}
+$('#mode-explore').onclick = () => setMode('explore');
+$('#mode-quiz').onclick = () => setMode('quiz');
+
+/* ================= boot ================= */
+setLabelText();
+setView(BASE);
+gPrefs.appendChild(prefEl[sel]);
+setMode(mode === 'quiz' ? 'quiz' : 'explore');
+})();
+</script>
