@@ -86,11 +86,41 @@ button, select, input { font: inherit; color: inherit; }
 }
 
 /* ---------- layout ---------- */
-.layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 16px; min-height: 0; }
-.mapwrap { position: relative; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); background: var(--sea); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
+.layout { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 16px; min-height: 0; }
+.mapwrap { position: relative; min-height: 0; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr) auto; background: var(--sea); border: 1px solid var(--rule); border-radius: var(--radius); overflow: hidden; }
 .panel { min-height: 0; min-width: 0; overflow: auto; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); }
 .panel-inner { padding: 20px 22px 24px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px; }
 .panel-inner > *, .tabpanel > *, .field > * { min-width: 0; }
+
+/* explore: the map owns the stage; the reading panel becomes a drawer over its right edge */
+.layout.explore { grid-template-columns: minmax(0, 1fr); overflow: hidden; }   /* the closed drawer waits off-canvas without widening the page */
+.layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: 0 18px 48px rgb(15 23 42 / .22); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 300ms var(--ease-out), visibility 0s 300ms; }
+.layout.explore.drawer-open .panel { transform: none; visibility: visible; transition: transform 300ms var(--ease-out); }
+.drawer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: -6px 0 -4px; }
+
+/* ---------- callout: the selected prefecture speaks from where it lies ---------- */
+.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 320px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); }
+.callout.docked { transform: none !important; left: 16px; top: auto; bottom: 16px; }
+.co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
+.co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 40px; line-height: 1.05; letter-spacing: .04em; }
+.co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
+.co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
+.co-region { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
+.co-facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.co-facts dd small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.co-foot { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
+.co-foot .btn.primary { margin-left: auto; }
+.co-step { min-width: 34px; }
+.co-sub { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.co-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.co-list button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 13px; cursor: pointer; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
+.co-list button span { margin-left: 5px; color: var(--muted); }
+.co-hint { margin: 0; color: var(--muted); font-size: 14px; }
+.leader { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.leader line { stroke: var(--ink); stroke-width: 1.25px; }
+.leader circle { fill: var(--ink); stroke: var(--surface); stroke-width: 2px; }
 
 /* ---------- map ---------- */
 #map { grid-row: 2; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
@@ -140,6 +170,7 @@ button, select, input { font: inherit; color: inherit; }
 @keyframes pop { 0% { fill: var(--ok); } 100% { fill: var(--ink); } }
 
 /* tools live in their own strip so they never sit on the Okinawa inset */
+.pick { min-width: 0; max-width: 240px; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); font-size: 13px; }
 .map-tools { grid-row: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 8px 10px; background: var(--surface); border-bottom: 1px solid var(--rule); }
 .tool-group { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .tool-group button { border: 0; background: none; padding: 5px 10px; cursor: pointer; font-size: 13px; line-height: 1.4; min-width: 34px; }
@@ -147,9 +178,10 @@ button, select, input { font: inherit; color: inherit; }
 .tool-group button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
-.legend { position: absolute; right: 12px; bottom: 12px; display: grid; grid-template-columns: repeat(2, auto); gap: 2px; padding: 6px; background: color-mix(in srgb, var(--surface) 85%, transparent); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border: 1px solid var(--rule); border-radius: 10px; box-shadow: 0 6px 20px rgb(0 0 0 / .10); }
-.legend button { display: inline-flex; align-items: center; gap: 7px; border: 0; background: none; border-radius: 6px; padding: 4px 9px 4px 6px; font-size: 12px; cursor: pointer; text-align: left; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
-.legend button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
+/* region row: the second line of the tool strip; each chip zooms to its region and lists it in the callout */
+.legend { flex-basis: 100%; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+.legend button { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 7px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
+.legend button[aria-pressed="true"] { border-color: var(--ai); background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .swatch { flex: none; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }
 .scale { margin-left: auto; font-size: 11px; color: var(--muted); display: grid; justify-items: start; gap: 2px; padding-left: 2px; font-variant-numeric: tabular-nums; pointer-events: none; }
 .scale-bar { height: 6px; border: 1.5px solid var(--ink); border-top: 0; }
@@ -265,7 +297,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 /* hover only where there is a real pointer, so taps don't leave sticky highlights */
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { border-color: var(--edge); }
-  .legend button:hover:not([aria-pressed="true"]) { background: color-mix(in srgb, var(--ink) 7%, transparent); }
+  .legend button:hover:not([aria-pressed="true"]), .co-list button:hover { border-color: var(--edge); }
   .answers button:hover:not(:disabled) { border-color: var(--ai); }
   .qtype:hover:not(:has(input:checked)) { border-color: var(--edge); }
   .misslist button:hover { background: var(--bad-fill); }
@@ -273,7 +305,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 }
 /* everything pressable gives way slightly, so the page feels like it heard the press */
 @media (prefers-reduced-motion: no-preference) {
-  .btn:active, .legend button:active, .misslist button:active, .qtype:active,
+  .btn:active, .legend button:active, .co-list button:active, .misslist button:active, .qtype:active,
   .answers button:active:not(:disabled), .modes button:active { transform: scale(0.97); }
   .modes button { transition: color 200ms ease, transform 160ms var(--ease-out); }
 }
@@ -285,11 +317,17 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   html, body { height: auto; }
   .app { height: auto; }
   .layout { grid-template-columns: minmax(0, 1fr); }
-  .mapwrap { aspect-ratio: 1 / 1.2; max-height: 75vh; }
   .layout.quiz-live .panel { order: -1; }
   .panel { overflow: visible; }
-  .legend { left: 8px; right: 8px; bottom: 8px; display: flex; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; align-items: center; }
-  .legend button { flex: none; }
+  .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
+  #map { aspect-ratio: 1 / 1.05; height: auto; max-height: 62vh; }
+  .callout, .callout.docked { position: relative; grid-row: 3; left: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
+  .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .co-kanji { font-size: 34px; }
+  .pick { flex-basis: 100%; max-width: none; }
+  .tool-label, .scale { display: none; }
+  .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px)); }
+  .layout.explore.drawer-open .panel { transform: none; }
   .pf-kanji { font-size: 40px; }
 }
 @media (max-width: 420px) {
@@ -298,8 +336,13 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .facts dd { font-size: 16px; }
   .prompt .big { font-size: 34px; }
 }
+/* touch: every control is a comfortable thumb target */
+@media (pointer: coarse) {
+  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick { min-height: 44px; }
+}
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
+  .layout.explore .panel, .layout.explore.drawer-open .panel { transition: none; }
   .modes::before { transition: none; }
   .progress .fill { transition: none; }
   .hanko { animation: none; }
@@ -314,10 +357,11 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
       <button type="button" id="mode-quiz" aria-pressed="false">Quiz</button>
     </nav>
   </header>
-  <main class="layout" id="layout">
+  <main class="layout explore" id="layout">
     <section class="mapwrap" id="mapwrap" aria-label="Map">
       <svg id="map" class="m-explore" role="group" aria-label="Map of Japan's 47 prefectures. Use the arrow keys to move between prefectures and Enter to choose one." preserveAspectRatio="xMidYMid meet"></svg>
       <div class="map-tools">
+        <select class="pick" id="pick" aria-label="Find a prefecture"></select>
         <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
           <span class="tool-label">Names</span>
           <button type="button" id="names-off" aria-pressed="true">Off</button>
@@ -330,8 +374,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
           <button type="button" id="zoom-reset">Reset</button>
         </div>
         <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
+        <div class="legend" id="legend" role="group" aria-label="Regions"></div>
       </div>
-      <div class="legend" id="legend" aria-label="Regions"></div>
+      <svg class="leader" id="leader" aria-hidden="true"><line id="leader-line" /><circle id="leader-dot" r="3.5" /></svg>
+      <article class="callout" id="callout" aria-label="Selected prefecture"></article>
       <div class="tip" id="tip" hidden></div>
       <div class="sr-only" id="announce" aria-live="polite"></div>
     </section>
@@ -411,7 +457,9 @@ const matchName = s => NAMES.get(norm(s)) || null;
 
 /* ================= app state ================= */
 let mode = store.get('mode', 'explore');
-let sel = byId[store.get('sel', '26')] ? store.get('sel', '26') : '26';
+let sel = byId[store.get('sel', null)] ? store.get('sel', null) : null;   // nothing chosen on a first visit
+let cardView = 'pref';                          // pref | region: what the callout is showing
+let drawerOpen = false;
 let tab = store.get('tab', 'overview');
 let names = store.get('names', 'off');         // off | romaji | kanji
 let exploreRegion = null;
@@ -474,6 +522,7 @@ function setView(v) {
   const km = [10, 20, 50, 100, 200, 500].reverse().find(d => d * pxPerKm <= 120) || 10;
   $('#scale-bar').style.width = (km * pxPerKm).toFixed(1) + 'px';
   $('#scale-label').textContent = km + ' km';
+  positionCallout();
   scheduleCull();
 }
 /* hide labels that would overlap a bigger prefecture's label at the current zoom */
@@ -578,7 +627,7 @@ svg.addEventListener('pointerleave', hideTip);
 svg.addEventListener('wheel', e => { e.preventDefault(); cancelAnimationFrame(anim); zoomAt(toSvg(e.clientX, e.clientY), Math.exp(-e.deltaY * 0.0018)); }, { passive: false });
 $('#zoom-in').onclick = () => zoomCenter(1.6);
 $('#zoom-out').onclick = () => zoomCenter(1 / 1.6);
-$('#zoom-reset').onclick = () => { if (mode === 'explore') { exploreRegion = null; renderLegend(); paint(); } resetView(); };
+$('#zoom-reset').onclick = () => { if (mode === 'explore') { exploreRegion = null; cardView = 'pref'; renderLegend(); paint(); renderCallout(); } resetView(); };
 new ResizeObserver(() => setView(view)).observe(svg);
 
 /* ---- tooltip ---- */
@@ -644,7 +693,7 @@ function paint() {
 let focusId = null;
 const usable = id => id && !prefEl[id].classList.contains('dim');
 function updateRoving() {
-  if (!usable(focusId)) focusId = mode === 'explore' ? sel : PREFS.map(p => p.id).find(usable);
+  if (!usable(focusId)) focusId = mode === 'explore' && usable(sel) ? sel : PREFS.map(p => p.id).find(usable);
   PREFS.forEach(p => prefEl[p.id].setAttribute('tabindex', p.id === focusId ? '0' : '-1'));
 }
 function neighbour(id, dx, dy) {
@@ -712,7 +761,8 @@ function renderLegend() {
   el.querySelectorAll('button').forEach(b => b.onclick = () => {
     const k = b.dataset.region;
     exploreRegion = exploreRegion === k ? null : k;
-    renderLegend(); paint();
+    cardView = exploreRegion ? 'region' : 'pref';
+    renderLegend(); paint(); renderCallout();
     if (exploreRegion) fitBox(unionBox(PREFS.filter(p => p.region === k).map(p => p.id)), 0.1); else resetView();
   });
 }
@@ -720,7 +770,7 @@ function renderLegend() {
 /* ================= explore panel ================= */
 const panel = $('#panel');
 function selectPref(id, opts = {}) {
-  sel = id; store.set('sel', id);
+  sel = id; store.set('sel', id); cardView = 'pref';
   const hadFocus = document.activeElement === prefEl[id];
   gPrefs.appendChild(prefEl[id]);              // draw selected border on top (moving it drops focus, so restore it)
   if (hadFocus) prefEl[id].focus({ preventScroll: true });
@@ -744,22 +794,121 @@ function tabBody(p) {
     <p><b>When to go:</b> ${esc(p.season)}</p>
     <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency ↗</a>`;
 }
+/* ---- callout card ---- */
+const callout = $('#callout'), leaderLine = $('#leader-line'), leaderDot = $('#leader-dot');
+const narrow = window.matchMedia('(max-width: 860px)');
+const stepPrefs = () => { const i = PREFS.indexOf(byId[sel]); return [PREFS[(i + 46) % 47], PREFS[(i + 1) % 47]]; };
+function renderPick() {
+  const pick = $('#pick');
+  pick.hidden = mode !== 'explore';
+  pick.innerHTML = (sel ? '' : '<option value="" selected>Find a prefecture…</option>') +
+    REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === sel ? ' selected' : ''}>${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('');
+}
+$('#pick').onchange = e => { if (e.target.value) selectPref(e.target.value, { zoom: true }); };
+function renderCallout() {
+  callout.hidden = mode !== 'explore';
+  if (callout.hidden) return positionCallout();
+  const restore = (() => { const a = document.activeElement; if (!a || !callout.contains(a)) return () => {};
+    const key = a.id ? '#' + a.id : a.dataset.pick ? `[data-pick="${a.dataset.pick}"]` : null;
+    return () => { const t = key && callout.querySelector(key); if (t) t.focus({ preventScroll: true }); }; })();
+  if (cardView === 'region' && exploreRegion) {
+    const r = REGION[exploreRegion], ps = PREFS.filter(q => q.region === exploreRegion);
+    callout.setAttribute('aria-label', `${r.key} region`);
+    callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(r.ja)}</h2>
+        <span class="co-region"><span class="swatch" style="background:var(--r-${r.slug})"></span>Region</span>
+        <div class="co-name">${esc(r.key)}</div></div>
+      <p class="co-sub">${ps.length} ${ps.length === 1 ? 'prefecture' : 'prefectures'} · ${fmt(ps.reduce((n, q) => n + q.pop, 0))} people</p>
+      <div class="co-list">${ps.map(q => `<button type="button" data-pick="${q.id}">${esc(q.en)}<span lang="ja">${esc(q.ja)}</span></button>`).join('')}</div>`;
+    callout.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => selectPref(b.dataset.pick, { zoom: true }));
+  } else if (sel) {
+    const p = byId[sel], [prev, next] = stepPrefs();
+    callout.setAttribute('aria-label', `${p.en}, selected prefecture`);
+    callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(p.ja)}</h2>
+        <span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)}</span>
+        <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div></div>
+      <dl class="co-facts">
+        <div><dt>Capital</dt><dd>${esc(p.cap)}<small lang="ja">${esc(p.capJa)}</small></dd></div>
+        <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47</small></dd></div>
+        <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
+        <div><dt>Density</dt><dd>${fmt(p.density)} /km²<small>#${p.densityRank} of 47</small></dd></div>
+      </dl>
+      <div class="co-foot">
+        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}">‹</button>
+        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}">›</button>
+        <button type="button" class="btn primary small" id="co-more" aria-controls="panel" aria-expanded="${drawerOpen}">${drawerOpen ? 'Close details' : 'Read more'}</button>
+      </div>`;
+    $('#co-prev').onclick = () => selectPref(prev.id, { zoom: true });
+    $('#co-next').onclick = () => selectPref(next.id, { zoom: true });
+    $('#co-more').onclick = () => setDrawer(!drawerOpen, true);
+  } else {
+    callout.setAttribute('aria-label', 'Getting started');
+    callout.innerHTML = `<h2 class="co-name" style="margin:0">Pick a prefecture</h2>
+      <p class="co-hint">Tap any prefecture on the map, choose a region above, or find one in the list.</p>`;
+  }
+  restore();
+  positionCallout();
+}
+/* place the card beside its prefecture (or region) on the side with more open room, and draw the leader line to it */
+function anchorBox() {
+  if (cardView === 'region' && exploreRegion) return unionBox(PREFS.filter(q => q.region === exploreRegion).map(q => q.id));
+  return sel ? SHAPES.shapes[sel].b : null;
+}
+function positionCallout() {
+  const hide = () => { leaderLine.setAttribute('x1', -9); leaderLine.setAttribute('x2', -9); leaderDot.setAttribute('cx', -99); };
+  const box = mode === 'explore' && !callout.hidden ? anchorBox() : null;
+  callout.classList.toggle('docked', !box);
+  if (!box) return hide();
+  const wrap = $('#mapwrap').getBoundingClientRect(), m = svg.getScreenCTM(), sv = svg.getBoundingClientRect();
+  if (!m || !wrap.width) return hide();
+  const px = (x, y) => { const q = new DOMPoint(x, y).matrixTransform(m); return [q.x - wrap.left, q.y - wrap.top]; };
+  const pt = cardView === 'pref' ? SHAPES.shapes[sel].l : [box[0] + box[2] / 2, box[1] + box[3] / 2];
+  const [ax, ay] = px(pt[0], pt[1]), [x0, y0] = px(box[0], box[1]), [x1] = px(box[0] + box[2], box[1] + box[3]);
+  const top = sv.top - wrap.top, bottom = sv.bottom - wrap.top;
+  let ex, ey;
+  if (narrow.matches) {
+    const c = callout.getBoundingClientRect();
+    ex = Math.min(Math.max(ax, 24), wrap.width - 24); ey = c.top - wrap.top;
+  } else {
+    const W = callout.offsetWidth, H = callout.offsetHeight, pad = 16, gap = 48;
+    const room = drawerOpen ? wrap.width - $('#panel').offsetWidth - 8 : wrap.width;
+    const right = x1 + gap, left = x0 - gap - W;
+    const fitsR = right + W <= room - pad, fitsL = left >= pad, moreR = room - x1 >= x0;
+    const x = fitsR && (moreR || !fitsL) ? right : fitsL ? left : moreR ? room - pad - W : pad;
+    const y = Math.min(Math.max(ay - H / 2, top + pad), bottom - pad - H);
+    callout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+    ex = x > ax ? x : x + W; ey = Math.min(Math.max(ay, y + 24), y + H - 24);
+  }
+  if (ax < 0 || ax > wrap.width || ay < top || ay > bottom) return hide();   // the anchor has been panned out of view
+  leaderLine.setAttribute('x1', ax.toFixed(1)); leaderLine.setAttribute('y1', ay.toFixed(1));
+  leaderLine.setAttribute('x2', ex.toFixed(1)); leaderLine.setAttribute('y2', ey.toFixed(1));
+  leaderDot.setAttribute('cx', ax.toFixed(1)); leaderDot.setAttribute('cy', ay.toFixed(1));
+}
+narrow.addEventListener('change', () => positionCallout());
+
+/* ---- reading drawer ---- */
+function setDrawer(open, moveFocus) {
+  drawerOpen = open && mode === 'explore' && !!sel;
+  $('#layout').classList.toggle('drawer-open', drawerOpen);
+  renderCallout();
+  if (!moveFocus) return;
+  if (drawerOpen) { const h = panel.querySelector('.pf-kanji'); if (h) h.focus({ preventScroll: true }); }
+  else { const b = $('#co-more'); if (b) b.focus({ preventScroll: true }); }
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) setDrawer(false, true); });
+
 function renderExplore() {
   if (mode !== 'explore') return;
+  renderPick(); renderCallout();
+  if (!sel) { panel.innerHTML = ''; return; }
   const restore = rememberFocus();
-  const p = byId[sel], i = PREFS.indexOf(p);
-  const prev = PREFS[(i + 46) % 47], next = PREFS[(i + 1) % 47];
+  const p = byId[sel];
   const suf = SUFFIX[p.suf];
   const mid = (100 - p.u15 - p.o65).toFixed(1);
   const chg = p.change;
   panel.innerHTML = `<div class="panel-inner">
-    <div class="nav">
-      <button type="button" class="btn small" id="prev" aria-label="Previous: ${esc(prev.en)}">‹ ${esc(prev.en)}</button>
-      <select id="pick" aria-label="Choose a prefecture">${REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === p.id ? ' selected' : ''}>${q.id} · ${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('')}</select>
-      <button type="button" class="btn small" id="next" aria-label="Next: ${esc(next.en)}">${esc(next.en)} ›</button>
-    </div>
+    <div class="drawer-bar"><span class="eyebrow">${esc(p.region)} region</span><button type="button" class="btn ghost small" id="drawer-close">Close</button></div>
     <header class="pf-head">
-      <h1 class="pf-kanji" lang="ja">${esc(p.ja)}</h1>
+      <h1 class="pf-kanji" lang="ja" tabindex="-1">${esc(p.ja)}</h1>
       <div class="seal" title="ISO 3166-2 code"><small>JP</small><span>${p.id}</span></div>
       <div class="pf-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
       <div class="chips">
@@ -789,9 +938,7 @@ function renderExplore() {
     <div class="tabpanel" role="tabpanel" id="tabpanel" aria-labelledby="tab-${tab}">${tabBody(p)}</div>
     <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.</p>
   </div>`;
-  $('#prev').onclick = () => selectPref(prev.id);
-  $('#next').onclick = () => selectPref(next.id);
-  $('#pick').onchange = e => selectPref(e.target.value, { zoom: true });
+  $('#drawer-close').onclick = () => setDrawer(false, true);
   panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; store.set('tab', tab); renderExplore(); });
   panel.querySelector('[role="tablist"]').onkeydown = e => {
     const i = TABS.findIndex(t => t[0] === tab), n = TABS.length;
@@ -1091,7 +1238,9 @@ function setMode(m) {
   $('#mode-explore').setAttribute('aria-pressed', String(m === 'explore'));
   $('#mode-quiz').setAttribute('aria-pressed', String(m === 'quiz'));
   $('#layout').classList.toggle('quiz-live', m === 'quiz' && !!(Q && Q.phase === 'running'));
-  hideTip(); renderNames(); renderLegend();
+  $('#layout').classList.toggle('explore', m === 'explore');
+  if (m !== 'explore') { drawerOpen = false; $('#layout').classList.remove('drawer-open'); }
+  hideTip(); renderNames(); renderLegend(); renderPick(); renderCallout();
   setLabelText();
   paint();
   if (m === 'explore') renderExplore();
@@ -1103,7 +1252,7 @@ $('#mode-quiz').onclick = () => setMode('quiz');
 /* ================= boot ================= */
 setLabelText();
 setView(BASE);
-gPrefs.appendChild(prefEl[sel]);
+if (sel) gPrefs.appendChild(prefEl[sel]);
 setMode(mode === 'quiz' ? 'quiz' : 'explore');
 })();
 </script>
