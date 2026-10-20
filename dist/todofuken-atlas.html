@@ -99,10 +99,10 @@ button, select, input { font: inherit; color: inherit; }
 .drawer-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: -6px 0 -4px; }
 
 /* ---------- callout: the selected prefecture speaks from where it lies ---------- */
-.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 320px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); }
+.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); }
 .callout.docked { transform: none !important; left: 16px; top: auto; bottom: 16px; }
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
-.co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 40px; line-height: 1.05; letter-spacing: .04em; }
+.co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-region { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
@@ -112,15 +112,18 @@ button, select, input { font: inherit; color: inherit; }
 .co-facts dd small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
 .co-foot { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
 .co-foot .btn.primary { margin-left: auto; }
-.co-step { min-width: 34px; }
+.co-step { min-width: 34px; padding-inline: 8px; }
+.ico { display: block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+.tool-group button .ico { margin: 0 auto; }
 .co-sub { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .co-list { display: flex; flex-wrap: wrap; gap: 6px; }
 .co-list button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 13px; cursor: pointer; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .co-list button span { margin-left: 5px; color: var(--muted); }
+.co-tag { margin: 0; font-size: 14px; line-height: 1.45; }
 .co-hint { margin: 0; color: var(--muted); font-size: 14px; }
 .leader { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .leader line { stroke: var(--ink); stroke-width: 1.25px; }
-.leader circle { fill: var(--ink); stroke: var(--surface); stroke-width: 2px; }
+.leader circle { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5px; }
 
 /* ---------- map ---------- */
 #map { grid-row: 2; display: block; width: 100%; height: 100%; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
@@ -149,7 +152,7 @@ button, select, input { font: inherit; color: inherit; }
 #map.m-explore .pref[data-r="shikoku"] .shape { fill: var(--r-shikoku); }
 #map.m-explore .pref[data-r="kyushu"] .shape { fill: var(--r-kyushu); }
 #map .pref.fade { opacity: .35; }
-#map.m-explore .pref.sel .shape { fill: var(--shu); stroke: var(--ink); stroke-width: 2px; }
+#map.m-explore .pref.sel .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
 
 #map .pref.dim { opacity: .28; pointer-events: none; }
 #map .pref.st-found .shape { fill: var(--ok-fill); }
@@ -157,7 +160,7 @@ button, select, input { font: inherit; color: inherit; }
 #map .pref.st-missed .shape { fill: url(#hatch-missed); }
 #map .hatch-bg { fill: var(--bad-fill); }
 #map .hatch-line { stroke: var(--bad); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
-#map .pref.target .shape { fill: var(--shu); stroke: var(--ink); stroke-width: 1.4px; }
+#map .pref.target .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
 #map .pref.flash .shape { animation: flash .6s ease-out; }
 @keyframes flash { 0%, 40% { fill: var(--bad); } 100% { fill: var(--land); } }
 
@@ -193,7 +196,6 @@ button, select, input { font: inherit; color: inherit; }
 .tip span { opacity: .75; margin-left: 6px; }
 
 /* ---------- shared panel bits ---------- */
-.eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0; line-height: 1.25; text-wrap: balance; }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 500; text-decoration: none; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .btn.primary { background: var(--ai); color: var(--ai-ink); border-color: var(--ai); font-weight: 700; }
@@ -236,7 +238,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--shu); font-weight: 700; }
 .tabpanel { display: grid; gap: 14px; }
-.tabpanel h2 { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tabpanel h2, .ages h2 { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: 15px; line-height: 1.3; }
+.context { margin: 0; font-size: 13px; color: var(--muted); }
 .tabpanel p { margin: 0; }
 .items { list-style: none; margin: 0; padding: 0; display: grid; }
 .items li { padding: 10px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
@@ -330,11 +333,16 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .layout.quiz-live .panel { order: -1; }
   .panel { overflow: visible; }
   .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
-  #map { aspect-ratio: 1 / 1.05; height: auto; max-height: 62vh; }
+  #map { aspect-ratio: 1 / .86; height: auto; max-height: 52vh; }
   .callout, .callout.docked { position: relative; grid-row: 3; left: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .co-kanji { font-size: 34px; }
-  .pick { flex-basis: 100%; max-width: none; }
+  .map-tools { flex-wrap: wrap; }
+  .pick { flex: 1 1 140px; min-width: 140px; max-width: none; order: 0; }   /* keeps the list readable and pushes names + regions to a second row */
+  #names-group { order: 1; flex: none; }
+  .map-tools > .tool-group[aria-label="Zoom"] { order: 0; }
+  .legend { order: 2; flex: 1 1 0; flex-basis: 0; }
+  .cull-hint { order: 3; flex-basis: 100%; }
   .tool-label, .scale { display: none; }
   .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px)); }
   .layout.explore.drawer-open .panel { transform: none; }
@@ -380,8 +388,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
         </div>
         <span class="cull-hint" id="cull-hint" hidden></span>
         <div class="tool-group" role="group" aria-label="Zoom">
-          <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
-          <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
+          <button type="button" id="zoom-in" aria-label="Zoom in"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" /></svg></button>
+          <button type="button" id="zoom-out" aria-label="Zoom out"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" /></svg></button>
           <button type="button" id="zoom-reset">Reset</button>
         </div>
         <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
@@ -2260,6 +2268,7 @@ function renderCallout() {
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(p.ja)}</h2>
         <span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)}</span>
         <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div></div>
+      <p class="co-tag">${esc(p.tag)}</p>
       <dl class="co-facts">
         <div><dt>Capital</dt><dd>${esc(p.cap)}<small lang="ja">${esc(p.capJa)}</small></dd></div>
         <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47</small></dd></div>
@@ -2267,8 +2276,8 @@ function renderCallout() {
         <div><dt>Density</dt><dd>${fmt(p.density)} /km²<small>#${p.densityRank} of 47</small></dd></div>
       </dl>
       <div class="co-foot">
-        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}">‹</button>
-        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}">›</button>
+        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
         <button type="button" class="btn primary small" id="co-more" aria-controls="panel" aria-expanded="${drawerOpen}">${drawerOpen ? 'Close details' : 'Read more'}</button>
       </div>`;
     $('#co-prev').onclick = () => selectPref(prev.id, { zoom: true });
@@ -2307,7 +2316,8 @@ function positionCallout() {
     const room = drawerOpen ? wrap.width - $('#panel').offsetWidth - 8 : wrap.width;
     const right = x1 + gap, left = x0 - gap - W;
     const fitsR = right + W <= room - pad, fitsL = left >= pad, moreR = room - x1 >= x0;
-    const x = fitsR && (moreR || !fitsL) ? right : fitsL ? left : moreR ? room - pad - W : pad;
+    // east of a prefecture is usually the Pacific, so the card prefers that side; west only when it won't fit
+    const x = fitsR ? right : fitsL ? left : moreR ? room - pad - W : pad;
     const y = Math.min(Math.max(ay - H / 2, top + pad), bottom - pad - H);
     callout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
     ex = x > ax ? x : x + W; ey = Math.min(Math.max(ay, y + 24), y + H - 24);
@@ -2359,7 +2369,7 @@ function renderExplore() {
       <div><dt>Share of Japan</dt><dd>${(p.pop / TOTAL_POP * 100).toFixed(1)}%<small>of ${fmt(TOTAL_POP)} people</small></dd></div>
     </dl>
     <div class="ages">
-      <div class="eyebrow">Age structure</div>
+      <h2>Age structure</h2>
       <div class="agebar" role="img" aria-label="Under 15: ${p.u15}%, 15 to 64: ${mid}%, 65 and over: ${p.o65}%">
         <i class="a1" style="width:${p.u15}%"></i><i class="a2" style="width:${mid}%"></i><i class="a3" style="width:${p.o65}%"></i>
         <span class="nat" style="left:${100 - NATIONAL.o65}%" title="National share aged 65+"></span>
@@ -2526,7 +2536,7 @@ function quizSetupHTML() {
   return `<div class="panel-inner">
     <h2>How well do you know the map?</h2>
     <fieldset class="choices-type" style="border:0;padding:0;margin:0">
-      <legend class="eyebrow" style="padding:0;margin-bottom:8px">Game</legend>
+      <legend class="sr-only">Game</legend>
       ${Object.entries(QTYPES).map(([k, t]) => `<label class="qtype"><input type="radio" name="qtype" value="${k}"${setup.type === k ? ' checked' : ''}><b>${t.title}</b><span>${t.desc}</span></label>`).join('')}
     </fieldset>
     <div class="field">
@@ -2548,7 +2558,7 @@ function quizRunHTML() {
   const t = byId[Q.current];
   let body = '';
   if (Q.type === 'find') {
-    body = `<div class="prompt"><div class="eyebrow">Find it on the map</div><div class="big" lang="ja">${esc(t.ja)}</div><div class="sub">${esc(t.en)}</div></div>
+    body = `<div class="prompt"><div class="big" lang="ja">${esc(t.ja)}</div><div class="sub">${esc(t.en)}</div><p class="context">Find it on the map.</p></div>
       <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>
       <div class="row"><button type="button" class="btn" id="skip">Show me &amp; skip</button></div>`;
   } else if (Q.type === 'name') {
@@ -2570,8 +2580,8 @@ function quizRunHTML() {
       <span class="clock" id="clock">${mmss(Date.now() - Q.t0)}</span>
       <button type="button" class="btn small" id="quit">Quit</button>
     </div>
-    <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
     ${body}
+    <p class="context">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</p>
   </div>`;
 }
 function quizDoneHTML() {
@@ -2583,9 +2593,8 @@ function quizDoneHTML() {
   const prev = r.prevBest;
   let bestLine = Q.practice ? 'Practice round — not counted for best scores.' : (!prev ? 'First score saved for this game.' : (r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) ? `New best! Previous: ${prev.pct}% in ${mmss(prev.ms)}.` : `Best so far: ${prev.pct}% in ${mmss(prev.ms)}.`);
   return `<div class="panel-inner">
-    <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
     <div class="result">
-      <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div></div>
+      <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div><p class="context">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</p></div>
       ${perfect ? `<div class="hanko-wrap"><div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div><span>Perfect score</span></div>` : ''}
     </div>
     <p class="muted" style="margin:0">${esc(bestLine)}</p>
