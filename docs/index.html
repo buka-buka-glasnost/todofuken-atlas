@@ -12,7 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
 <style>
-/* Layout: an atlas plate — the map as a framed survey sheet on the left, a field-guide panel on the right; stacks on phones. */
+/* Layout: Explore is a full-width map whose selected prefecture speaks through an anchored callout card, with the reading in a drawer;
+   Quiz keeps the map beside a docked panel. On phones the card sits under the map and the drawer becomes a bottom sheet. */
 :root {
   --bg: #e8edf0;        /* page ground, cool washi grey */
   --surface: #fbfcfc;   /* panel paper */
@@ -38,6 +39,8 @@
   --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
   --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif;
   --radius: 12px;
+  --shadow-float: 0 12px 32px rgb(15 23 42 / .16);    /* things that float over the map: callout */
+  --shadow-drawer: 0 18px 48px rgb(15 23 42 / .22);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);       /* responses: press, enter, fill */
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);   /* things travelling across the screen */
 }
@@ -48,6 +51,7 @@
     --shu: #ff7b5a; --halo: #121a24;
     --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #b04e43;
     --hover: brightness(1.25);
+    --shadow-float: 0 12px 32px rgb(0 0 0 / .55); --shadow-drawer: 0 18px 48px rgb(0 0 0 / .6);
     --r-hokkaido: #3f8f87; --r-tohoku: #7f9a43; --r-kanto: #b8923a; --r-chubu: #7568b5;
     --r-kansai: #b0587a; --r-chugoku: #bb7443; --r-shikoku: #4a9660; --r-kyushu: #b15f55;
     --sep: #0b1118;
@@ -60,6 +64,7 @@
   --shu: #ff7b5a; --halo: #121a24;
   --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #b04e43;
   --hover: brightness(1.25);
+  --shadow-float: 0 12px 32px rgb(0 0 0 / .55); --shadow-drawer: 0 18px 48px rgb(0 0 0 / .6);
   --r-hokkaido: #3f8f87; --r-tohoku: #7f9a43; --r-kanto: #b8923a; --r-chubu: #7568b5;
   --r-kansai: #b0587a; --r-chugoku: #bb7443; --r-shikoku: #4a9660; --r-kyushu: #b15f55;
   --sep: #0b1118;
@@ -99,12 +104,12 @@ button, select, input { font: inherit; color: inherit; }
 
 /* explore: the map owns the stage; the reading panel becomes a drawer over its right edge */
 .layout.explore { grid-template-columns: minmax(0, 1fr); overflow: hidden; }   /* the closed drawer waits off-canvas without widening the page */
-.layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: 0 18px 48px rgb(15 23 42 / .22); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 300ms var(--ease-out), visibility 0s 300ms; }
+.layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: var(--shadow-drawer); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 300ms var(--ease-out), visibility 0s 300ms; }
 .layout.explore.drawer-open .panel { transform: none; visibility: visible; transition: transform 300ms var(--ease-out); }
 .drawer-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: -6px 0 -4px; }
 
 /* ---------- callout: the selected prefecture speaks from where it lies ---------- */
-.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); }
+.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
 .callout.docked { transform: none !important; left: 16px; top: auto; bottom: 16px; }
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
 .co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
@@ -220,7 +225,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .pf-name { grid-column: 1; font-size: 21px; font-weight: 700; line-height: 1.3; }
 .pf-name .kana { font-size: 14px; font-weight: 400; color: var(--muted); margin-left: 8px; }
 .seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: color-mix(in srgb, var(--shu) 85%, var(--ink)); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
-.seal small { display: block; font-size: 10px; letter-spacing: .12em; }
+.seal small { display: block; font-size: 11px; letter-spacing: .1em; }
 .seal span { font-size: 20px; font-family: var(--f-display); }
 .chips { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
@@ -253,7 +258,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .items .nm { font-weight: 700; }
 .items .jp { font-weight: 400; color: var(--muted); margin-left: 8px; font-size: 14px; }
 .items .ds { color: var(--muted); font-size: 14px; }
-.forecast { display: inline-flex; gap: 6px; color: var(--ai); font-weight: 700; text-decoration: none; }
+.forecast { display: inline-flex; align-items: center; gap: 6px; color: var(--ai); font-weight: 700; text-decoration: none; }
 
 /* ---------- quiz ---------- */
 .choices-type { display: grid; gap: 8px; }
@@ -2239,7 +2244,7 @@ function tabBody(p) {
   const forecast = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${jmaCode(p.id)}&lang=en`;
   return `<h2>Climate &amp; weather</h2><p>${esc(p.climate)}</p>
     <p><b>When to go:</b> ${esc(p.season)}</p>
-    <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency ↗</a>`;
+    <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency<svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5h6v6M12.5 3.5 4 12" /></svg><span class="sr-only"> (opens in a new tab)</span></a>`;
 }
 /* ---- callout card ---- */
 const callout = $('#callout'), leaderLine = $('#leader-line'), leaderDot = $('#leader-dot');

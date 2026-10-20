@@ -1,0 +1,769 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20T18:45:00.151Z",
+  "title": "Design System: Todōfuken Atlas",
+  "extensions": {
+    "cssVariables": {
+      "note": "Tokens live as custom properties on :root in src/app.html. Frontmatter key -> CSS variable.",
+      "map": {
+        "ai-indigo": "--ai",
+        "ai-soft": "--ai-soft",
+        "ai-ink": "--ai-ink",
+        "shu-vermilion": "--shu",
+        "washi-ground": "--bg",
+        "paper-surface": "--surface",
+        "sea": "--sea",
+        "graticule": "--grat",
+        "quiz-land": "--land",
+        "border-edge": "--edge",
+        "region-separator": "--sep",
+        "sumi-ink": "--ink",
+        "muted-ink": "--muted",
+        "rule": "--rule",
+        "label-halo": "--halo",
+        "ok": "--ok",
+        "bad": "--bad",
+        "ok-fill": "--ok-fill",
+        "late-fill": "--late-fill",
+        "bad-fill": "--bad-fill",
+        "region-hokkaido": "--r-hokkaido",
+        "region-tohoku": "--r-tohoku",
+        "region-kanto": "--r-kanto",
+        "region-chubu": "--r-chubu",
+        "region-kansai": "--r-kansai",
+        "region-chugoku": "--r-chugoku",
+        "region-shikoku": "--r-shikoku",
+        "region-kyushu": "--r-kyushu",
+        "typography display/headline/score/wordmark fontFamily": "--f-display",
+        "typography body/title/figure/control/label fontFamily": "--f-body",
+        "rounded.lg": "--radius",
+        "motion ease-out": "--ease-out",
+        "motion ease-in-out": "--ease-in-out"
+      }
+    },
+    "themes": {
+      "light": "Default token values (frontmatter).",
+      "dark": "Applied by @media (prefers-color-scheme: dark) on :root:not([data-theme=\"light\"]) and by :root[data-theme=\"dark\"]; per-token values in colorMeta.<token>.dark. The hover filter becomes brightness(1.25) and color-scheme is dark."
+    },
+    "colorMeta": {
+      "ai-indigo": {
+        "role": "primary",
+        "displayName": "Ai Indigo 藍",
+        "purpose": "Controls, pressed states, focus, progress, links.",
+        "dark": "#8fb1f0",
+        "canonical": "oklch(42.0% 0.115 261)",
+        "tonalRamp": [
+          "#00003a",
+          "#011d5a",
+          "#1b3c7c",
+          "#385b9e",
+          "#597fc5",
+          "#7ca4ed",
+          "#a1cbff",
+          "#c4efff"
+        ]
+      },
+      "ai-soft": {
+        "role": "primary",
+        "displayName": "Ai Soft",
+        "purpose": "Tint behind pressed segments, active region chips, checked quiz type.",
+        "dark": "#1b2a44",
+        "canonical": "oklch(93.3% 0.016 262)",
+        "tonalRamp": [
+          "#080b12",
+          "#20242c",
+          "#3b4049",
+          "#595e67",
+          "#7b808a",
+          "#9fa5af",
+          "#c5cbd5",
+          "#e9effa"
+        ]
+      },
+      "ai-ink": {
+        "role": "primary",
+        "displayName": "Ai Ink",
+        "purpose": "Text on indigo.",
+        "dark": "#0b1118"
+      },
+      "shu-vermilion": {
+        "role": "secondary",
+        "displayName": "Shu Vermilion 朱",
+        "purpose": "The single selected prefecture, quiz target, active tab underline, code seal, hanko.",
+        "dark": "#ff7b5a",
+        "canonical": "oklch(58.3% 0.171 34)",
+        "tonalRamp": [
+          "#390000",
+          "#5e0000",
+          "#830000",
+          "#a82600",
+          "#d25032",
+          "#fd7657",
+          "#ff9d7c",
+          "#ffc19f"
+        ]
+      },
+      "washi-ground": {
+        "role": "neutral",
+        "displayName": "Washi Ground",
+        "purpose": "Page background.",
+        "dark": "#0b1118",
+        "canonical": "oklch(94.3% 0.007 233)",
+        "tonalRamp": [
+          "#090c0e",
+          "#212527",
+          "#3c4043",
+          "#5a5e61",
+          "#7c8184",
+          "#a1a5a8",
+          "#c6cbce",
+          "#eaeff2"
+        ]
+      },
+      "paper-surface": {
+        "role": "neutral",
+        "displayName": "Paper Surface",
+        "purpose": "Cards, strips, drawer, control faces.",
+        "dark": "#121a24",
+        "canonical": "oklch(99.0% 0.001 197)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#232424",
+          "#3f4040",
+          "#5d5e5e",
+          "#7f8080",
+          "#a4a5a5",
+          "#cacbcb",
+          "#eeefef"
+        ]
+      },
+      "sea": {
+        "role": "neutral",
+        "displayName": "Sea",
+        "purpose": "Map frame and Okinawa inset background.",
+        "dark": "#0f1824",
+        "canonical": "oklch(89.7% 0.017 236)",
+        "tonalRamp": [
+          "#050c11",
+          "#1c252b",
+          "#384148",
+          "#555f66",
+          "#778289",
+          "#9ba6ae",
+          "#c1ccd4",
+          "#e4f1f9"
+        ]
+      },
+      "graticule": {
+        "role": "neutral",
+        "displayName": "Graticule",
+        "purpose": "Latitude and longitude lines.",
+        "dark": "#1d2b3b",
+        "canonical": "oklch(82.7% 0.024 240)",
+        "tonalRamp": [
+          "#030c14",
+          "#19262f",
+          "#34424b",
+          "#52606a",
+          "#74828e",
+          "#98a7b3",
+          "#bdcdd9",
+          "#e1f1fe"
+        ]
+      },
+      "quiz-land": {
+        "role": "neutral",
+        "displayName": "Quiz Land",
+        "purpose": "Neutral land on the Quiz map.",
+        "dark": "#283345",
+        "canonical": "oklch(97.6% 0.007 97)",
+        "tonalRamp": [
+          "#0c0b08",
+          "#252420",
+          "#41403c",
+          "#5e5e59",
+          "#81807c",
+          "#a6a5a0",
+          "#cbcbc6",
+          "#efeeea"
+        ]
+      },
+      "border-edge": {
+        "role": "neutral",
+        "displayName": "Border Edge",
+        "purpose": "Prefecture borders on neutral land, inset frame, control hover borders, type-in stroke.",
+        "dark": "#7a8ca6",
+        "canonical": "oklch(60.0% 0.024 246)",
+        "tonalRamp": [
+          "#040c15",
+          "#1a252f",
+          "#36414c",
+          "#535f6b",
+          "#75828e",
+          "#99a6b3",
+          "#beccda",
+          "#e2f1fe"
+        ]
+      },
+      "region-separator": {
+        "role": "neutral",
+        "displayName": "Region Separator",
+        "purpose": "Prefecture borders on the coloured Explore map.",
+        "dark": "#0b1118",
+        "canonical": "oklch(56.7% 0.023 248)",
+        "tonalRamp": [
+          "#040c15",
+          "#1b252f",
+          "#36414c",
+          "#545f6b",
+          "#76828e",
+          "#9aa6b3",
+          "#bfccda",
+          "#e3f0fe"
+        ]
+      },
+      "sumi-ink": {
+        "role": "neutral",
+        "displayName": "Sumi Ink",
+        "purpose": "Text, leader line, target ring, scale bar, tooltip ground.",
+        "dark": "#e6ebf1",
+        "canonical": "oklch(25.2% 0.029 263)",
+        "tonalRamp": [
+          "#060b17",
+          "#1d2432",
+          "#38404f",
+          "#555e6e",
+          "#788092",
+          "#9ba5b7",
+          "#c1cbde",
+          "#e5efff"
+        ]
+      },
+      "muted-ink": {
+        "role": "neutral",
+        "displayName": "Muted Ink",
+        "purpose": "Kana readings, secondary lines, labels.",
+        "dark": "#9aa6b5",
+        "canonical": "oklch(50.1% 0.028 259)",
+        "tonalRamp": [
+          "#050b17",
+          "#1c2432",
+          "#37404f",
+          "#545e6e",
+          "#768192",
+          "#9aa5b7",
+          "#c0cbde",
+          "#e4efff"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "purpose": "Every hairline border and divider; progress track.",
+        "dark": "#243142",
+        "canonical": "oklch(88.4% 0.012 239)",
+        "tonalRamp": [
+          "#070c10",
+          "#1f2529",
+          "#3a4146",
+          "#585f64",
+          "#7a8187",
+          "#9ea6ab",
+          "#c4ccd2",
+          "#e8f0f6"
+        ]
+      },
+      "label-halo": {
+        "role": "neutral",
+        "displayName": "Label Halo",
+        "purpose": "Halo stroke behind map names.",
+        "dark": "#121a24"
+      },
+      "ok": {
+        "role": "feedback",
+        "displayName": "OK Green",
+        "purpose": "Correct feedback text and borders, population increase.",
+        "dark": "#62cc90",
+        "canonical": "oklch(50.3% 0.103 155)",
+        "tonalRamp": [
+          "#001500",
+          "#00310a",
+          "#004f27",
+          "#1e6e44",
+          "#469265",
+          "#6cb889",
+          "#92dfae",
+          "#b5ffd1"
+        ]
+      },
+      "bad": {
+        "role": "feedback",
+        "displayName": "Bad Red",
+        "purpose": "Wrong feedback, armed confirm, hatch lines, population decrease.",
+        "dark": "#ff7567",
+        "canonical": "oklch(52.2% 0.165 29)",
+        "tonalRamp": [
+          "#370000",
+          "#5c0000",
+          "#810000",
+          "#a6281d",
+          "#d05141",
+          "#fa7765",
+          "#ff9d8a",
+          "#ffc2ac"
+        ]
+      },
+      "ok-fill": {
+        "role": "feedback",
+        "displayName": "Found Fill",
+        "purpose": "Found prefectures, right answer cards.",
+        "dark": "#2d6946",
+        "canonical": "oklch(83.3% 0.069 155)",
+        "tonalRamp": [
+          "#001201",
+          "#002d14",
+          "#1c4a2f",
+          "#3c694d",
+          "#5e8d6e",
+          "#82b292",
+          "#a7d8b7",
+          "#cbfddb"
+        ]
+      },
+      "late-fill": {
+        "role": "feedback",
+        "displayName": "Late Fill",
+        "purpose": "Prefectures found after a miss.",
+        "dark": "#76622a",
+        "canonical": "oklch(87.8% 0.094 88)",
+        "tonalRamp": [
+          "#1a0500",
+          "#361f00",
+          "#543c00",
+          "#735a0b",
+          "#977d38",
+          "#bda25d",
+          "#e4c882",
+          "#ffeca5"
+        ]
+      },
+      "bad-fill": {
+        "role": "feedback",
+        "displayName": "Missed Fill",
+        "purpose": "Missed prefectures (under hatch), wrong answer cards, missed-name chip borders.",
+        "dark": "#b04e43",
+        "canonical": "oklch(68.4% 0.126 31)",
+        "tonalRamp": [
+          "#2f0000",
+          "#510000",
+          "#741a0d",
+          "#973d2e",
+          "#bf604f",
+          "#e88573",
+          "#ffab97",
+          "#ffcfba"
+        ]
+      },
+      "region-hokkaido": {
+        "role": "tertiary",
+        "displayName": "Hokkaidō Mint",
+        "purpose": "Region fill and swatch.",
+        "dark": "#3f8f87",
+        "canonical": "oklch(82.1% 0.057 179)",
+        "tonalRamp": [
+          "#00120c",
+          "#002d25",
+          "#164940",
+          "#37685e",
+          "#5a8c81",
+          "#7eb1a5",
+          "#a3d7cb",
+          "#c6fcef"
+        ]
+      },
+      "region-tohoku": {
+        "role": "tertiary",
+        "displayName": "Tōhoku Pea",
+        "purpose": "Region fill and swatch.",
+        "dark": "#7f9a43",
+        "canonical": "oklch(85.9% 0.105 119)",
+        "tonalRamp": [
+          "#080e00",
+          "#1f2900",
+          "#3a4700",
+          "#576611",
+          "#79893b",
+          "#9dae60",
+          "#c2d585",
+          "#e6f9a8"
+        ]
+      },
+      "region-kanto": {
+        "role": "tertiary",
+        "displayName": "Kantō Mustard",
+        "purpose": "Region fill and swatch.",
+        "dark": "#b8923a",
+        "canonical": "oklch(86.2% 0.116 87)",
+        "tonalRamp": [
+          "#1e0100",
+          "#3b1c00",
+          "#593900",
+          "#795800",
+          "#9e7b17",
+          "#c4a045",
+          "#ebc66d",
+          "#ffea91"
+        ]
+      },
+      "region-chubu": {
+        "role": "tertiary",
+        "displayName": "Chūbu Lavender",
+        "purpose": "Region fill and swatch.",
+        "dark": "#7568b5",
+        "canonical": "oklch(79.9% 0.078 294)",
+        "tonalRamp": [
+          "#0f0127",
+          "#271a45",
+          "#433664",
+          "#605485",
+          "#8377aa",
+          "#a79bd1",
+          "#cdc1f9",
+          "#f1e5ff"
+        ]
+      },
+      "region-kansai": {
+        "role": "tertiary",
+        "displayName": "Kansai Sakura",
+        "purpose": "Region fill and swatch.",
+        "dark": "#b0587a",
+        "canonical": "oklch(83.7% 0.073 1)",
+        "tonalRamp": [
+          "#200009",
+          "#3f1122",
+          "#5f2e3d",
+          "#804b5b",
+          "#a56e7d",
+          "#cc92a1",
+          "#f4b7c7",
+          "#ffdbeb"
+        ]
+      },
+      "region-chugoku": {
+        "role": "tertiary",
+        "displayName": "Chūgoku Apricot",
+        "purpose": "Region fill and swatch; age bar elderly segment.",
+        "dark": "#bb7443",
+        "canonical": "oklch(82.0% 0.099 59)",
+        "tonalRamp": [
+          "#250000",
+          "#441100",
+          "#643000",
+          "#864e19",
+          "#ab713f",
+          "#d29663",
+          "#fbbb88",
+          "#ffdfab"
+        ]
+      },
+      "region-shikoku": {
+        "role": "tertiary",
+        "displayName": "Shikoku Leaf",
+        "purpose": "Region fill and swatch; age bar youth segment.",
+        "dark": "#4a9660",
+        "canonical": "oklch(81.7% 0.085 148)",
+        "tonalRamp": [
+          "#001300",
+          "#002e08",
+          "#184c25",
+          "#386b42",
+          "#5b8e64",
+          "#7fb487",
+          "#a4dbac",
+          "#c8ffcf"
+        ]
+      },
+      "region-kyushu": {
+        "role": "tertiary",
+        "displayName": "Kyūshū Coral",
+        "purpose": "Region fill and swatch (Kyūshū and Okinawa).",
+        "dark": "#b15f55",
+        "canonical": "oklch(78.2% 0.090 32)",
+        "tonalRamp": [
+          "#260000",
+          "#460b03",
+          "#672a1f",
+          "#89493c",
+          "#af6b5e",
+          "#d79081",
+          "#ffb5a6",
+          "#ffd9c9"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Kanji Display",
+        "purpose": "Prefecture or region kanji: 48px callout, 46px drawer, 40px quiz prompt, 34px on phones."
+      },
+      "score": {
+        "displayName": "Score",
+        "purpose": "Quiz result number; denominator at 22px muted."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "都道府県 in the top bar."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Drawer and quiz panel headings; section headings inside tabs use the body face at 15px/700."
+      },
+      "title": {
+        "displayName": "Romaji Title",
+        "purpose": "Romaji name under the kanji (21px in the drawer), kana beside it at 13–14px muted."
+      },
+      "figure": {
+        "displayName": "Fact Figure",
+        "purpose": "Fact values with tabular numerals (18px in the drawer), muted rank line beneath."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text and taglines."
+      },
+      "control": {
+        "displayName": "Control",
+        "purpose": "Tool toggles, region chips, selects, small buttons."
+      },
+      "label": {
+        "displayName": "Value Label",
+        "purpose": "Uppercase tracked term labels directly above a value or field; never above a heading."
+      }
+    },
+    "shadows": [
+      {
+        "name": "callout-float",
+        "value": "0 12px 32px rgb(15 23 42 / .16)",
+        "purpose": "Callout card floating over the map; removed when docked on phones."
+      },
+      {
+        "name": "drawer-float",
+        "value": "0 18px 48px rgb(15 23 42 / .22)",
+        "purpose": "Reading drawer over the map."
+      },
+      {
+        "name": "swatch-keyline",
+        "value": "inset 0 0 0 1px rgb(0 0 0 / .12)",
+        "purpose": "Keeps pale region swatches visible on paper."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.23, 1, 0.32, 1)",
+        "purpose": "Responses: press, enter, drawer, progress, hanko stamp."
+      },
+      {
+        "name": "ease-in-out",
+        "value": "cubic-bezier(0.77, 0, 0.175, 1)",
+        "purpose": "Things travelling across the screen: the mode thumb."
+      },
+      {
+        "name": "press",
+        "value": "scale(0.97), 160ms ease-out",
+        "purpose": "Every pressable control gives way; off under reduced motion."
+      },
+      {
+        "name": "colour-change",
+        "value": "150–200ms ease",
+        "purpose": "Border, background, fill and opacity changes."
+      },
+      {
+        "name": "mode-thumb",
+        "value": "250ms ease-in-out",
+        "purpose": "Indigo thumb sliding between Explore and Quiz."
+      },
+      {
+        "name": "drawer",
+        "value": "300ms ease-out",
+        "purpose": "Reading drawer and phone bottom sheet."
+      },
+      {
+        "name": "map-view",
+        "value": "380ms quintic ease-out (JS tween)",
+        "purpose": "Map pan and zoom to a selection or region; instant under reduced motion."
+      },
+      {
+        "name": "hanko-stamp",
+        "value": "320ms ease-out, 150ms delay, scale 1.35 to 1",
+        "purpose": "Perfect-score seal pressed onto the page."
+      },
+      {
+        "name": "target-pulse",
+        "value": "1.4s ease-in-out infinite, stroke-opacity 1 to .6",
+        "purpose": "Quiz target ring."
+      },
+      {
+        "name": "wrong-flash",
+        "value": "0.6s ease-out, bad to land",
+        "purpose": "Wrong tap on the Find it map."
+      },
+      {
+        "name": "label-pop",
+        "value": "0.5s ease-out, ok to ink",
+        "purpose": "Newly named label in Name them all."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "phone-narrow",
+        "value": "420px",
+        "purpose": "Tighter panel padding, wordmark subtitle hidden, smaller figures."
+      },
+      {
+        "name": "stack",
+        "value": "860px",
+        "purpose": "Single column; callout docks under the map; drawer becomes a bottom sheet; map max 52vh."
+      },
+      {
+        "name": "coarse-pointer",
+        "value": "(pointer: coarse)",
+        "purpose": "44px minimum touch targets on map tools, chips and callout buttons."
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "One per group: Read more, Start, Check, Play again.",
+      "html": "<button class=\"ds-btn ds-btn-primary\">Read more</button>",
+      "css": ".ds-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--rule, #d2dae0); background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); border-radius: 8px; padding: 8px 14px; cursor: pointer; font: 500 15px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; transition: border-color 150ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn-primary { background: var(--ai, #284a8b); color: var(--ai-ink, #ffffff); border-color: var(--ai, #284a8b); font-weight: 700; } .ds-btn:hover { border-color: var(--edge, #75828e); } .ds-btn-primary:hover { border-color: var(--ai, #284a8b); } .ds-btn:active { transform: scale(0.97); } .ds-btn:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Secondary and Ghost Buttons",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Paper-faced secondary; borderless muted ghost for Close and I don't know.",
+      "html": "<div style=\"display:flex;gap:8px\"><button class=\"ds-btn2\">Reset</button><button class=\"ds-btn2 ds-btn2-ghost\">Close</button></div>",
+      "css": ".ds-btn2 { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule, #d2dae0); background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); border-radius: 8px; padding: 8px 14px; cursor: pointer; font: 500 15px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; transition: border-color 150ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-btn2-ghost { border-color: transparent; background: none; color: var(--muted, #5a6474); } .ds-btn2:hover { border-color: var(--edge, #75828e); } .ds-btn2-ghost:hover { border-color: transparent; color: var(--ink, #1b2230); } .ds-btn2:active { transform: scale(0.97); } .ds-btn2:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Mode Toggle",
+      "kind": "nav",
+      "refersTo": "mode-toggle",
+      "description": "Explore / Quiz pill with one indigo thumb.",
+      "html": "<nav class=\"ds-modes\"><button class=\"ds-on\">Explore</button><button>Quiz</button></nav>",
+      "css": ".ds-modes { display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--surface, #fbfcfc); border: 1px solid var(--rule, #d2dae0); border-radius: 999px; padding: 3px; font: 500 15px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; } .ds-modes button { border: 0; background: none; color: var(--ink, #1b2230); padding: 6px 18px; border-radius: 999px; cursor: pointer; font: inherit; transition: color 200ms ease, background-color 250ms cubic-bezier(0.77, 0, 0.175, 1), transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-modes button.ds-on { background: var(--ai, #284a8b); color: var(--ai-ink, #ffffff); } .ds-modes button:active { transform: scale(0.97); } .ds-modes button:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Tool Group",
+      "kind": "custom",
+      "refersTo": "tool-toggle",
+      "description": "Segmented map tool with drawn 16px stroke icons; pressed segment is indigo on ai-soft.",
+      "html": "<div class=\"ds-tools\"><button class=\"ds-on\">Off</button><button>ABC</button><button lang=\"ja\">漢字</button><button aria-label=\"Zoom in\"><svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\"><path d=\"M8 3.5v9M3.5 8h9\"/></svg></button></div>",
+      "css": ".ds-tools { display: inline-flex; background: var(--surface, #fbfcfc); border: 1px solid var(--rule, #d2dae0); border-radius: 8px; overflow: hidden; font: 500 13px/1.4 \"Zen Kaku Gothic New\", system-ui, sans-serif; } .ds-tools button { border: 0; background: none; color: var(--ink, #1b2230); padding: 5px 10px; min-width: 34px; cursor: pointer; font: inherit; display: grid; place-items: center; } .ds-tools button + button { border-left: 1px solid var(--rule, #d2dae0); } .ds-tools button.ds-on { background: var(--ai-soft, #e3e9f4); color: var(--ai, #284a8b); font-weight: 700; } .ds-tools button:hover:not(.ds-on) { background: var(--bg, #e8edf0); } .ds-tools button:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: -2px; }"
+    },
+    {
+      "name": "Region Chip",
+      "kind": "chip",
+      "refersTo": "region-chip",
+      "description": "Pill with a region swatch; pressing one zooms the map to that region.",
+      "html": "<div style=\"display:flex;gap:6px\"><button class=\"ds-chip ds-on\"><span class=\"ds-sw\" style=\"background:#f2cd74\"></span>Kantō</button><button class=\"ds-chip\"><span class=\"ds-sw\" style=\"background:#c0b4eb\"></span>Chūbu</button></div>",
+      "css": ".ds-chip { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule, #d2dae0); background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); border-radius: 999px; padding: 3px 10px 3px 7px; font: 500 12px/1.4 \"Zen Kaku Gothic New\", system-ui, sans-serif; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-chip.ds-on { border-color: var(--ai, #284a8b); background: var(--ai-soft, #e3e9f4); color: var(--ai, #284a8b); font-weight: 700; } .ds-chip:hover:not(.ds-on) { border-color: var(--edge, #75828e); } .ds-chip:active { transform: scale(0.97); } .ds-chip:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; } .ds-sw { width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }"
+    },
+    {
+      "name": "Callout Card",
+      "kind": "card",
+      "refersTo": "callout-card",
+      "description": "Signature: the selected prefecture speaks from where it lies, tied to it by an ink leader line.",
+      "html": "<article class=\"ds-co\"><div class=\"ds-co-head\"><h2 class=\"ds-co-kanji\" lang=\"ja\">愛知</h2><span class=\"ds-co-reg\"><span class=\"ds-co-sw\"></span>Chūbu</span><div class=\"ds-co-name\">Aichi<span lang=\"ja\">あいち</span></div></div><dl class=\"ds-co-facts\"><div><dt>Capital</dt><dd>Nagoya<small lang=\"ja\">名古屋</small></dd></div><div><dt>Population</dt><dd>7,477,000<small>#4 of 47</small></dd></div><div><dt>Area</dt><dd>5,173 km²<small>#27 of 47</small></dd></div><div><dt>Density</dt><dd>1,445 /km²<small>#5 of 47</small></dd></div></dl><div class=\"ds-co-foot\"><button class=\"ds-co-more\">Read more</button></div></article>",
+      "css": ".ds-co { width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); border: 1px solid var(--rule, #d2dae0); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); font: 400 15px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; } .ds-co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; } .ds-co-kanji { margin: 0; font: 800 48px/1.05 \"Shippori Mincho B1\", \"Yu Mincho\", serif; letter-spacing: .04em; } .ds-co-reg { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted, #5a6474); } .ds-co-sw { width: 12px; height: 12px; border-radius: 4px; background: var(--r-chubu, #c0b4eb); } .ds-co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; } .ds-co-name span { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted, #5a6474); } .ds-co-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule, #d2dae0); } .ds-co-facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted, #5a6474); font-weight: 700; } .ds-co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; } .ds-co-facts small { display: block; font-size: 12px; font-weight: 400; color: var(--muted, #5a6474); } .ds-co-foot { display: flex; justify-content: flex-end; padding-top: 10px; border-top: 1px solid var(--rule, #d2dae0); } .ds-co-more { border: 1px solid var(--ai, #284a8b); background: var(--ai, #284a8b); color: var(--ai-ink, #ffffff); border-radius: 8px; padding: 4px 10px; font: 700 13px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-co-more:active { transform: scale(0.97); } .ds-co-more:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Type-in Field",
+      "kind": "input",
+      "refersTo": "input-typein",
+      "description": "Answer field in Name it; focus turns the stroke indigo.",
+      "html": "<form class=\"ds-typein\"><input placeholder=\"Type the name…\"><button type=\"button\">Check</button></form>",
+      "css": ".ds-typein { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; } .ds-typein input { padding: 10px 12px; border: 1.5px solid var(--edge, #75828e); border-radius: 8px; background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); font: 400 17px/1.4 \"Zen Kaku Gothic New\", system-ui, sans-serif; min-width: 0; transition: border-color 150ms ease; } .ds-typein input:focus { border-color: var(--ai, #284a8b); outline: none; } .ds-typein button { border: 1px solid var(--ai, #284a8b); background: var(--ai, #284a8b); color: var(--ai-ink, #ffffff); border-radius: 8px; padding: 8px 14px; font: 700 15px/1.6 \"Zen Kaku Gothic New\", system-ui, sans-serif; cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-typein button:active { transform: scale(0.97); } .ds-typein button:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; }"
+    },
+    {
+      "name": "Answer Choices",
+      "kind": "custom",
+      "refersTo": "answer-choice",
+      "description": "Multiple-choice cards; right fills ok-fill, wrong fills bad-fill.",
+      "html": "<div class=\"ds-ans\"><button><span class=\"k\">1</span><b>Gifu</b><span>岐阜</span></button><button class=\"ds-right\"><span class=\"k\">2</span><b>Aichi</b><span>愛知</span></button><button class=\"ds-wrong\"><span class=\"k\">3</span><b>Mie</b><span>三重</span></button><button><span class=\"k\">4</span><b>Shizuoka</b><span>静岡</span></button></div>",
+      "css": ".ds-ans { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; } .ds-ans button { border: 1px solid var(--rule, #d2dae0); background: var(--surface, #fbfcfc); color: var(--ink, #1b2230); border-radius: 10px; padding: 10px 12px; cursor: pointer; text-align: left; display: grid; font: 400 15px/1.35 \"Zen Kaku Gothic New\", system-ui, sans-serif; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms cubic-bezier(0.23, 1, 0.32, 1); } .ds-ans .k { font-size: 11px; color: var(--muted, #5a6474); } .ds-ans b { font-size: 16px; } .ds-ans span:last-child { font-size: 13px; color: var(--muted, #5a6474); } .ds-ans button:hover { border-color: var(--ai, #284a8b); } .ds-ans button:active { transform: scale(0.97); } .ds-ans button:focus-visible { outline: 2px solid var(--ai, #284a8b); outline-offset: 2px; } .ds-ans .ds-right { border-color: var(--ok, #26754a); background: var(--ok-fill, #a5d6b5); } .ds-ans .ds-wrong { border-color: var(--bad, #b5372a); background: var(--bad-fill, #dc7a68); }"
+    },
+    {
+      "name": "Seal and Hanko",
+      "kind": "custom",
+      "refersTo": "seal",
+      "description": "Vermilion seals: the rotated prefecture-code seal in the drawer and the stamped 全問正解 hanko on a perfect score.",
+      "html": "<div style=\"display:flex;gap:24px;align-items:center\"><div class=\"ds-seal\"><small>JP</small><span>23</span></div><div class=\"ds-hanko\" lang=\"ja\">全問<br>正解</div></div>",
+      "css": ".ds-seal { border: 2px solid var(--shu, #cc4a2c); color: color-mix(in srgb, var(--shu, #cc4a2c) 85%, var(--ink, #1b2230)); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font: 700 15px/1.1 \"Zen Kaku Gothic New\", system-ui, sans-serif; font-variant-numeric: tabular-nums; transform: rotate(-3deg); } .ds-seal small { display: block; font-size: 10px; letter-spacing: .12em; } .ds-seal span { font: 800 20px/1.1 \"Shippori Mincho B1\", \"Yu Mincho\", serif; } .ds-hanko { width: 76px; height: 76px; border: 3px solid var(--shu, #cc4a2c); border-radius: 50%; color: var(--shu, #cc4a2c); display: grid; place-items: center; text-align: center; font: 800 19px/1.05 \"Shippori Mincho B1\", \"Yu Mincho\", serif; transform: rotate(-8deg); animation: ds-stamp 320ms cubic-bezier(0.23, 1, 0.32, 1) 150ms backwards; } @keyframes ds-stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.35); } } @media (prefers-reduced-motion: reduce) { .ds-hanko { animation: none; } }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Survey Sheet and Its Seal",
+    "overview": "The page is a survey sheet of Japan laid on cool washi-grey paper. The map is not an illustration beside the content; it is the stage, framed edge to edge in a pale sea with a fine graticule, and everything else either sits on a thin paper strip above it (tools, regions) or speaks from inside it (the callout card, tied to its prefecture by an ink leader line). Reading in depth happens one step away, in a drawer that slides over the map's right edge rather than claiming a permanent column.\n\nColour is quiet and assigned by meaning. Indigo 藍 is the hand of the interface: controls, pressed states, focus, progress. Vermilion 朱 is the seal: it marks the one chosen place, the active reading tab, the prefecture code seal and the perfect-score hanko, and nothing else. Region pastels carry geography on the Explore map; on the Quiz map the land goes neutral so the learner's own marks (found, late, missed) carry the colour. Japanese is set as content, in a heavy Mincho, at the largest size on the screen.\n\nThe density is a field atlas's: compact controls, tabular figures, small tracked labels over large bold numbers, hairline rules between groups. Depth comes from paper on paper with thin borders; only floating things (the callout and the drawer) cast a soft ambient shadow.",
+    "keyCharacteristics": [
+      "The map owns the viewport; content floats over it or docks beneath it on phones.",
+      "Two inks only: indigo for controls, vermilion for selection and seals.",
+      "Kanji in Shippori Mincho B1 is the biggest type on any screen; UI is Zen Kaku Gothic New.",
+      "Hairline borders and tonal paper, not shadows, separate surfaces.",
+      "Light and dark themes are full token sets, switched by `prefers-color-scheme` or `data-theme`."
+    ],
+    "rules": [
+      {
+        "name": "The Two Inks Rule",
+        "body": "Indigo points at what you can do; vermilion marks what is chosen or sealed. Never use vermilion for a control or indigo for a selection.",
+        "section": "colors"
+      },
+      {
+        "name": "The One Red Place Rule",
+        "body": "On any map state, at most one prefecture is filled vermilion. Region views highlight with fades, not more red.",
+        "section": "colors"
+      },
+      {
+        "name": "The Learner's Colour Rule",
+        "body": "On the Quiz map the land is neutral; only the learner's results (found, late, missed) and the single target carry colour.",
+        "section": "colors"
+      },
+      {
+        "name": "The Kanji Is Largest Rule",
+        "body": "On any screen the largest text is Japanese in Mincho (or the score). English never outranks the kanji it translates.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Figures Rule",
+        "body": "Every number that can be compared (population, area, ranks, timers, scores, scale) uses tabular numerals.",
+        "section": "typography"
+      },
+      {
+        "name": "The Only Floating Things Cast Shadow Rule",
+        "body": "A surface gets a shadow only if it hovers over the map. Strips, chips, panels and buttons stay flat.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** let the map take the full width in Explore and bring content to it (callout, drawer) instead of giving content a permanent column.",
+      "**Do** keep indigo for controls and vermilion for the single selection, the active tab underline and the seals (The Two Inks Rule).",
+      "**Do** set every prefecture and region name in kanji, kana and romaji together, with the kanji in Shippori Mincho B1 as the largest text.",
+      "**Do** separate surfaces with a 1px `rule` hairline and a tonal step; reserve shadow for cards floating over the map.",
+      "**Do** use tabular numerals and an \"#n of 47\" rank for every comparable figure.",
+      "**Do** mark quiz misses with the hatch as well as the colour, so state never depends on hue alone.",
+      "**Do** draw icons as 16px stroke SVGs (1.75 stroke, round caps) and give touch targets 44px under coarse pointers.",
+      "**Do** define every new colour in both light and dark token sets."
+    ],
+    "donts": [
+      "**Don't** split Explore into a map on the left and a card column on the right; the reading panel is a drawer.",
+      "**Don't** fill more than one prefecture vermilion, or use vermilion on a button.",
+      "**Don't** colour quiz land by region; the learner's results are the only colour there.",
+      "**Don't** put small uppercase labels above headings; tracked uppercase is only for labels that name the value directly beneath them.",
+      "**Don't** set UI copy or English body text in the Mincho.",
+      "**Don't** add hover effects that fire on touch; hover rules live behind `(hover: hover) and (pointer: fine)`."
+    ]
+  }
+}
