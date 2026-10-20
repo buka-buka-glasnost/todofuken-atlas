@@ -104,17 +104,19 @@ button, select, input { font: inherit; color: inherit; }
 .drawer-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: -6px 0 -4px; }
 
 /* ---------- callout: the selected prefecture speaks from where it lies ---------- */
+/* with the drawer open the card keeps only its head: the drawer carries the facts */
+.layout.drawer-open .callout .co-tag, .layout.drawer-open .callout .co-facts { display: none; }
 .callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
 .callout.docked { transform: none !important; left: 16px; top: auto; bottom: 16px; }
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
 .co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
-.co-region { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+.co-region { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
 .co-facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
-.co-facts dd small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.co-facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-foot { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
 .co-foot .btn.primary { margin-left: auto; }
 .co-step { min-width: 34px; padding-inline: 8px; }
@@ -124,8 +126,8 @@ button, select, input { font: inherit; color: inherit; }
 .co-list { display: flex; flex-wrap: wrap; gap: 6px; }
 .co-list button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 13px; cursor: pointer; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .co-list button span { margin-left: 5px; color: var(--muted); }
-.co-tag { margin: 0; font-size: 14px; line-height: 1.45; }
-.co-hint { margin: 0; color: var(--muted); font-size: 14px; }
+.co-tag { margin: 0; font-size: 15px; line-height: 1.45; }
+.co-hint { margin: 0; color: var(--muted); font-size: 15px; }
 .leader { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
 .leader line { stroke: var(--ink); stroke-width: 1.25px; }
 .leader circle { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5px; }
@@ -163,6 +165,7 @@ button, select, input { font: inherit; color: inherit; }
 #map .pref.st-found .shape { fill: var(--ok-fill); }
 #map .pref.st-late .shape { fill: var(--late-fill); }
 #map .pref.st-missed .shape { fill: url(#hatch-missed); }
+#map.gaveup .pref.st-missed { opacity: .55; }   /* after giving up, what you did find stands out */
 #map .hatch-bg { fill: var(--bad-fill); }
 #map .hatch-line { stroke: var(--bad); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
 #map .pref.target .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
@@ -190,10 +193,11 @@ button, select, input { font: inherit; color: inherit; }
 
 /* region row: the second line of the tool strip; each chip zooms to its region and lists it in the callout */
 .legend { flex-basis: 100%; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
-.legend button { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 7px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
+.legend button { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 7px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .legend button[aria-pressed="true"] { border-color: var(--ai); background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .swatch { flex: none; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }
-.cull-hint { font-size: 12px; color: var(--muted); }
+.cull-hint { grid-row: 2; grid-column: 1; align-self: start; justify-self: start; position: relative; z-index: 3; margin: 10px; padding: 3px 9px; font-size: 13px; color: var(--muted); background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; pointer-events: none; }
+#map { grid-column: 1; }
 .scale { margin-left: auto; font-size: 11px; color: var(--muted); display: grid; justify-items: start; gap: 2px; padding-left: 2px; font-variant-numeric: tabular-nums; pointer-events: none; }
 .scale-bar { height: 6px; border: 1.5px solid var(--ink); border-top: 0; }
 .tip { position: absolute; z-index: 3; pointer-events: none; background: var(--ink); color: var(--surface); padding: 4px 10px; border-radius: 6px; font-size: 13px; white-space: nowrap; }
@@ -209,27 +213,27 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .btn.confirm { border-color: var(--bad); color: var(--bad); font-weight: 700; }
 .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .muted { color: var(--muted); }
-.note { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.note { font-size: 13px; color: var(--muted); line-height: 1.5; }
 .note a { color: inherit; }
 
 /* ---------- explore ---------- */
 .nav { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 8px; align-items: center; }
 .nav select { width: 100%; min-width: 0; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 .pf-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; }
-.pf-kanji { font-family: var(--f-display); font-weight: 800; font-size: 46px; line-height: 1.05; margin: 0; letter-spacing: .04em; }
-.pf-name { grid-column: 1; font-size: 21px; font-weight: 700; line-height: 1.3; }
-.pf-name .kana { font-size: 14px; font-weight: 400; color: var(--muted); margin-left: 8px; }
+.pf-kanji { font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; margin: 0; letter-spacing: .04em; }
+.pf-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
+.pf-name .kana { font-size: 15px; font-weight: 400; color: var(--muted); margin-left: 8px; }
 .seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: color-mix(in srgb, var(--shu) 85%, var(--ink)); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
 .seal small { display: block; font-size: 11px; letter-spacing: .1em; }
-.seal span { font-size: 20px; font-family: var(--f-display); }
+.seal span { font-size: 18px; font-family: var(--f-display); }
 .chips { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
-.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
-.tagline { margin: 0; font-size: 16px; line-height: 1.55; }
+.chip { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
+.tagline { margin: 0; font-size: 17px; line-height: 1.55; }
 .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; margin: 0; padding: 14px 0; border-block: 1px solid var(--rule); }
 .facts > div { min-width: 0; }
 .facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .facts dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.3; }
-.facts dd small { display: block; font-size: 12px; font-weight: 400; color: var(--muted); }
+.facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .facts .wide { grid-column: 1 / -1; }
 .down { color: var(--bad); } .up { color: var(--ok); }
 .ages { display: grid; gap: 6px; }
@@ -237,7 +241,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .agebar i { display: block; height: 100%; }
 .agebar .a1 { background: var(--r-shikoku); } .agebar .a2 { background: color-mix(in srgb, var(--muted) 40%, var(--surface)); } .agebar .a3 { background: var(--r-chugoku); }
 .agebar .nat { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
-.agekey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.agekey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .agekey b { color: var(--ink); }
 .tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
 .tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
@@ -251,8 +255,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .items li:first-child { padding-top: 0; }
 .items li:last-child { border-bottom: 0; }
 .items .nm { font-weight: 700; }
-.items .jp { font-weight: 400; color: var(--muted); margin-left: 8px; font-size: 14px; }
-.items .ds { color: var(--muted); font-size: 14px; }
+.items .jp { font-weight: 400; color: var(--muted); margin-left: 8px; font-size: 15px; }
+.items .ds { color: var(--muted); font-size: 15px; }
 .forecast { display: inline-flex; align-items: center; gap: 6px; color: var(--ai); font-weight: 700; text-decoration: none; }
 
 /* ---------- quiz ---------- */
@@ -275,19 +279,20 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .progress { display: grid; gap: 4px; font-size: 13px; font-variant-numeric: tabular-nums; }
 .progress .track { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
 .progress .fill { height: 100%; background: var(--ai); transform-origin: left; transition: transform 300ms var(--ease-out); }
-.clock { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 16px; }
+.clock { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 17px; }
 .prompt { border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: grid; gap: 4px; }
-.prompt .big { font-family: var(--f-display); font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: .04em; }
-.prompt .sub { font-size: 20px; font-weight: 700; }
+.prompt .big { font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.1; letter-spacing: .04em; }
+.prompt .sub { font-size: 18px; font-weight: 700; }
 .feedback { min-height: 1.6em; font-weight: 500; }
 .feedback.ok { color: var(--ok); } .feedback.bad { color: var(--bad); }
+.feedback .suggest { margin-left: 4px; color: var(--ai); border-color: var(--ai); vertical-align: baseline; }
 .answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
 .answers button { border: 1px solid var(--rule); background: var(--surface); border-radius: 10px; padding: 10px 12px; cursor: pointer; text-align: left; display: grid; gap: 0; line-height: 1.35; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .answers button .k { font-size: 11px; color: var(--muted); }
-.answers button b { font-size: 16px; }
-.answers button span { font-size: 13px; color: var(--muted); }
-.answers button.right { border-color: var(--ok); background: var(--ok-fill); }
-.answers button.wrong { border-color: var(--bad); background: var(--bad-fill); }
+.answers button b { font-size: 17px; }
+.answers button span { font-size: 15px; color: inherit; opacity: .8; }   /* the kanji is part of the answer, not a footnote */
+.answers button.right { border-color: var(--ok); background: var(--ok-fill); color: var(--ink); }
+.answers button.wrong { border-color: var(--bad); background: var(--bad-fill); color: var(--ink); }
 .answers button:disabled { cursor: default; }
 .typein { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
 .typein input { padding: 10px 12px; border: 1.5px solid var(--edge); border-radius: 8px; background: var(--surface); font-size: 17px; min-width: 0; transition: border-color 150ms ease; }
@@ -297,18 +302,18 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .regions-left .done { color: var(--ok); font-weight: 700; }
 .result { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; }
 .score { font-family: var(--f-display); font-weight: 800; font-size: 54px; line-height: 1; font-variant-numeric: tabular-nums; }
-.score small { font-size: 22px; color: var(--muted); }
-.hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 19px; line-height: 1.05; transform: rotate(-8deg); animation: stamp 320ms var(--ease-out) 150ms backwards; }
+.score small { font-size: 24px; color: var(--muted); }
+.hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 18px; line-height: 1.05; transform: rotate(-8deg); animation: stamp 320ms var(--ease-out) 150ms backwards; }
 /* a perfect score is rare, so the hanko gets a moment: it is pressed onto the page */
 @keyframes stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.35); } }
 .misslist { display: flex; flex-wrap: wrap; gap: 6px; }
 .missgroups { display: grid; gap: 10px; }
 .missgroup { display: grid; gap: 6px; }
-.missgroup > span { font-size: 12px; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+.missgroup > span { font-size: 13px; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
 .misses summary { cursor: pointer; font-weight: 700; color: var(--ai); padding: 4px 0; }
 .hanko-wrap { display: grid; justify-items: center; gap: 6px; }
-.hanko-wrap span { font-size: 12px; color: var(--muted); }
-.misslist button { border: 1px solid var(--bad-fill); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
+.hanko-wrap span { font-size: 13px; color: var(--muted); }
+.misslist button { border: 1px solid var(--rule); color: var(--ai); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
 
 /* ---------- interaction feedback ---------- */
 /* hover only where there is a real pointer, so taps don't leave sticky highlights */
@@ -317,7 +322,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .legend button:hover:not([aria-pressed="true"]), .co-list button:hover { border-color: var(--edge); }
   .answers button:hover:not(:disabled) { border-color: var(--ai); }
   .qtype:hover:not(:has(input:checked)) { border-color: var(--edge); }
-  .misslist button:hover { background: var(--bad-fill); }
+  .misslist button:hover { border-color: var(--ai); background: var(--ai-soft); }
   .forecast:hover { text-decoration: underline; }
 }
 /* everything pressable gives way slightly, so the page feels like it heard the press */
@@ -326,7 +331,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .answers button:active:not(:disabled), .modes button:active { transform: scale(0.97); }
   .modes button { transition: color 200ms ease, transform 160ms var(--ease-out); }
 }
-.legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
 .legend-q i.missed { background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
 
@@ -335,33 +340,32 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   html, body { height: auto; }
   .app { height: auto; }
   .layout { grid-template-columns: minmax(0, 1fr); }
-  .layout.quiz-live .panel { order: -1; }
+  .layout:not(.explore):not(.quiz-live) .panel { order: -1; }    /* setup and results lead; Start stays above the fold */
+  .layout.quiz-live .mapwrap { position: sticky; top: 0; z-index: 5; }   /* during play the map stays on screen above the answers */
+  .layout.quiz-live #map { aspect-ratio: auto; height: 42vh; max-height: none; }
   .panel { overflow: visible; }
   .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
-  #map { aspect-ratio: 1 / .86; height: auto; max-height: 52vh; }
+  #map { aspect-ratio: 1 / .8; height: auto; max-height: 50vh; }
   .callout, .callout.docked { position: relative; grid-row: 3; left: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .co-kanji { font-size: 34px; }
   .map-tools { flex-wrap: wrap; }
   .pick { flex: 1 1 140px; min-width: 140px; max-width: none; order: 0; }   /* keeps the list readable and pushes names + regions to a second row */
   #names-group { order: 1; flex: none; }
   .map-tools > .tool-group[aria-label="Zoom"] { order: 0; }
   .legend { order: 2; flex: 1 1 0; flex-basis: 0; }
-  .cull-hint { order: 3; flex-basis: 100%; }
-  .tool-label, .scale { display: none; }
+  .scale { display: none; }
+  .tool-label { padding-left: 8px; }
   .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px)); }
   .layout.explore.drawer-open .panel { transform: none; }
-  .pf-kanji { font-size: 40px; }
 }
 @media (max-width: 420px) {
   .panel-inner { padding: 16px; }
   .brand-en { display: none; }
-  .facts dd { font-size: 16px; }
-  .prompt .big { font-size: 34px; }
+  .facts dd { font-size: 17px; }
 }
 /* touch: every control is a comfortable thumb target */
 @media (pointer: coarse) {
-  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick { min-height: 44px; }
+  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick, .modes button, #drawer-close { min-height: 44px; }
 }
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
@@ -391,7 +395,6 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
           <button type="button" id="names-romaji" aria-pressed="false">ABC</button>
           <button type="button" id="names-kanji" aria-pressed="false" lang="ja">漢字</button>
         </div>
-        <span class="cull-hint" id="cull-hint" hidden></span>
         <div class="tool-group" role="group" aria-label="Zoom">
           <button type="button" id="zoom-in" aria-label="Zoom in"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" /></svg></button>
           <button type="button" id="zoom-out" aria-label="Zoom out"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" /></svg></button>
@@ -400,6 +403,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
         <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
         <div class="legend" id="legend" role="group" aria-label="Regions"></div>
       </div>
+      <span class="cull-hint" id="cull-hint" hidden></span>
       <svg class="leader" id="leader" aria-hidden="true"><line id="leader-line" /><circle id="leader-dot" r="3.5" /></svg>
       <article class="callout" id="callout" aria-label="Selected prefecture"></article>
       <div class="tip" id="tip" hidden></div>
@@ -478,6 +482,21 @@ PREFS.forEach(p => {
 });
 NAMES.set('gumma', '10'); // older Hepburn spelling
 const matchName = s => NAMES.get(norm(s)) || null;
+const LATIN = [...NAMES.keys()].filter(k => /^[a-z]+$/.test(k));
+function editDistance(a, b) {
+  const d = Array.from({ length: a.length + 1 }, (_, i) => [i]);
+  for (let j = 1; j <= b.length; j++) d[0][j] = j;
+  for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++)
+    d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+  return d[a.length][b.length];
+}
+function nearName(s) {
+  const n = norm(s);
+  if (!/^[a-z]{3,}$/.test(n)) return null;
+  let best = null, bd = Infinity;
+  for (const k of LATIN) { const dd = editDistance(n, k); if (dd < bd) { bd = dd; best = k; } }
+  return bd <= (n.length >= 7 ? 2 : 1) ? NAMES.get(best) : null;
+}
 
 /* ================= app state ================= */
 let mode = store.get('mode', 'explore');
@@ -518,11 +537,13 @@ PREFS.forEach(p => {
   const g = mk('g', { class: 'pref', 'data-id': p.id, 'data-r': p.slug }, gPrefs);
   mk('path', { class: 'shape', d: (s.d || '') + (s.di || '') }, g);
   if (s.di) mk('path', { class: 'hit', d: s.di }, g);
+  if (p.area < 2600) mk('path', { class: 'hit', d: (s.d || '') + (s.di || '') }, g);   // Tōkyō, Ōsaka, Kanagawa, Kagawa, Saga, Okinawa
   g.setAttribute('tabindex', '-1'); g.setAttribute('role', 'button');
   prefEl[p.id] = g;
   const t = mk('text', { class: 'lab', x: s.l[0], y: s.l[1] }, gLabels);
   labelEl[p.id] = t;
 });
+PREFS.filter(p => p.area < 2600).forEach(p => gPrefs.appendChild(prefEl[p.id]));   // small ones drawn last so their tap edge wins
 function setLabelText() {
   const kanji = names === 'kanji';
   PREFS.forEach(p => { labelEl[p.id].textContent = kanji ? p.ja : p.en; labelEl[p.id].setAttribute('lang', kanji ? 'ja' : 'en'); });
@@ -690,12 +711,13 @@ function paint() {
   svg.classList.toggle('m-explore', !quiz);
   svg.classList.toggle('m-quiz', quiz);
   svg.classList.toggle('names', !quiz && names !== 'off');
+  svg.classList.toggle('gaveup', !!(quiz && Q && Q.gaveUp && Q.phase === 'done'));
   let ringAt = null, ringPulse = false;
   PREFS.forEach(p => {
     const cls = ['pref'];
     let labOn = false;
     if (!quiz) {
-      if (p.id === sel) cls.push('sel');
+      if (p.id === sel && cardView !== 'region') cls.push('sel');   // a region view has no single selection
       if (exploreRegion && p.region !== exploreRegion) cls.push('fade');
     } else if (!Q) {
       if (setup.scope !== 'all' && p.region !== setup.scope) cls.push('dim');   // preview of the chosen region
@@ -790,7 +812,7 @@ function renderNames() {
 function renderLegend() {
   const el = $('#legend');
   el.hidden = mode !== 'explore';
-  el.innerHTML = REGIONS.map(r => `<button type="button" data-region="${esc(r.key)}" aria-pressed="${exploreRegion === r.key}"><span class="swatch" style="background:var(--r-${r.slug})"></span>${esc(r.key)}</button>`).join('');
+  el.innerHTML = REGIONS.map(r => `<button type="button" data-region="${esc(r.key)}" aria-pressed="${exploreRegion === r.key}"><span class="swatch" style="background:var(--r-${r.slug})"></span>${esc(r.key)} <span lang="ja">${esc(r.ja)}</span></button>`).join('');
   el.querySelectorAll('button').forEach(b => b.onclick = () => {
     const k = b.dataset.region;
     exploreRegion = exploreRegion === k ? null : k;
@@ -810,7 +832,32 @@ function selectPref(id, opts = {}) {
   paint(); renderExplore();
   const p = byId[id];
   announce(`${p.en} ${p.ja}, ${p.region}. Capital: ${p.cap}.`);
-  if (opts.zoom) fitBox(SHAPES.shapes[id].b, 0.9);
+  frameSelection(id, !!opts.zoom);
+}
+/* keep the chosen prefecture big enough to see, with its neighbours around it and room for the card on the open side.
+   A click on a prefecture that is already well framed leaves the map still; list and prev/next always frame. */
+const mainlandBox = {};
+function frameBox(id) {                                  // the mainland outline, so Tōkyō is not framed by the Izu islands
+  if (mainlandBox[id]) return mainlandBox[id];
+  const sh = SHAPES.shapes[id];
+  if (!sh.d || !sh.di) return (mainlandBox[id] = sh.b);
+  const t = mk('path', { d: sh.d, visibility: 'hidden' }, svg), bb = t.getBBox(); t.remove();
+  return (mainlandBox[id] = bb.width ? [bb.x, bb.y, bb.width, bb.height] : sh.b);
+}
+function frameSelection(id, force) {
+  const b = frameBox(id), r = svg.getBoundingClientRect(), m = svg.getScreenCTM();
+  if (!m || !r.width) return;
+  const card = narrow.matches ? 0 : callout.offsetWidth + 64;
+  const q0 = new DOMPoint(b[0], b[1]).matrixTransform(m), q1 = new DOMPoint(b[0] + b[2], b[1] + b[3]).matrixTransform(m);
+  const size = Math.max(q1.x - q0.x, q1.y - q0.y);
+  const inView = q0.x - r.left >= 16 && q0.y - r.top >= 16 && r.bottom - q1.y >= 16 && r.right - q1.x >= 16 + card;
+  if (!force && size >= 110 && inView) return;
+  const fitW = Math.min(r.width, r.height * BASE.w / BASE.h);                       // the dimension that sets the scale under "meet"
+  let w = size < 110 ? fitW * Math.max(b[2], b[3]) / 180 : view.w;                 // small: zoom so it is ~180px; large: just pan
+  w = Math.min(Math.max(w, BASE.w / 16), BASE.w);
+  const h = w * BASE.h / BASE.w, k = fitW / w;
+  const cx = b[0] + b[2] / 2 + card / 2 / k, cy = b[1] + b[3] / 2;                  // shift west so the card fits east
+  animateTo({ x: cx - w / 2, y: cy - h / 2, w });
 }
 const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
 
@@ -857,14 +904,14 @@ function renderCallout() {
     const p = byId[sel], [prev, next] = stepPrefs();
     callout.setAttribute('aria-label', `${p.en}, selected prefecture`);
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(p.ja)}</h2>
-        <span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)}</span>
+        <span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></span>
         <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div></div>
       <p class="co-tag">${esc(p.tag)}</p>
       <dl class="co-facts">
         <div><dt>Capital</dt><dd>${esc(p.cap)}<small lang="ja">${esc(p.capJa)}</small></dd></div>
         <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47</small></dd></div>
         <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
-        <div><dt>Density</dt><dd>${fmt(p.density)} /km²<small>#${p.densityRank} of 47</small></dd></div>
+        <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
       </dl>
       <div class="co-foot">
         <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
@@ -895,7 +942,9 @@ function positionCallout() {
   const wrap = $('#mapwrap').getBoundingClientRect(), m = svg.getScreenCTM(), sv = svg.getBoundingClientRect();
   if (!m || !wrap.width) return hide();
   const px = (x, y) => { const q = new DOMPoint(x, y).matrixTransform(m); return [q.x - wrap.left, q.y - wrap.top]; };
-  const pt = cardView === 'pref' ? SHAPES.shapes[sel].l : [box[0] + box[2] / 2, box[1] + box[3] / 2];
+  const regionPts = cardView === 'region' ? PREFS.filter(q => q.region === exploreRegion).map(q => SHAPES.shapes[q.id].l) : null;
+  const pt = regionPts ? [regionPts.reduce((n, l) => n + l[0], 0) / regionPts.length, regionPts.reduce((n, l) => n + l[1], 0) / regionPts.length]   // the middle of the region's land, not its bounding box
+    : SHAPES.shapes[sel].l;
   const [ax, ay] = px(pt[0], pt[1]), [x0, y0] = px(box[0], box[1]), [x1] = px(box[0] + box[2], box[1] + box[3]);
   const top = sv.top - wrap.top, bottom = sv.bottom - wrap.top;
   let ex, ey;
@@ -947,7 +996,7 @@ function renderExplore() {
       <div class="seal" title="Prefecture code JP-${p.id} (ISO 3166-2)" aria-label="Prefecture code JP-${p.id}"><small>JP</small><span>${p.id}</span></div>
       <div class="pf-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
       <div class="chips">
-        <span class="chip"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} region</span>
+        <span class="chip"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></span>
         <span class="chip"><span lang="ja">${suf.ja}</span>&nbsp;${esc(suf.en)}</span>
       </div>
     </header>
@@ -956,7 +1005,7 @@ function renderExplore() {
       <div class="wide"><dt>Capital</dt><dd>${esc(p.cap)} <span class="muted" style="font-weight:400" lang="ja">${esc(p.capJa)}</span></dd></div>
       <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47 · <span class="${chg < 0 ? 'down' : 'up'}">${chg > 0 ? '+' : '−'}${Math.abs(chg).toFixed(1)}%</span> since 2020</small></dd></div>
       <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
-      <div><dt>Density</dt><dd>${fmt(p.density)} /km²<small>#${p.densityRank} of 47</small></dd></div>
+      <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
       <div><dt>Share of Japan</dt><dd>${(p.pop / TOTAL_POP * 100).toFixed(1)}%<small>of ${fmt(TOTAL_POP)} people</small></dd></div>
     </dl>
     <div class="ages">
@@ -988,7 +1037,7 @@ function renderExplore() {
 
 /* ================= quiz ================= */
 const QTYPES = {
-  find: { title: 'Find it', desc: 'We name a prefecture, you click it on the map.' },
+  find: { title: 'Find it', desc: 'We name a prefecture; you find it on the map.' },
   name: { title: 'Name it', desc: 'A prefecture lights up. Pick or type its name.' },
   all: { title: 'Name them all', desc: 'Type every prefecture you can remember. The clock shows how long you take.' }
 };
@@ -1023,6 +1072,15 @@ function nextQuestion() {
   renderQuiz(); paint();
   announce(Q.type === 'find' ? `Find ${byId[Q.current].en}.` : `Question ${Q.idx + 1} of ${Q.pool.length}. Which prefecture is circled on the map?`);
   if (Q.type === 'name' && Q.answer === 'type') $('#answer') && $('#answer').focus();
+}
+function suggestFix(text, id, accept) {
+  feedback(text, 'bad');
+  const f = $('#feedback'); if (!f) return;
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'btn small suggest';
+  b.innerHTML = `Yes, ${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span>`;
+  b.onclick = accept;
+  f.append(' ', b);
 }
 function feedback(msg, cls) { Q.feedback = msg; Q.fbClass = cls || ''; const f = $('#feedback'); if (f) { f.textContent = msg; f.className = 'feedback ' + Q.fbClass; } }
 function flash(id) { Q.flash = id; paint(); setTimeout(() => { if (Q && Q.flash === id) { Q.flash = null; paint(); } }, 650); }
@@ -1086,11 +1144,16 @@ function allInput(val, submitted) {
   if (!submitted || !val.trim()) return;
   if (id && Q.status[id]) feedback(`You already found ${byId[id].en}.`, '');
   else if (id) feedback(`${byId[id].en} is not in ${scopeLabel(Q.scopeKey)}.`, 'bad');
-  else feedback(`No prefecture called “${val.trim()}”. Check the spelling.`, 'bad');
+  else {
+    const near = nearName(val);
+    if (near && Q.scope.has(near) && !Q.status[near]) suggestFix(`No prefecture called “${val.trim()}”. Did you mean ${byId[near].en}?`, near, () => { $('#answer').value = ''; allInput(byId[near].en, true); $('#answer').focus(); });
+    else feedback(`No prefecture called “${val.trim()}”. Check the spelling, or type it in kanji or kana.`, 'bad');
+  }
 }
 function giveUp() {
   if (!Q || Q.phase !== 'running') return;
   [...Q.scope].forEach(id => { if (!Q.status[id]) { Q.status[id] = 'missed'; Q.misses.push(id); } });
+  Q.gaveUp = true;
   finishQuiz();
 }
 function finishQuiz() {
@@ -1099,7 +1162,7 @@ function finishQuiz() {
   const total = Q.type === 'all' ? Q.scope.size : Q.pool.length;
   const correct = Q.type === 'all' ? Object.values(Q.status).filter(s => s === 'found').length : Q.firstTry;
   Q.result = { correct, total, pct: Math.round(correct / total * 100), ms: Q.t1 - Q.t0 };
-  if (!Q.practice) {
+  if (!Q.practice && !Q.gaveUp) {                 // a round that was given up never becomes a best score
     const k = bestKey(Q.type, Q.scopeKey, Q.answer), prev = store.get(k, null), r = Q.result;
     if (!prev || r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) store.set(k, { pct: r.pct, ms: r.ms });
     Q.result.prevBest = prev;
@@ -1118,7 +1181,7 @@ function renderRegionsLeft() {
   el.innerHTML = REGIONS.filter(r => PREFS.some(p => p.region === r.key && Q.scope.has(p.id))).map(r => {
     const ids = PREFS.filter(p => p.region === r.key && Q.scope.has(p.id)).map(p => p.id);
     const got = ids.filter(id => Q.status[id] === 'found').length;
-    return `<div class="${got === ids.length ? 'done' : ''}"><span>${esc(r.key)}</span><span>${got}/${ids.length}</span></div>`;
+    return `<div class="${got === ids.length ? 'done' : ''}"><span>${esc(r.key)} <span lang="ja">${esc(r.ja)}</span></span><span>${got}/${ids.length}</span></div>`;
   }).join('');
 }
 
@@ -1132,7 +1195,7 @@ function quizSetupHTML() {
     </fieldset>
     <div class="field">
       <label for="scope">Region</label>
-      <select id="scope"><option value="all"${setup.scope === 'all' ? ' selected' : ''}>All Japan (47)</option>${REGIONS.map(r => `<option value="${esc(r.key)}"${setup.scope === r.key ? ' selected' : ''}>${esc(r.key)} (${scopeIds(r.key).length})</option>`).join('')}</select>
+      <select id="scope"><option value="all"${setup.scope === 'all' ? ' selected' : ''}>All Japan (47)</option>${REGIONS.map(r => `<option value="${esc(r.key)}"${setup.scope === r.key ? ' selected' : ''}>${esc(r.key)} ${esc(r.ja)} (${scopeIds(r.key).length})</option>`).join('')}</select>
     </div>
     ${setup.type === 'name' ? `<div class="field"><span class="lbl">Answer by</span><div class="seg" role="group" aria-label="Answer by">
       <button type="button" data-answer="choice" aria-pressed="${setup.answer === 'choice'}">Multiple choice</button>
@@ -1160,7 +1223,7 @@ function quizRunHTML() {
            <div class="row"><button type="button" class="btn ghost small" id="skip">I don't know</button></div>`}
       <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>`;
   } else {
-    body = `<form class="typein" id="typein" autocomplete="off"><input id="answer" aria-label="Prefecture name" placeholder="Type a prefecture…" autocapitalize="off" spellcheck="false"><button class="btn" type="submit">Enter</button></form>
+    body = `<form class="typein" id="typein" autocomplete="off"><input id="answer" aria-label="Prefecture name" placeholder="Type a prefecture…" autocapitalize="off" spellcheck="false"><button class="btn" type="submit">Add</button></form>
       <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>
       <div class="regions-left" id="regions-left"></div>
       <div class="row"><button type="button" class="btn" id="giveup">Give up &amp; show the rest</button></div>`;
@@ -1177,16 +1240,19 @@ function quizRunHTML() {
 }
 function quizDoneHTML() {
   const r = Q.result, perfect = r.correct === r.total;
+  const stamp = perfect && (r.total >= 7 || Q.type === 'all' || Q.answer === 'type');   // the hanko is kept for rounds that took real recall
+  const seen = new Set(Object.values(Q.status));
+  const key = [seen.has('found') && 'green is right first time', seen.has('late') && 'yellow is found after a miss', seen.has('missed') && 'red hatching is missed'].filter(Boolean).join(', ');
   const missed = [...new Set(Q.misses)];
   const missGroups = REGIONS.map(g => [g, missed.filter(id => byId[id].region === g.key)]).filter(([, ids]) => ids.length)
-    .map(([g, ids]) => `<div class="missgroup"><span>${esc(g.key)} · ${ids.length}</span><div class="misslist">${ids.map(id => `<button type="button" data-open="${id}">${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span></button>`).join('')}</div></div>`).join('');
+    .map(([g, ids]) => `<div class="missgroup"><span>${esc(g.key)} <span lang="ja">${esc(g.ja)}</span> · ${ids.length}</span><div class="misslist">${ids.map(id => `<button type="button" data-open="${id}">${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span></button>`).join('')}</div></div>`).join('');
   const missBtns = missed.length ? `<div class="missgroups">${missGroups}</div>` : '';
   const prev = r.prevBest;
-  let bestLine = Q.practice ? 'Practice round — not counted for best scores.' : (!prev ? 'First score saved for this game.' : (r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) ? `New best! Previous: ${prev.pct}% in ${mmss(prev.ms)}.` : `Best so far: ${prev.pct}% in ${mmss(prev.ms)}.`);
+  let bestLine = Q.gaveUp ? 'Given up, so this round is not saved as a best score. The misses below are a good place to start.' : Q.practice ? 'Practice round — not counted for best scores.' : (!prev ? 'First score saved for this game.' : (r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) ? `New best! Previous: ${prev.pct}% in ${mmss(prev.ms)}.` : `Best so far: ${prev.pct}% in ${mmss(prev.ms)}.`);
   return `<div class="panel-inner">
     <div class="result">
-      <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div><p class="context">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</p></div>
-      ${perfect ? `<div class="hanko-wrap"><div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div><span>Perfect score</span></div>` : ''}
+      <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${perfect && !stamp ? 'A perfect round · ' : ''}${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div><p class="context">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</p></div>
+      ${stamp ? `<div class="hanko-wrap"><div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div><span>Perfect score</span></div>` : ''}
     </div>
     <p class="muted" style="margin:0">${esc(bestLine)}</p>
     <div class="row">
@@ -1195,9 +1261,9 @@ function quizDoneHTML() {
       <button type="button" class="btn ghost" id="settings">Change game</button>
     </div>
     ${!missBtns ? '' : missed.length > 12
-      ? `<details class="field misses"><summary>Review the ${missed.length} misses</summary>${missBtns}</details>`
-      : `<div class="field"><span class="lbl">To review: choose one to read about it</span>${missBtns}</div>`}
-    <p class="note">Every name is now on the map. Green: right first time${Q.type === 'find' ? ' · yellow: found after a miss' : ''} · red hatching: missed.</p>
+      ? `<details class="field misses"><summary>Review the ${missed.length} misses: choose a name to read about it</summary>${missBtns}</details>`
+      : `<div class="field"><span class="lbl">Choose a name to read about it</span>${missBtns}</div>`}
+    ${key ? `<p class="note">On the map, ${key}.</p>` : ''}
   </div>`;
 }
 /* destructive quiz exits ask once, inline: the first click arms the button for 3 seconds */
@@ -1228,7 +1294,7 @@ function renderQuizPanel() {
   }
   if (Q.phase === 'running') {
     panel.innerHTML = quizRunHTML();
-    twoStep($('#quit'), 'Quit? Click again', () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); }, () => Object.keys(Q.status).length > 0);
+    twoStep($('#quit'), 'Quit? Press again', () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); }, () => Object.keys(Q.status).length > 0);
     if (Q.type === 'find') $('#skip').onclick = () => { if (Q.locked) return; Q.tries = 2; const t = byId[Q.current]; Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true; feedback(`${t.en} is the one circled.`, 'bad'); paint(); updateProgress(); setTimeout(nextQuestion, 1700); };
     if (Q.type === 'name') {
       if (Q.answer === 'choice') panel.querySelectorAll('#answers button').forEach(b => b.onclick = () => nameAnswer(b.dataset.id));
@@ -1237,7 +1303,12 @@ function renderQuizPanel() {
           e.preventDefault();
           const v = $('#answer').value; if (!v.trim()) return;
           const id = matchName(v);
-          if (!id) { feedback(`“${v.trim()}” isn't a prefecture name. Check the spelling and try again.`, 'bad'); return; }   // a typo is not a wrong answer
+          if (!id) {                                                             // a typo is not a wrong answer
+            const near = nearName(v);
+            if (near) suggestFix(`“${v.trim()}” isn't a prefecture name. Did you mean ${byId[near].en}?`, near, () => nameAnswer(near));
+            else feedback(`“${v.trim()}” isn't a prefecture name. Check the spelling, or type it in kanji or kana.`, 'bad');
+            return;
+          }
           nameAnswer(id);
         };
         $('#skip').onclick = () => nameAnswer(null);
@@ -1247,7 +1318,7 @@ function renderQuizPanel() {
       const inp = $('#answer');
       inp.oninput = () => allInput(inp.value, false);
       $('#typein').onsubmit = e => { e.preventDefault(); allInput(inp.value, true); };
-      twoStep($('#giveup'), 'End the round? Click again', giveUp);
+      twoStep($('#giveup'), 'End the round? Press again', giveUp);
       renderRegionsLeft();
       inp.focus({ preventScroll: true });
     }

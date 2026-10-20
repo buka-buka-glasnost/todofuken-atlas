@@ -30,6 +30,18 @@ colors:
   region-chugoku: "#f4b582"
   region-shikoku: "#9dd3a5"
   region-kyushu: "#eca394"
+  dark-ground: "#0b1118"
+  dark-surface: "#121a24"
+  dark-sea: "#0f1824"
+  dark-graticule: "#1d2b3b"
+  dark-land: "#283345"
+  dark-edge: "#7a8ca6"
+  dark-ink: "#e6ebf1"
+  dark-muted: "#9aa6b5"
+  dark-rule: "#243142"
+  dark-ai: "#8fb1f0"
+  dark-ai-soft: "#1b2a44"
+  dark-shu: "#ff7b5a"
 typography:
   display:
     fontFamily: "Shippori Mincho B1, Hiragino Mincho ProN, Yu Mincho, Noto Serif JP, serif"
