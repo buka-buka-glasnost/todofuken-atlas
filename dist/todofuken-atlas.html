@@ -66,6 +66,7 @@ html, body { height: 100%; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
 button, select, input { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 .app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding-inline: 16px; padding-block: 12px 16px; box-sizing: border-box; }
 
@@ -100,6 +101,9 @@ button, select, input { font: inherit; color: inherit; }
 #map .inset-cap { fill: var(--muted); font-size: 13px; font-family: var(--f-body); letter-spacing: .03em; }
 #map .pref { cursor: pointer; transition: opacity 200ms ease; }
 #map .shape { fill: var(--land); stroke: var(--edge); stroke-width: .7px; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill 200ms ease; }
+#map .pref:focus { outline: none; }
+/* keyboard focus is drawn as an outline path above every prefecture, so neighbours never cover it */
+#map .focus-ring { fill: none; stroke: var(--ai); stroke-width: 3px; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
 #map .hit { fill: none; stroke: transparent; stroke-width: 14px; vector-effect: non-scaling-stroke; pointer-events: stroke; }
 @media (hover: hover) and (pointer: fine) {
   #map:not(.panning) .pref:hover { filter: var(--hover); }
@@ -160,6 +164,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .btn.primary { background: var(--ai); color: var(--ai-ink); border-color: var(--ai); font-weight: 700; }
 .btn.ghost { border-color: transparent; background: none; color: var(--muted); }
 .btn.small { padding: 4px 10px; font-size: 13px; }
+.btn.confirm { border-color: var(--bad); color: var(--bad); font-weight: 700; }
 .row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 .muted { color: var(--muted); }
 .note { font-size: 12px; color: var(--muted); line-height: 1.5; }
@@ -311,7 +316,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   </header>
   <main class="layout" id="layout">
     <section class="mapwrap" id="mapwrap" aria-label="Map">
-      <svg id="map" class="m-explore" role="img" aria-label="Map of Japan's 47 prefectures. Click a prefecture to select it." preserveAspectRatio="xMidYMid meet"></svg>
+      <svg id="map" class="m-explore" role="group" aria-label="Map of Japan's 47 prefectures. Use the arrow keys to move between prefectures and Enter to choose one." preserveAspectRatio="xMidYMid meet"></svg>
       <div class="map-tools">
         <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
           <span class="tool-label">Names</span>
@@ -328,8 +333,9 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
       </div>
       <div class="legend" id="legend" aria-label="Regions"></div>
       <div class="tip" id="tip" hidden></div>
+      <div class="sr-only" id="announce" aria-live="polite"></div>
     </section>
-    <aside class="panel" id="panel"></aside>
+    <aside class="panel" id="panel" tabindex="-1"></aside>
   </main>
 </div>
 
@@ -1840,6 +1846,7 @@ mk('rect', { class: 'inset-box', x: ib.x, y: ib.y, width: ib.w, height: ib.h, rx
 mk('text', { class: 'inset-cap', x: ib.x + ib.w - 14, y: ib.y + ib.h - 14, 'text-anchor': 'end' }, svg).textContent = 'Okinawa & Amami Islands (inset)';
 const gPrefs = mk('g', { class: 'prefs' }, svg);
 const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
+const focusRing = mk('path', { class: 'focus-ring', d: '' }, svg);
 const gLabels = mk('g', { class: 'labels' }, svg);
 const prefEl = {}, labelEl = {};
 PREFS.forEach(p => {
@@ -1847,6 +1854,7 @@ PREFS.forEach(p => {
   const g = mk('g', { class: 'pref', 'data-id': p.id, 'data-r': p.slug }, gPrefs);
   mk('path', { class: 'shape', d: (s.d || '') + (s.di || '') }, g);
   if (s.di) mk('path', { class: 'hit', d: s.di }, g);
+  g.setAttribute('tabindex', '-1'); g.setAttribute('role', 'button');
   prefEl[p.id] = g;
   const t = mk('text', { class: 'lab', x: s.l[0], y: s.l[1] }, gLabels);
   labelEl[p.id] = t;
@@ -2032,6 +2040,9 @@ function paint() {
       if (Q.flash === p.id) cls.push('flash');
     }
     prefEl[p.id].setAttribute('class', cls.join(' '));
+    const named = !quiz || !Q || Q.phase === 'done' || Q.status[p.id];
+    prefEl[p.id].setAttribute('aria-label', named ? `${p.en} ${p.ja}` : 'Unnamed prefecture');
+    prefEl[p.id].toggleAttribute('aria-current', !quiz && p.id === sel);
     labelEl[p.id].classList.toggle('on', labOn);
   });
   if (ringAt) {
@@ -2039,7 +2050,58 @@ function paint() {
     ring.setAttribute('cx', l[0]); ring.setAttribute('cy', l[1]);
     ring.classList.toggle('pulse', ringPulse);
   } else { ring.setAttribute('cx', -999); ring.setAttribute('cy', -999); }
+  updateRoving();
   scheduleCull();
+}
+
+/* ---- keyboard: one prefecture is in the tab order; arrow keys move to the nearest neighbour that way ---- */
+let focusId = null;
+const usable = id => id && !prefEl[id].classList.contains('dim');
+function updateRoving() {
+  if (!usable(focusId)) focusId = mode === 'explore' ? sel : PREFS.map(p => p.id).find(usable);
+  PREFS.forEach(p => prefEl[p.id].setAttribute('tabindex', p.id === focusId ? '0' : '-1'));
+}
+function neighbour(id, dx, dy) {
+  const [x0, y0] = SHAPES.shapes[id].l;
+  let best = null, bestScore = Infinity;
+  PREFS.forEach(p => {
+    if (p.id === id || !usable(p.id)) return;
+    const [x, y] = SHAPES.shapes[p.id].l;
+    const along = (x - x0) * dx + (y - y0) * dy;
+    if (along <= 0) return;
+    const score = along + 2 * Math.abs((x - x0) * dy - (y - y0) * dx);   // prefer straight ahead over sideways
+    if (score < bestScore) { bestScore = score; best = p.id; }
+  });
+  return best;
+}
+svg.addEventListener('keydown', e => {
+  const g = e.target.closest && e.target.closest('.pref');
+  if (!g) return;
+  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onMapClick(g.dataset.id); return; }
+  const d = { ArrowRight: [1, 0], ArrowLeft: [-1, 0], ArrowDown: [0, 1], ArrowUp: [0, -1] }[e.key];
+  if (!d) return;
+  e.preventDefault();
+  const next = neighbour(g.dataset.id, d[0], d[1]);
+  if (next) { focusId = next; updateRoving(); prefEl[next].focus(); }
+});
+svg.addEventListener('focusin', e => {
+  const g = e.target.closest && e.target.closest('.pref');
+  if (!g) return;
+  focusId = g.dataset.id; updateRoving();
+  if (!g.matches(':focus-visible')) return;                 // mouse clicks focus too; only draw the ring for keyboard
+  const sh = SHAPES.shapes[focusId];
+  focusRing.setAttribute('d', (sh.d || '') + (sh.di || ''));
+});
+svg.addEventListener('focusout', () => focusRing.setAttribute('d', ''));
+
+/* ---- screen reader announcements and focus that survives panel re-renders ---- */
+function announce(text) { const a = $('#announce'); a.textContent = ''; setTimeout(() => { a.textContent = text; }, 50); }   // clear first so a repeated message is read again
+function rememberFocus() {
+  const a = document.activeElement;
+  if (!a || a === panel || !panel.contains(a)) return () => {};
+  const key = a.id ? '#' + a.id : a.dataset.tab ? `[data-tab="${a.dataset.tab}"]` : a.dataset.answer ? `[data-answer="${a.dataset.answer}"]`
+    : a.name ? `[name="${a.name}"][value="${a.value}"]` : null;
+  return () => { const t = key && panel.querySelector(key); (t || panel).focus({ preventScroll: true }); };
 }
 
 function onMapClick(id) {
@@ -2073,8 +2135,12 @@ function renderLegend() {
 const panel = $('#panel');
 function selectPref(id, opts = {}) {
   sel = id; store.set('sel', id);
-  gPrefs.appendChild(prefEl[id]);              // draw selected border on top
+  const hadFocus = document.activeElement === prefEl[id];
+  gPrefs.appendChild(prefEl[id]);              // draw selected border on top (moving it drops focus, so restore it)
+  if (hadFocus) prefEl[id].focus({ preventScroll: true });
   paint(); renderExplore();
+  const p = byId[id];
+  announce(`${p.en} ${p.ja}, ${p.region}. Capital: ${p.cap}.`);
   if (opts.zoom) fitBox(SHAPES.shapes[id].b, 0.9);
 }
 const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
@@ -2094,6 +2160,7 @@ function tabBody(p) {
 }
 function renderExplore() {
   if (mode !== 'explore') return;
+  const restore = rememberFocus();
   const p = byId[sel], i = PREFS.indexOf(p);
   const prev = PREFS[(i + 46) % 47], next = PREFS[(i + 1) % 47];
   const suf = SUFFIX[p.suf];
@@ -2131,15 +2198,24 @@ function renderExplore() {
       <div class="agekey"><span>Under 15 <b>${p.u15}%</b></span><span>15–64 <b>${mid}%</b></span><span>65+ <b>${p.o65}%</b></span><span>Marker: Japan's 65+ share, ${NATIONAL.o65}%</span></div>
     </div>
     <div>
-      <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" data-tab="${k}" aria-selected="${tab === k}">${l}</button>`).join('')}</div>
+      <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-controls="tabpanel" aria-selected="${tab === k}" tabindex="${tab === k ? 0 : -1}">${l}</button>`).join('')}</div>
     </div>
-    <div class="tabpanel" role="tabpanel">${tabBody(p)}</div>
+    <div class="tabpanel" role="tabpanel" id="tabpanel" aria-labelledby="tab-${tab}">${tabBody(p)}</div>
     <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.</p>
   </div>`;
   $('#prev').onclick = () => selectPref(prev.id);
   $('#next').onclick = () => selectPref(next.id);
   $('#pick').onchange = e => selectPref(e.target.value, { zoom: true });
   panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; store.set('tab', tab); renderExplore(); });
+  panel.querySelector('[role="tablist"]').onkeydown = e => {
+    const i = TABS.findIndex(t => t[0] === tab), n = TABS.length;
+    const j = { ArrowRight: (i + 1) % n, ArrowLeft: (i + n - 1) % n, Home: 0, End: n - 1 }[e.key];
+    if (j === undefined) return;
+    e.preventDefault();
+    tab = TABS[j][0]; store.set('tab', tab); renderExplore();
+    panel.querySelector(`[data-tab="${tab}"]`).focus();
+  };
+  restore();
 }
 
 /* ================= quiz ================= */
@@ -2155,7 +2231,7 @@ const mmss = ms => { const s = Math.floor(ms / 1000); return `${Math.floor(s / 6
 let timer = 0;
 
 function startQuiz(opts = {}) {
-  const ids = scopeIds(setup.scope);
+  const ids = opts.pool ? [...opts.pool] : scopeIds(setup.scope);   // practice rounds play only the misses
   Q = {
     type: setup.type, answer: setup.answer, scopeKey: setup.scope,
     scope: new Set(ids), pool: opts.pool ? shuffle(opts.pool) : shuffle(ids), practice: !!opts.pool,
@@ -2177,6 +2253,7 @@ function nextQuestion() {
   }
   Q.feedback = ''; Q.fbClass = '';
   renderQuiz(); paint();
+  announce(Q.type === 'find' ? `Find ${byId[Q.current].en}.` : `Question ${Q.idx + 1} of ${Q.pool.length}. Which prefecture is highlighted?`);
   if (Q.type === 'name' && Q.answer === 'type') $('#answer') && $('#answer').focus();
 }
 function feedback(msg, cls) { Q.feedback = msg; Q.fbClass = cls || ''; const f = $('#feedback'); if (f) { f.textContent = msg; f.className = 'feedback ' + Q.fbClass; } }
@@ -2215,7 +2292,7 @@ function nameAnswer(id) {
     feedback(`Correct: ${target.en} ${target.ja}.`, 'ok');
   } else {
     Q.status[Q.current] = 'missed'; Q.misses.push(Q.current);
-    feedback(id ? `No, that's ${target.en} ${target.ja}.` : `It was ${target.en} ${target.ja}.`, 'bad');
+    feedback(id ? `Not quite. It's ${target.en} ${target.ja}.` : `It was ${target.en} ${target.ja}.`, 'bad');
   }
   if (Q.answer === 'choice') {
     document.querySelectorAll('#answers button').forEach(b => {
@@ -2271,7 +2348,7 @@ function updateProgress() {
 function renderRegionsLeft() {
   const el = $('#regions-left'); if (!el) return;
   el.innerHTML = REGIONS.filter(r => PREFS.some(p => p.region === r.key && Q.scope.has(p.id))).map(r => {
-    const ids = PREFS.filter(p => p.region === r.key).map(p => p.id);
+    const ids = PREFS.filter(p => p.region === r.key && Q.scope.has(p.id)).map(p => p.id);
     const got = ids.filter(id => Q.status[id] === 'found').length;
     return `<div class="${got === ids.length ? 'done' : ''}"><span>${esc(r.key)}</span><span>${got}/${ids.length}</span></div>`;
   }).join('');
@@ -2339,7 +2416,7 @@ function quizDoneHTML() {
     <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
     <div class="result">
       <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div></div>
-      ${perfect ? `<div class="hanko" lang="ja" aria-label="Perfect">全問<br>正解</div>` : ''}
+      ${perfect ? `<div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div>` : ''}
     </div>
     <p class="muted" style="margin:0">${esc(bestLine)}</p>
     ${missBtns ? `<div class="field"><span class="lbl">To review — tap to read about it</span><div class="misslist">${missBtns}</div></div>` : ''}
@@ -2351,7 +2428,22 @@ function quizDoneHTML() {
     <p class="note">Hover the map to see names. Green: right first time${Q.type === 'find' ? ' · yellow: found after a miss' : ''} · red: missed.</p>
   </div>`;
 }
+/* destructive quiz exits ask once, inline: the first click arms the button for 3 seconds */
+function twoStep(btn, ask, act, needed = () => true) {
+  let armed = 0;
+  const label = btn.textContent;
+  btn.onclick = () => {
+    if (armed || !needed()) { clearTimeout(armed); act(); return; }
+    btn.textContent = ask; btn.classList.add('confirm');
+    armed = setTimeout(() => { armed = 0; btn.textContent = label; btn.classList.remove('confirm'); }, 3000);
+  };
+}
 function renderQuiz() {
+  const restore = rememberFocus();
+  renderQuizPanel();
+  restore();
+}
+function renderQuizPanel() {
   if (mode !== 'quiz') return;
   $('#layout').classList.toggle('quiz-live', !!(Q && Q.phase === 'running'));
   if (!Q) {
@@ -2364,12 +2456,18 @@ function renderQuiz() {
   }
   if (Q.phase === 'running') {
     panel.innerHTML = quizRunHTML();
-    $('#quit').onclick = () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); };
+    twoStep($('#quit'), 'Quit? Click again', () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); }, () => Object.keys(Q.status).length > 0);
     if (Q.type === 'find') $('#skip').onclick = () => { if (Q.locked) return; Q.tries = 2; const t = byId[Q.current]; Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true; feedback(`${t.en} is the one circled.`, 'bad'); paint(); updateProgress(); setTimeout(nextQuestion, 1700); };
     if (Q.type === 'name') {
       if (Q.answer === 'choice') panel.querySelectorAll('#answers button').forEach(b => b.onclick = () => nameAnswer(b.dataset.id));
       else {
-        $('#typein').onsubmit = e => { e.preventDefault(); const v = $('#answer').value; if (!v.trim()) return; nameAnswer(matchName(v) || '?'); };
+        $('#typein').onsubmit = e => {
+          e.preventDefault();
+          const v = $('#answer').value; if (!v.trim()) return;
+          const id = matchName(v);
+          if (!id) { feedback(`“${v.trim()}” isn't a prefecture name. Check the spelling and try again.`, 'bad'); return; }   // a typo is not a wrong answer
+          nameAnswer(id);
+        };
         $('#skip').onclick = () => nameAnswer(null);
       }
     }
@@ -2377,7 +2475,7 @@ function renderQuiz() {
       const inp = $('#answer');
       inp.oninput = () => allInput(inp.value, false);
       $('#typein').onsubmit = e => { e.preventDefault(); allInput(inp.value, true); };
-      $('#giveup').onclick = giveUp;
+      twoStep($('#giveup'), 'End the round? Click again', giveUp);
       renderRegionsLeft();
       inp.focus({ preventScroll: true });
     }
