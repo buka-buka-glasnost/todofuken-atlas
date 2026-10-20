@@ -14,7 +14,7 @@
   --sea: #d3dfe7;
   --grat: #b9c9d5;      /* graticule lines */
   --land: #f8f7f2;      /* neutral land for quizzes */
-  --edge: #87949f;      /* prefecture borders */
+  --edge: #75828e;      /* prefecture borders, 3:1 on --land */
   --ink: #1b2230;       /* sumi with an indigo bias */
   --muted: #5a6474;
   --rule: #d2dae0;
@@ -24,11 +24,11 @@
   --shu: #cc4a2c;       /* 朱 vermilion — selection and seals */
   --halo: #fbfcfc;
   --ok: #26754a; --bad: #b5372a;
-  --ok-fill: #a5d6b5; --late-fill: #f0d48e; --bad-fill: #eea79c;
+  --ok-fill: #a5d6b5; --late-fill: #f0d48e; --bad-fill: #dc7a68;
   --hover: brightness(.92);
   --r-hokkaido: #9dd1c5; --r-tohoku: #c8db8b; --r-kanto: #f2cd74; --r-chubu: #c0b4eb;
   --r-kansai: #f3b6c6; --r-chugoku: #f4b582; --r-shikoku: #9dd3a5; --r-kyushu: #eca394;
-  --sep: #ffffff;       /* prefecture borders on the coloured explore map */
+  --sep: #6c7884;       /* prefecture borders on the coloured explore map */
 
   --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
   --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif;
@@ -38,10 +38,10 @@
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #5a6a80;
+    --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #7a8ca6;
     --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
     --shu: #ff7b5a; --halo: #121a24;
-    --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #7a3731;
+    --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #b04e43;
     --hover: brightness(1.25);
     --r-hokkaido: #3f8f87; --r-tohoku: #7f9a43; --r-kanto: #b8923a; --r-chubu: #7568b5;
     --r-kansai: #b0587a; --r-chugoku: #bb7443; --r-shikoku: #4a9660; --r-kyushu: #b15f55;
@@ -50,10 +50,10 @@
   }
 }
 :root[data-theme="dark"] {
-  --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #5a6a80;
+  --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #7a8ca6;
   --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
   --shu: #ff7b5a; --halo: #121a24;
-  --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #7a3731;
+  --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #b04e43;
   --hover: brightness(1.25);
   --r-hokkaido: #3f8f87; --r-tohoku: #7f9a43; --r-kanto: #b8923a; --r-chubu: #7568b5;
   --r-kansai: #b0587a; --r-chugoku: #bb7443; --r-shikoku: #4a9660; --r-kyushu: #b15f55;
@@ -96,7 +96,7 @@ button, select, input { font: inherit; color: inherit; }
 .layout.explore { grid-template-columns: minmax(0, 1fr); overflow: hidden; }   /* the closed drawer waits off-canvas without widening the page */
 .layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: 0 18px 48px rgb(15 23 42 / .22); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 300ms var(--ease-out), visibility 0s 300ms; }
 .layout.explore.drawer-open .panel { transform: none; visibility: visible; transition: transform 300ms var(--ease-out); }
-.drawer-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: -6px 0 -4px; }
+.drawer-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: -6px 0 -4px; }
 
 /* ---------- callout: the selected prefecture speaks from where it lies ---------- */
 .callout { position: absolute; z-index: 4; left: 0; top: 0; width: 320px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; box-shadow: 0 12px 32px rgb(15 23 42 / .16); }
@@ -139,7 +139,7 @@ button, select, input { font: inherit; color: inherit; }
   #map:not(.panning) .pref:hover { filter: var(--hover); }
 }
 
-#map.m-explore .shape { stroke: var(--sep); stroke-width: 1px; }
+#map.m-explore .shape { stroke: var(--sep); stroke-width: .8px; }
 #map.m-explore .pref[data-r="hokkaido"] .shape { fill: var(--r-hokkaido); }
 #map.m-explore .pref[data-r="tohoku"] .shape { fill: var(--r-tohoku); }
 #map.m-explore .pref[data-r="kanto"] .shape { fill: var(--r-kanto); }
@@ -154,14 +154,16 @@ button, select, input { font: inherit; color: inherit; }
 #map .pref.dim { opacity: .28; pointer-events: none; }
 #map .pref.st-found .shape { fill: var(--ok-fill); }
 #map .pref.st-late .shape { fill: var(--late-fill); }
-#map .pref.st-missed .shape { fill: var(--bad-fill); }
+#map .pref.st-missed .shape { fill: url(#hatch-missed); }
+#map .hatch-bg { fill: var(--bad-fill); }
+#map .hatch-line { stroke: var(--bad); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
 #map .pref.target .shape { fill: var(--shu); stroke: var(--ink); stroke-width: 1.4px; }
 #map .pref.flash .shape { animation: flash .6s ease-out; }
 @keyframes flash { 0%, 40% { fill: var(--bad); } 100% { fill: var(--land); } }
 
 #map .ring { fill: none; stroke: var(--ink); stroke-width: 2.5px; vector-effect: non-scaling-stroke; pointer-events: none; }
 #map .ring.pulse { animation: ring 1.4s ease-in-out infinite; }
-@keyframes ring { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .25; } }
+@keyframes ring { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .6; } }
 
 #map .lab { display: none; fill: var(--ink); stroke: var(--halo); paint-order: stroke; stroke-linejoin: round; text-anchor: middle; dominant-baseline: central; font-family: var(--f-body); font-weight: 700; pointer-events: none; }
 #map.names .lab, #map .lab.on { display: block; }
@@ -183,6 +185,7 @@ button, select, input { font: inherit; color: inherit; }
 .legend button { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 7px; font-size: 12px; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .legend button[aria-pressed="true"] { border-color: var(--ai); background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .swatch { flex: none; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }
+.cull-hint { font-size: 12px; color: var(--muted); }
 .scale { margin-left: auto; font-size: 11px; color: var(--muted); display: grid; justify-items: start; gap: 2px; padding-left: 2px; font-variant-numeric: tabular-nums; pointer-events: none; }
 .scale-bar { height: 6px; border: 1.5px solid var(--ink); border-top: 0; }
 .tip { position: absolute; z-index: 3; pointer-events: none; background: var(--ink); color: var(--surface); padding: 4px 10px; border-radius: 6px; font-size: 13px; white-space: nowrap; }
@@ -209,8 +212,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .pf-kanji { font-family: var(--f-display); font-weight: 800; font-size: 46px; line-height: 1.05; margin: 0; letter-spacing: .04em; }
 .pf-name { grid-column: 1; font-size: 21px; font-weight: 700; line-height: 1.3; }
 .pf-name .kana { font-size: 14px; font-weight: 400; color: var(--muted); margin-left: 8px; }
-.seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: var(--shu); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
-.seal small { display: block; font-size: 9px; letter-spacing: .12em; }
+.seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: color-mix(in srgb, var(--shu) 85%, var(--ink)); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
+.seal small { display: block; font-size: 10px; letter-spacing: .12em; }
 .seal span { font-size: 20px; font-family: var(--f-display); }
 .chips { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
 .chip { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; border: 1px solid var(--rule); border-radius: 999px; padding: 2px 10px; }
@@ -225,7 +228,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .ages { display: grid; gap: 6px; }
 .agebar { display: flex; height: 14px; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); position: relative; }
 .agebar i { display: block; height: 100%; }
-.agebar .a1 { background: var(--r-shikoku); } .agebar .a2 { background: var(--sea); } .agebar .a3 { background: var(--r-chugoku); }
+.agebar .a1 { background: var(--r-shikoku); } .agebar .a2 { background: color-mix(in srgb, var(--muted) 40%, var(--surface)); } .agebar .a3 { background: var(--r-chugoku); }
 .agebar .nat { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
 .agekey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .agekey b { color: var(--ink); }
@@ -233,7 +236,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
 .tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--shu); font-weight: 700; }
 .tabpanel { display: grid; gap: 14px; }
-.tabpanel h3 { margin: 0; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tabpanel h2 { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .tabpanel p { margin: 0; }
 .items { list-style: none; margin: 0; padding: 0; display: grid; }
 .items li { padding: 10px 0; border-bottom: 1px solid var(--rule); display: grid; gap: 2px; }
@@ -291,6 +294,12 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 /* a perfect score is rare, so the hanko gets a moment: it is pressed onto the page */
 @keyframes stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.35); } }
 .misslist { display: flex; flex-wrap: wrap; gap: 6px; }
+.missgroups { display: grid; gap: 10px; }
+.missgroup { display: grid; gap: 6px; }
+.missgroup > span { font-size: 12px; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
+.misses summary { cursor: pointer; font-weight: 700; color: var(--ai); padding: 4px 0; }
+.hanko-wrap { display: grid; justify-items: center; gap: 6px; }
+.hanko-wrap span { font-size: 12px; color: var(--muted); }
 .misslist button { border: 1px solid var(--bad-fill); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
 
 /* ---------- interaction feedback ---------- */
@@ -310,6 +319,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .modes button { transition: color 200ms ease, transform 160ms var(--ease-out); }
 }
 .legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
+.legend-q i.missed { background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
 
 /* ---------- small screens ---------- */
@@ -368,6 +378,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
           <button type="button" id="names-romaji" aria-pressed="false">ABC</button>
           <button type="button" id="names-kanji" aria-pressed="false" lang="ja">漢字</button>
         </div>
+        <span class="cull-hint" id="cull-hint" hidden></span>
         <div class="tool-group" role="group" aria-label="Zoom">
           <button type="button" id="zoom-in" aria-label="Zoom in">+</button>
           <button type="button" id="zoom-out" aria-label="Zoom out">−</button>
@@ -1892,6 +1903,12 @@ mk('path', { class: 'grat', d: SHAPES.grat }, svg);
 const ib = SHAPES.inset;
 mk('rect', { class: 'inset-box', x: ib.x, y: ib.y, width: ib.w, height: ib.h, rx: 8 }, svg);
 mk('text', { class: 'inset-cap', x: ib.x + ib.w - 14, y: ib.y + ib.h - 14, 'text-anchor': 'end' }, svg).textContent = 'Okinawa & Amami Islands (inset)';
+{ // diagonal hatch for missed prefectures, sized to stay ~5px apart at full view
+  const defs = mk('defs', {}, svg), h = VW / 220;
+  const pat = mk('pattern', { id: 'hatch-missed', patternUnits: 'userSpaceOnUse', width: h, height: h, patternTransform: 'rotate(45)' }, defs);
+  mk('rect', { class: 'hatch-bg', width: h, height: h }, pat);
+  mk('line', { class: 'hatch-line', x1: 0, y1: 0, x2: 0, y2: h }, pat);
+}
 const gPrefs = mk('g', { class: 'prefs' }, svg);
 const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
 const focusRing = mk('path', { class: 'focus-ring', d: '' }, svg);
@@ -1947,7 +1964,7 @@ function cullLabels() {
   const shown = PREFS.filter(p => namesOn || labelEl[p.id].classList.contains('on'));
   PREFS.forEach(p => labelEl[p.id].classList.remove('cull'));
   const first = mode === 'explore' ? sel : (Q && Q.lastFound);
-  shown.sort((a, b) => ((b.id === first) - (a.id === first)) || (b.area - a.area));
+  shown.sort((a, b) => ((b.id === first) - (a.id === first)) || (b.pop - a.pop));   // the names learners look for first win
   const pad = 2 / pxPerUnit(), kept = [];
   for (const p of shown) {
     let bb; try { bb = labelEl[p.id].getBBox(); } catch (e) { continue; }
@@ -1955,6 +1972,9 @@ function cullLabels() {
     if (kept.some(k => r[0] < k[2] && r[2] > k[0] && r[1] < k[3] && r[3] > k[1])) labelEl[p.id].classList.add('cull');
     else kept.push(r);
   }
+  const hidden = namesOn ? shown.length - kept.length : 0, hint = $('#cull-hint');
+  hint.hidden = !hidden;
+  hint.textContent = hidden ? `${hidden} ${hidden === 1 ? 'name' : 'names'} hidden. Zoom in to see them.` : '';
 }
 let anim = 0;
 function animateTo(target) {
@@ -2200,11 +2220,11 @@ function itemList(rows, withJa) {
 }
 function tabBody(p) {
   if (tab === 'history') return `<p>${esc(p.history)}</p>`;
-  if (tab === 'sights') return `<h3>Landmarks &amp; monuments</h3>${itemList(p.sights, false)}`;
-  if (tab === 'food') return `<h3>Local food</h3>${itemList(p.food, true)}`;
-  if (tab === 'omiyage') return `<p class="muted">Omiyage (お土産) are the gifts people bring back from a trip for family and co-workers, usually something only sold in that region.</p><h3>Popular omiyage</h3>${itemList(p.omiyage, true)}`;
+  if (tab === 'sights') return `<h2>Landmarks &amp; monuments</h2>${itemList(p.sights, false)}`;
+  if (tab === 'food') return `<h2>Local food</h2>${itemList(p.food, true)}`;
+  if (tab === 'omiyage') return `<p class="muted">Omiyage (お土産) are the gifts people bring back from a trip for family and co-workers, usually something only sold in that region.</p><h2>Popular omiyage</h2>${itemList(p.omiyage, true)}`;
   const forecast = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${jmaCode(p.id)}&lang=en`;
-  return `<h3>Climate &amp; weather</h3><p>${esc(p.climate)}</p>
+  return `<h2>Climate &amp; weather</h2><p>${esc(p.climate)}</p>
     <p><b>When to go:</b> ${esc(p.season)}</p>
     <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency ↗</a>`;
 }
@@ -2320,10 +2340,10 @@ function renderExplore() {
   const mid = (100 - p.u15 - p.o65).toFixed(1);
   const chg = p.change;
   panel.innerHTML = `<div class="panel-inner">
-    <div class="drawer-bar"><span class="eyebrow">${esc(p.region)} region</span><button type="button" class="btn ghost small" id="drawer-close">Close</button></div>
+    <div class="drawer-bar"><button type="button" class="btn ghost small" id="drawer-close">Close</button></div>
     <header class="pf-head">
       <h1 class="pf-kanji" lang="ja" tabindex="-1">${esc(p.ja)}</h1>
-      <div class="seal" title="ISO 3166-2 code"><small>JP</small><span>${p.id}</span></div>
+      <div class="seal" title="Prefecture code JP-${p.id} (ISO 3166-2)" aria-label="Prefecture code JP-${p.id}"><small>JP</small><span>${p.id}</span></div>
       <div class="pf-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
       <div class="chips">
         <span class="chip"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} region</span>
@@ -2369,7 +2389,7 @@ function renderExplore() {
 const QTYPES = {
   find: { title: 'Find it', desc: 'We name a prefecture, you click it on the map.' },
   name: { title: 'Name it', desc: 'A prefecture lights up. Pick or type its name.' },
-  all: { title: 'Name them all', desc: 'Type every prefecture you can remember against the clock.' }
+  all: { title: 'Name them all', desc: 'Type every prefecture you can remember. The clock shows how long you take.' }
 };
 const scopeIds = scope => scope === 'all' ? PREFS.map(p => p.id) : PREFS.filter(p => p.region === scope).map(p => p.id);
 const scopeLabel = scope => scope === 'all' ? 'All Japan' : scope;
@@ -2400,7 +2420,7 @@ function nextQuestion() {
   }
   Q.feedback = ''; Q.fbClass = '';
   renderQuiz(); paint();
-  announce(Q.type === 'find' ? `Find ${byId[Q.current].en}.` : `Question ${Q.idx + 1} of ${Q.pool.length}. Which prefecture is highlighted?`);
+  announce(Q.type === 'find' ? `Find ${byId[Q.current].en}.` : `Question ${Q.idx + 1} of ${Q.pool.length}. Which prefecture is circled on the map?`);
   if (Q.type === 'name' && Q.answer === 'type') $('#answer') && $('#answer').focus();
 }
 function feedback(msg, cls) { Q.feedback = msg; Q.fbClass = cls || ''; const f = $('#feedback'); if (f) { f.textContent = msg; f.className = 'feedback ' + Q.fbClass; } }
@@ -2504,7 +2524,7 @@ function renderRegionsLeft() {
 function quizSetupHTML() {
   const best = store.get(bestKey(setup.type, setup.scope, setup.answer), null);
   return `<div class="panel-inner">
-    <div><div class="eyebrow">Quiz</div><h2>How well do you know the map?</h2></div>
+    <h2>How well do you know the map?</h2>
     <fieldset class="choices-type" style="border:0;padding:0;margin:0">
       <legend class="eyebrow" style="padding:0;margin-bottom:8px">Game</legend>
       ${Object.entries(QTYPES).map(([k, t]) => `<label class="qtype"><input type="radio" name="qtype" value="${k}"${setup.type === k ? ' checked' : ''}><b>${t.title}</b><span>${t.desc}</span></label>`).join('')}
@@ -2516,23 +2536,23 @@ function quizSetupHTML() {
     ${setup.type === 'name' ? `<div class="field"><span class="lbl">Answer by</span><div class="seg" role="group" aria-label="Answer by">
       <button type="button" data-answer="choice" aria-pressed="${setup.answer === 'choice'}">Multiple choice</button>
       <button type="button" data-answer="type" aria-pressed="${setup.answer === 'type'}">Typing</button></div></div>` : ''}
-    ${setup.type !== 'find' ? `<p class="note">Typing accepts romaji with or without long vowels (Kyoto, Kyōto, Kyouto), with or without -ken, as well as kanji (京都府, 京都) and kana.</p>` : ''}
+    ${setup.type === 'all' || (setup.type === 'name' && setup.answer === 'type') ? `<p class="note">Typing accepts romaji with or without long vowels (Kyoto, Kyōto, Kyouto), with or without -ken, as well as kanji (京都府, 京都) and kana.</p>` : ''}
     <div class="row">
       <button type="button" class="btn primary" id="start">Start ${QTYPES[setup.type].title}</button>
       <span class="best">${best ? `Best: ${best.pct}% in ${mmss(best.ms)}` : 'No best score yet'}</span>
     </div>
-    <div class="legend-q"><span><i style="background:var(--ok-fill)"></i>First try</span>${setup.type === 'find' ? `<span><i style="background:var(--late-fill)"></i>Found after a miss</span>` : ''}<span><i style="background:var(--bad-fill)"></i>Missed</span></div>
+    <div class="legend-q"><span><i style="background:var(--ok-fill)"></i>First try</span>${setup.type === 'find' ? `<span><i style="background:var(--late-fill)"></i>Found after a miss</span>` : ''}<span><i class="missed"></i>Missed</span></div>
   </div>`;
 }
 function quizRunHTML() {
   const t = byId[Q.current];
   let body = '';
   if (Q.type === 'find') {
-    body = `<div class="prompt"><div class="eyebrow">Click on the map</div><div class="big" lang="ja">${esc(t.ja)}</div><div class="sub">${esc(t.en)}</div></div>
+    body = `<div class="prompt"><div class="eyebrow">Find it on the map</div><div class="big" lang="ja">${esc(t.ja)}</div><div class="sub">${esc(t.en)}</div></div>
       <div class="feedback ${Q.fbClass}" id="feedback" aria-live="polite">${esc(Q.feedback)}</div>
       <div class="row"><button type="button" class="btn" id="skip">Show me &amp; skip</button></div>`;
   } else if (Q.type === 'name') {
-    body = `<div class="prompt"><div class="eyebrow">Which prefecture is highlighted?</div><div class="sub">It's the vermilion one, circled on the map.</div></div>
+    body = `<div class="prompt"><div class="sub">Which prefecture is circled on the map?</div></div>
       ${Q.answer === 'choice'
         ? `<div class="answers" id="answers">${Q.choices.map((id, i) => `<button type="button" data-id="${id}"><span class="k">${i + 1}</span><b>${esc(byId[id].en)}</b><span lang="ja">${esc(byId[id].ja)}</span></button>`).join('')}</div>`
         : `<form class="typein" id="typein" autocomplete="off"><input id="answer" aria-label="Prefecture name" placeholder="Type the name…" autocapitalize="off" spellcheck="false"><button class="btn primary" type="submit">Check</button></form>
@@ -2556,23 +2576,28 @@ function quizRunHTML() {
 }
 function quizDoneHTML() {
   const r = Q.result, perfect = r.correct === r.total;
-  const missBtns = [...new Set(Q.misses)].map(id => `<button type="button" data-open="${id}">${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span></button>`).join('');
+  const missed = [...new Set(Q.misses)];
+  const missGroups = REGIONS.map(g => [g, missed.filter(id => byId[id].region === g.key)]).filter(([, ids]) => ids.length)
+    .map(([g, ids]) => `<div class="missgroup"><span>${esc(g.key)} · ${ids.length}</span><div class="misslist">${ids.map(id => `<button type="button" data-open="${id}">${esc(byId[id].en)} <span lang="ja">${esc(byId[id].ja)}</span></button>`).join('')}</div></div>`).join('');
+  const missBtns = missed.length ? `<div class="missgroups">${missGroups}</div>` : '';
   const prev = r.prevBest;
   let bestLine = Q.practice ? 'Practice round — not counted for best scores.' : (!prev ? 'First score saved for this game.' : (r.pct > prev.pct || (r.pct === prev.pct && r.ms < prev.ms)) ? `New best! Previous: ${prev.pct}% in ${mmss(prev.ms)}.` : `Best so far: ${prev.pct}% in ${mmss(prev.ms)}.`);
   return `<div class="panel-inner">
     <div class="eyebrow">${esc(QTYPES[Q.type].title)} · ${esc(Q.practice ? 'Practice your misses' : scopeLabel(Q.scopeKey))}</div>
     <div class="result">
       <div><div class="score">${r.correct}<small> / ${r.total}</small></div><div class="muted">${r.pct}% ${Q.type === 'all' ? 'named' : 'right on the first try'} · ${mmss(r.ms)}</div></div>
-      ${perfect ? `<div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div>` : ''}
+      ${perfect ? `<div class="hanko-wrap"><div class="hanko" lang="ja" role="img" aria-label="全問正解, perfect score">全問<br>正解</div><span>Perfect score</span></div>` : ''}
     </div>
     <p class="muted" style="margin:0">${esc(bestLine)}</p>
-    ${missBtns ? `<div class="field"><span class="lbl">To review — tap to read about it</span><div class="misslist">${missBtns}</div></div>` : ''}
     <div class="row">
       <button type="button" class="btn primary" id="again">Play again</button>
-      ${missBtns ? `<button type="button" class="btn" id="practice">Practice the misses</button>` : ''}
+      ${missBtns ? `<button type="button" class="btn" id="practice">Practice the ${missed.length} ${missed.length === 1 ? 'miss' : 'misses'}</button>` : ''}
       <button type="button" class="btn ghost" id="settings">Change game</button>
     </div>
-    <p class="note">Hover the map to see names. Green: right first time${Q.type === 'find' ? ' · yellow: found after a miss' : ''} · red: missed.</p>
+    ${!missBtns ? '' : missed.length > 12
+      ? `<details class="field misses"><summary>Review the ${missed.length} misses</summary>${missBtns}</details>`
+      : `<div class="field"><span class="lbl">To review: choose one to read about it</span>${missBtns}</div>`}
+    <p class="note">Every name is now on the map. Green: right first time${Q.type === 'find' ? ' · yellow: found after a miss' : ''} · red hatching: missed.</p>
   </div>`;
 }
 /* destructive quiz exits ask once, inline: the first click arms the button for 3 seconds */
