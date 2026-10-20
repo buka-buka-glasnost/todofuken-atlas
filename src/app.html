@@ -1,3 +1,7 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Todōfuken Atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,6 +32,8 @@
   --f-display: "Shippori Mincho B1", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
   --f-body: "Zen Kaku Gothic New", "Hiragino Sans", "Yu Gothic", "Segoe UI", system-ui, sans-serif;
   --radius: 12px;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);       /* responses: press, enter, fill */
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);   /* things travelling across the screen */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -52,8 +58,9 @@
   color-scheme: dark;
 }
 
+[hidden] { display: none !important; }   /* the legend and tool groups set display, which would otherwise beat the attribute */
 html, body { height: 100%; }
-body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
 button, select, input { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 
@@ -64,9 +71,15 @@ button, select, input { font: inherit; color: inherit; }
 .brand { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
 .brand-ja { font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: .06em; line-height: 1; }
 .brand-en { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
-.modes { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
-.modes button { border: 0; background: none; padding: 6px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; }
+.modes { position: relative; isolation: isolate; display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
+.modes button { border: 0; background: none; padding: 6px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; transition: color 200ms ease; }
 .modes button[aria-pressed="true"] { background: var(--ai); color: var(--ai-ink); }
+/* one indigo thumb slides between the modes instead of two backgrounds swapping */
+@supports selector(:has(a)) {
+  .modes::before { content: ""; position: absolute; z-index: -1; inset: 3px auto 3px 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--ai); transition: transform 250ms var(--ease-in-out); }
+  .modes:has(#mode-quiz[aria-pressed="true"])::before { transform: translateX(100%); }
+  .modes button[aria-pressed="true"] { background: none; }
+}
 
 /* ---------- layout ---------- */
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 420px); gap: 16px; min-height: 0; }
@@ -82,10 +95,12 @@ button, select, input { font: inherit; color: inherit; }
 #map .grat { fill: none; stroke: var(--grat); stroke-width: .8px; vector-effect: non-scaling-stroke; }
 #map .inset-box { fill: var(--sea); stroke: var(--edge); stroke-width: 1px; stroke-dasharray: 4 3; vector-effect: non-scaling-stroke; }
 #map .inset-cap { fill: var(--muted); font-size: 13px; font-family: var(--f-body); letter-spacing: .03em; }
-#map .pref { cursor: pointer; }
-#map .shape { fill: var(--land); stroke: var(--edge); stroke-width: .7px; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill .25s; }
+#map .pref { cursor: pointer; transition: opacity 200ms ease; }
+#map .shape { fill: var(--land); stroke: var(--edge); stroke-width: .7px; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill 200ms ease; }
 #map .hit { fill: none; stroke: transparent; stroke-width: 14px; vector-effect: non-scaling-stroke; pointer-events: stroke; }
-#map:not(.panning) .pref:hover { filter: var(--hover); }
+@media (hover: hover) and (pointer: fine) {
+  #map:not(.panning) .pref:hover { filter: var(--hover); }
+}
 
 #map.m-explore .pref[data-r="hokkaido"] .shape { fill: var(--r-hokkaido); }
 #map.m-explore .pref[data-r="tohoku"] .shape { fill: var(--r-tohoku); }
@@ -124,7 +139,7 @@ button, select, input { font: inherit; color: inherit; }
 .tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 
 .legend { position: absolute; right: 12px; bottom: 12px; display: flex; flex-direction: column; align-items: flex-end; gap: 5px; }
-.legend button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 6px; font-size: 12px; cursor: pointer; }
+.legend button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 6px; font-size: 12px; cursor: pointer; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .legend button[aria-pressed="true"] { border-color: var(--ink); font-weight: 700; }
 .swatch { width: 12px; height: 12px; border-radius: 50%; border: 1px solid var(--edge); }
 .scale { font-size: 11px; color: var(--muted); display: grid; justify-items: start; gap: 2px; padding-left: 2px; font-variant-numeric: tabular-nums; pointer-events: none; }
@@ -136,8 +151,7 @@ button, select, input { font: inherit; color: inherit; }
 /* ---------- shared panel bits ---------- */
 .eyebrow { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0; line-height: 1.25; text-wrap: balance; }
-.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 500; text-decoration: none; }
-.btn:hover { border-color: var(--edge); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 500; text-decoration: none; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .btn.primary { background: var(--ai); color: var(--ai-ink); border-color: var(--ai); font-weight: 700; }
 .btn.ghost { border-color: transparent; background: none; color: var(--muted); }
 .btn.small { padding: 4px 10px; font-size: 13px; }
@@ -187,11 +201,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .items .jp { font-weight: 400; color: var(--muted); margin-left: 8px; font-size: 14px; }
 .items .ds { color: var(--muted); font-size: 14px; }
 .forecast { display: inline-flex; gap: 6px; color: var(--ai); font-weight: 700; text-decoration: none; }
-.forecast:hover { text-decoration: underline; }
 
 /* ---------- quiz ---------- */
 .choices-type { display: grid; gap: 8px; }
-.qtype { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; cursor: pointer; }
+.qtype { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 12px; align-items: start; padding: 12px 14px; border: 1px solid var(--rule); border-radius: 10px; cursor: pointer; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .qtype:has(input:checked) { border-color: var(--ai); background: var(--ai-soft); }
 .qtype input { margin: 4px 0 0; accent-color: var(--ai); grid-row: span 2; }
 .qtype b { font-size: 15px; }
@@ -208,7 +221,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .status { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; }
 .progress { display: grid; gap: 4px; font-size: 13px; font-variant-numeric: tabular-nums; }
 .progress .track { height: 6px; background: var(--rule); border-radius: 3px; overflow: hidden; }
-.progress .fill { height: 100%; background: var(--ai); transition: width .3s; }
+.progress .fill { height: 100%; background: var(--ai); transform-origin: left; transition: transform 300ms var(--ease-out); }
 .clock { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 16px; }
 .prompt { border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: grid; gap: 4px; }
 .prompt .big { font-family: var(--f-display); font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: .04em; }
@@ -216,8 +229,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .feedback { min-height: 1.6em; font-weight: 500; }
 .feedback.ok { color: var(--ok); } .feedback.bad { color: var(--bad); }
 .answers { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-.answers button { border: 1px solid var(--rule); background: var(--surface); border-radius: 10px; padding: 10px 12px; cursor: pointer; text-align: left; display: grid; gap: 0; line-height: 1.35; }
-.answers button:hover:not(:disabled) { border-color: var(--ai); }
+.answers button { border: 1px solid var(--rule); background: var(--surface); border-radius: 10px; padding: 10px 12px; cursor: pointer; text-align: left; display: grid; gap: 0; line-height: 1.35; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .answers button .k { font-size: 11px; color: var(--muted); }
 .answers button b { font-size: 16px; }
 .answers button span { font-size: 13px; color: var(--muted); }
@@ -225,7 +237,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .answers button.wrong { border-color: var(--bad); background: var(--bad-fill); }
 .answers button:disabled { cursor: default; }
 .typein { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
-.typein input { padding: 10px 12px; border: 1.5px solid var(--edge); border-radius: 8px; background: var(--surface); font-size: 17px; min-width: 0; }
+.typein input { padding: 10px 12px; border: 1.5px solid var(--edge); border-radius: 8px; background: var(--surface); font-size: 17px; min-width: 0; transition: border-color 150ms ease; }
 .typein input:focus { border-color: var(--ai); outline: none; }
 .regions-left { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4px 16px; font-size: 13px; font-variant-numeric: tabular-nums; }
 .regions-left div { display: flex; justify-content: space-between; gap: 8px; border-bottom: 1px dotted var(--rule); padding: 2px 0; }
@@ -233,10 +245,28 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .result { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; }
 .score { font-family: var(--f-display); font-weight: 800; font-size: 54px; line-height: 1; font-variant-numeric: tabular-nums; }
 .score small { font-size: 22px; color: var(--muted); }
-.hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 19px; line-height: 1.05; transform: rotate(-8deg); }
+.hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 19px; line-height: 1.05; transform: rotate(-8deg); animation: stamp 320ms var(--ease-out) 150ms backwards; }
+/* a perfect score is rare, so the hanko gets a moment: it is pressed onto the page */
+@keyframes stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.35); } }
 .misslist { display: flex; flex-wrap: wrap; gap: 6px; }
-.misslist button { border: 1px solid var(--bad-fill); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; }
-.misslist button:hover { background: var(--bad-fill); }
+.misslist button { border: 1px solid var(--bad-fill); background: none; border-radius: 999px; padding: 3px 10px; cursor: pointer; font-size: 13px; transition: background-color 150ms ease, transform 160ms var(--ease-out); }
+
+/* ---------- interaction feedback ---------- */
+/* hover only where there is a real pointer, so taps don't leave sticky highlights */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover { border-color: var(--edge); }
+  .legend button:hover { border-color: var(--edge); }
+  .answers button:hover:not(:disabled) { border-color: var(--ai); }
+  .qtype:hover:not(:has(input:checked)) { border-color: var(--edge); }
+  .misslist button:hover { background: var(--bad-fill); }
+  .forecast:hover { text-decoration: underline; }
+}
+/* everything pressable gives way slightly, so the page feels like it heard the press */
+@media (prefers-reduced-motion: no-preference) {
+  .btn:active, .legend button:active, .misslist button:active, .qtype:active,
+  .answers button:active:not(:disabled), .modes button:active { transform: scale(0.97); }
+  .modes button { transition: color 200ms ease, transform 160ms var(--ease-out); }
+}
 .legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 12px; color: var(--muted); }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
 
@@ -258,8 +288,11 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .facts dd { font-size: 16px; }
   .prompt .big { font-size: 34px; }
 }
+/* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .modes::before { transition: none; }
+  .progress .fill { transition: none; }
+  .hanko { animation: none; }
 }
 </style>
 
@@ -452,9 +485,9 @@ function animateTo(target) {
   target = clampView(target);
   cancelAnimationFrame(anim);
   if (reduceMotion) return setView(target);
-  const from = { ...view }, t0 = performance.now(), dur = 420;
+  const from = { ...view }, t0 = performance.now(), dur = 380;
   const step = now => {
-    const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 3);
+    const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 5);   // strong ease-out: the map answers at once, then settles
     setView({ x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e, h: 0 });
     if (t < 1) anim = requestAnimationFrame(step);
   };
@@ -814,7 +847,7 @@ function updateProgress() {
   const total = Q.type === 'all' ? Q.scope.size : Q.pool.length;
   const done = Object.keys(Q.status).filter(id => Q.type === 'all' ? Q.scope.has(id) : Q.pool.includes(id)).length;
   el.querySelector('.txt').textContent = Q.type === 'all' ? `${done} of ${total} named` : `${done} of ${total} answered · ${Q.firstTry} first try`;
-  el.querySelector('.fill').style.width = (done / total * 100) + '%';
+  el.querySelector('.fill').style.transform = `scaleX(${done / total})`;
 }
 function renderRegionsLeft() {
   const el = $('#regions-left'); if (!el) return;
@@ -870,7 +903,7 @@ function quizRunHTML() {
   }
   return `<div class="panel-inner">
     <div class="status">
-      <div class="progress" id="progress"><span class="txt"></span><div class="track"><div class="fill" style="width:0"></div></div></div>
+      <div class="progress" id="progress"><span class="txt"></span><div class="track"><div class="fill" style="transform:scaleX(0)"></div></div></div>
       <span class="clock" id="clock">${mmss(Date.now() - Q.t0)}</span>
       <button type="button" class="btn small" id="quit">Quit</button>
     </div>

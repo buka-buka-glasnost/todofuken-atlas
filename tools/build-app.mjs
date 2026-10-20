@@ -1,7 +1,8 @@
 // Inlines the map geometry and prefecture data into the app template -> dist/todofuken-atlas.html
 import fs from 'fs';
 import path from 'path';
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+import { fileURLToPath } from 'url';
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const tpl = fs.readFileSync(path.join(root, 'src/app.html'), 'utf8');
 const prefs = fs.readFileSync(path.join(root, 'src/prefectures.js'), 'utf8');
 const shapes = fs.readFileSync(path.join(root, 'src/shapes.json'), 'utf8');
