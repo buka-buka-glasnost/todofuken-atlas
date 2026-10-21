@@ -54,3 +54,5 @@ The map uses a conformal conic projection centred on 136°E. Okinawa and the Ama
 - Area: Geospatial Information Authority of Japan (GSI).
 - Boundaries: GSI Global Map Japan, via the `jpn-atlas` npm package (BSD-3-Clause).
 - Forecast links: Japan Meteorological Agency.
+
+This project is still a work in progress, I will update it with more info and quizzes in the future.
