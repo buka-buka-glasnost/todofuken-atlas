@@ -150,3 +150,8 @@ vite.config.ts.timestamp-*
 
 # Impeccable design notes: kept locally, not on GitHub
 .impeccable/
+
+# Locally installed agent skills (npx skills): kept out of the repo
+.agents/
+.claude/skills/
+skills-lock.json
