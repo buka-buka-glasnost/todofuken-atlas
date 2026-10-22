@@ -326,7 +326,8 @@ Calm, paper-faced, and they give way slightly when pressed.
 ### Callout card (signature)
 The selected prefecture speaks from where it lies.
 - **Body:** 336px paper card, 12px radius, rule border, callout float shadow, 16/18/14px padding, 12px gaps.
-- **Head:** kanji at display size, region swatch and name top-right, romaji title with kana beside it.
+- **Head:** kanji at display size, region swatch and name top-right beside a ghost close (×) button, romaji title with kana beside it.
+- **Closing:** the ×, Escape (when the drawer is shut), or a second click on the chosen prefecture clears the selection, region and drawer and leaves the map bare. The second click also eases the map back to the view it had before the first pick (moving between prefectures in the meantime doesn't change that view); the × and Escape leave the map where it is. The card stays away until something is picked again; focus returns to that prefecture on the map.
 - **Facts:** a two-column definition grid (Capital, Population, Area, Density), uppercase labels over bold tabular figures, a muted "#n of 47" rank beneath each, separated from the head by a hairline.
 - **Foot:** previous/next icon buttons and the primary Read more, behind a hairline.
 - **Leader:** a 1.25px ink line from card to prefecture ending in a 3.5px paper dot with an ink ring. It follows the prefecture through pan and zoom; the card swaps sides near an edge.

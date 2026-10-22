@@ -116,7 +116,9 @@ button, select, input { font: inherit; color: inherit; }
 .co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
-.co-region { grid-row: 1; grid-column: 2; align-self: start; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.co-top { grid-row: 1; grid-column: 2; align-self: start; display: flex; align-items: center; gap: 4px; margin: -8px -10px 0 0; }   /* region label and close, tucked into the corner */
+.co-region { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.co-close { min-width: 34px; padding-inline: 8px; }
 .co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
 .co-facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
 .co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
@@ -527,6 +529,8 @@ let drawerOpen = false;
 let tab = store.get('tab', 'overview');
 let names = store.get('names', 'off');         // off | romaji | kanji
 let exploreRegion = null;
+let dismissed = false;                          // the reader closed the card: the map stays bare until they pick again
+let viewBeforeSel = null;                       // where the map was before the card came up, for a second click to return to
 let Q = null;                                   // current quiz
 const setup = Object.assign({ type: 'find', scope: 'all', answer: 'choice' }, store.get('setup', {}));
 
@@ -864,7 +868,11 @@ function rememberFocus() {
 }
 
 function onMapClick(id) {
-  if (mode === 'explore') { if (id) selectPref(id); return; }
+  if (mode === 'explore') {
+    if (id && id === sel && cardView !== 'region') clearSelection(false, true);   // a second click on the chosen prefecture puts it back, and the map back where it was
+    else if (id) selectPref(id);
+    return;
+  }
   if (Q && Q.phase === 'running' && Q.type === 'find') findClick(id);
 }
 
@@ -885,6 +893,7 @@ function renderLegend() {
   el.querySelectorAll('button').forEach(b => b.onclick = () => {
     const k = b.dataset.region;
     exploreRegion = exploreRegion === k ? null : k;
+    if (exploreRegion) dismissed = false;
     cardView = exploreRegion ? 'region' : 'pref';
     renderLegend(); paint(); renderCallout();
     if (exploreRegion) fitBox(unionBox(PREFS.filter(p => p.region === k).map(p => p.id)), 0.1); else resetView();
@@ -894,7 +903,8 @@ function renderLegend() {
 /* ================= explore panel ================= */
 const panel = $('#panel');
 function selectPref(id, opts = {}) {
-  sel = id; store.set('sel', id); cardView = 'pref';
+  if (!sel) viewBeforeSel = { ...(animTarget || view) };   // mid-tween, the view it was heading to
+  sel = id; store.set('sel', id); cardView = 'pref'; dismissed = false;
   const hadFocus = document.activeElement === prefEl[id];
   gPrefs.appendChild(prefEl[id]);              // draw selected border on top (moving it drops focus, so restore it)
   if (hadFocus) prefEl[id].focus({ preventScroll: true });
@@ -954,8 +964,9 @@ function renderPick() {
     REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === sel ? ' selected' : ''}>${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('');
 }
 $('#pick').onchange = e => { if (e.target.value) selectPref(e.target.value, { zoom: true }); };
+const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>`;
 function renderCallout() {
-  callout.hidden = mode !== 'explore';
+  callout.hidden = mode !== 'explore' || (dismissed && !sel && !exploreRegion);   // a closed card stays closed until something is picked
   if (callout.hidden) return positionCallout();
   const restore = (() => { const a = document.activeElement; if (!a || !callout.contains(a)) return () => {};
     const key = a.id ? '#' + a.id : a.dataset.pick ? `[data-pick="${a.dataset.pick}"]` : null;
@@ -964,7 +975,7 @@ function renderCallout() {
     const r = REGION[exploreRegion], ps = PREFS.filter(q => q.region === exploreRegion);
     callout.setAttribute('aria-label', `${r.key} region`);
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(r.ja)}</h2>
-        <span class="co-region"><span class="swatch" style="background:var(--r-${r.slug})"></span>Region</span>
+        <div class="co-top"><span class="co-region"><span class="swatch" style="background:var(--r-${r.slug})"></span>Region</span>${CLOSE}</div>
         <div class="co-name">${esc(r.key)}</div></div>
       <p class="co-sub">${ps.length} ${ps.length === 1 ? 'prefecture' : 'prefectures'} · ${fmt(ps.reduce((n, q) => n + q.pop, 0))} people</p>
       <div class="co-list">${ps.map(q => `<button type="button" data-pick="${q.id}">${esc(q.en)}<span lang="ja">${esc(q.ja)}</span></button>`).join('')}</div>`;
@@ -973,7 +984,7 @@ function renderCallout() {
     const p = byId[sel], [prev, next] = stepPrefs();
     callout.setAttribute('aria-label', `${p.en}, selected prefecture`);
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(p.ja)}</h2>
-        <span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></span>
+        <div class="co-top"><span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></span>${CLOSE}</div>
         <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div></div>
       <p class="co-tag">${esc(p.tag)}</p>
       <dl class="co-facts">
@@ -992,9 +1003,10 @@ function renderCallout() {
     $('#co-more').onclick = () => setDrawer(!drawerOpen, true);
   } else {
     callout.setAttribute('aria-label', 'Getting started');
-    callout.innerHTML = `<h2 class="co-name" style="margin:0">Pick a prefecture</h2>
+    callout.innerHTML = `<div class="co-head"><h2 class="co-name" style="margin:0">Pick a prefecture</h2><div class="co-top">${CLOSE}</div></div>
       <p class="co-hint">Tap any prefecture on the map, choose a region above, or find one in the list.</p>`;
   }
+  $('#co-close').onclick = () => clearSelection(true);
   restore();
   positionCallout();
 }
@@ -1047,7 +1059,22 @@ function setDrawer(open, moveFocus) {
   if (drawerOpen) { const h = panel.querySelector('.pf-kanji'); if (h) h.focus({ preventScroll: true }); }
   else { const b = $('#co-more'); if (b) b.focus({ preventScroll: true }); }
 }
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) setDrawer(false, true); });
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape' || mode !== 'explore') return;
+  if (drawerOpen) setDrawer(false, true);
+  else if (!callout.hidden && (sel || exploreRegion) && (callout.contains(document.activeElement) || svg.contains(document.activeElement) || document.activeElement === document.body)) clearSelection(true);
+});
+/* close the card: no selection, no region, no drawer; the map stays where it is */
+function clearSelection(fromCard, restoreView) {
+  const was = sel || focusId, back = viewBeforeSel;
+  viewBeforeSel = null;
+  drawerOpen = false; $('#layout').classList.remove('drawer-open');
+  sel = null; store.set('sel', null); exploreRegion = null; cardView = 'pref'; dismissed = true;
+  renderLegend(); paint(); renderExplore();
+  announce('Card closed.');
+  if (restoreView && back) animateTo(back);
+  if (fromCard && was && prefEl[was]) prefEl[was].focus({ preventScroll: true });   // focus goes back to the map, not to the page top
+}
 $('#scrim').onclick = () => setDrawer(false, true);
 
 /* ---- phone sheet: drag it down from the top of its content; a quick flick is enough, no distance needed ---- */
