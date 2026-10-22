@@ -114,11 +114,12 @@ button, select, input { font: inherit; color: inherit; }
 .callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
 .callout.docked { transform: none !important; left: auto; right: 16px; top: auto; bottom: 16px; }   /* bottom-right is open Pacific, not Kyūshū */
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
-.co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
+.co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; white-space: nowrap; }
+.co-kanji.long { font-size: 40px; }   /* 九州・沖縄 still fits beside the close button */
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
-.co-top { grid-row: 1; grid-column: 2; align-self: start; display: flex; align-items: center; gap: 4px; margin: -8px -10px 0 0; }   /* region label and close, tucked into the corner */
-.co-region { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
+.co-top { grid-row: 1; grid-column: 2; align-self: start; display: flex; align-items: center; gap: 4px; margin: -8px -10px 0 0; }   /* the close button, tucked into the corner */
+.co-region { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 13px; color: var(--muted); }   /* its own line, so a long region never squeezes the kanji */
 .co-close { min-width: 34px; padding-inline: 8px; }
 .co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
 .co-facts dt { font-size: 12px; color: var(--muted); font-weight: 500; }   /* labels name the figure under them, in sentence case */
@@ -167,6 +168,10 @@ button, select, input { font: inherit; color: inherit; }
 #map.m-explore .pref[data-r="kyushu"] .shape { fill: var(--r-kyushu); }
 #map .pref.fade { opacity: .35; }
 #map.m-explore .pref.sel .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
+/* the chosen prefecture wears its flag: vermilion first, then the flag settles over it */
+#map .flag { stroke: var(--ink); stroke-width: 1.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+#map .flag.in { animation: flag-in 420ms var(--ease-out) 80ms both; }
+@keyframes flag-in { from { opacity: 0; } }
 
 #map .pref.dim { opacity: .28; pointer-events: none; }
 #map .pref.st-found .shape { fill: var(--ok-fill); }
@@ -469,6 +474,9 @@ __PREFS__
 const SHAPES = __SHAPES__;
 </script>
 <script>
+const FLAGS = __FLAGS__;
+</script>
+<script>
 (() => {
 'use strict';
 
@@ -577,6 +585,28 @@ mk('text', { class: 'inset-cap', x: ib.x + ib.w - 14, y: ib.y + ib.h - 14, 'text
   const pat = mk('pattern', { id: 'hatch-missed', patternUnits: 'userSpaceOnUse', width: h, height: h, patternTransform: 'rotate(45)' }, defs);
   mk('rect', { class: 'hatch-bg', width: h, height: h }, pat);
   mk('line', { class: 'hatch-line', x1: 0, y1: 0, x2: 0, y2: h }, pat);
+}
+/* the chosen prefecture becomes its flag: one pattern, sized to the prefecture's mainland box, fills a copy of its outline */
+const flagPat = mk('pattern', { id: 'flag-fill', patternUnits: 'userSpaceOnUse' }, svg.querySelector('defs'));
+const flagImg = mk('image', { preserveAspectRatio: 'none' }, flagPat);
+const flagPath = mk('path', { class: 'flag', fill: 'url(#flag-fill)' });
+let flagOn = null;
+function placeFlag(id) {
+  if (id === flagOn && (!id || flagPath.parentNode === prefEl[id])) return;
+  flagOn = id;
+  if (!id || !FLAGS[id]) { flagPath.remove(); return; }
+  const [x, y, w, h] = frameBox(id), s = SHAPES.shapes[id];
+  Object.entries({ x, y, width: w, height: h }).forEach(([k, v]) => flagPat.setAttribute(k, v));
+  // cover the tile at the flag's own proportions, centred (browsers letterbox SVG pictures even when asked to slice);
+  // pattern content is placed from the tile's corner, and the tile clips what overhangs
+  const r = FLAGS[id].ratio, iw = Math.max(w, h * r), ih = iw / r;
+  Object.entries({ x: (w - iw) / 2, y: (h - ih) / 2, width: iw, height: ih }).forEach(([k, v]) => flagImg.setAttribute(k, v.toFixed(2)));
+  flagImg.setAttribute('href', FLAGS[id].svg);
+  flagPath.setAttribute('d', (s.d || '') + (s.di || ''));
+  flagPath.classList.remove('in');
+  prefEl[id].appendChild(flagPath);
+  flagPath.getBoundingClientRect();   // restart the fade for each new prefecture
+  flagPath.classList.add('in');
 }
 const gPrefs = mk('g', { class: 'prefs' }, svg);
 const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
@@ -812,6 +842,7 @@ function paint() {
   svg.classList.toggle('names', !quiz && names !== 'off');
   svg.classList.toggle('gaveup', !!(quiz && Q && Q.gaveUp && Q.phase === 'done'));
   let ringAt = null, ringPulse = false;
+  placeFlag(!quiz && sel && cardView !== 'region' ? sel : null);
   PREFS.forEach(p => {
     const cls = ['pref'];
     let labOn = false;
@@ -1003,9 +1034,10 @@ function renderCallout() {
   if (cardView === 'region' && exploreRegion) {
     const r = REGION[exploreRegion], ps = PREFS.filter(q => q.region === exploreRegion);
     callout.setAttribute('aria-label', `${r.key} region`);
-    callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(r.ja)}</h2>
-        <div class="co-top"><span class="co-region"><span class="swatch" style="background:var(--r-${r.slug})"></span>Region</span>${CLOSE}</div>
-        <div class="co-name">${esc(r.key)}</div></div>
+    callout.innerHTML = `<div class="co-head"><h2 class="co-kanji${[...r.ja].length > 4 ? ' long' : ''}" lang="ja">${esc(r.ja)}</h2>
+        <div class="co-top">${CLOSE}</div>
+        <div class="co-name">${esc(r.key)}</div>
+        <div class="co-region"><span class="swatch" style="background:var(--r-${r.slug})"></span>Region</div></div>
       <p class="co-sub">${ps.length} ${ps.length === 1 ? 'prefecture' : 'prefectures'} · ${fmt(ps.reduce((n, q) => n + q.pop, 0))} people</p>
       <div class="co-list">${ps.map(q => `<button type="button" data-pick="${q.id}">${esc(q.en)}<span lang="ja">${esc(q.ja)}</span></button>`).join('')}</div>`;
     callout.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => selectPref(b.dataset.pick, { zoom: true }));
@@ -1013,8 +1045,9 @@ function renderCallout() {
     const p = byId[sel], [prev, next] = stepPrefs();
     callout.setAttribute('aria-label', `${p.en}, selected prefecture`);
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji" lang="ja">${esc(p.ja)}</h2>
-        <div class="co-top"><span class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></span>${CLOSE}</div>
-        <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div></div>
+        <div class="co-top">${CLOSE}</div>
+        <div class="co-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
+        <div class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></div></div>
       <p class="co-tag">${esc(p.tag)}</p>
       <dl class="co-facts">
         <div><dt>Capital</dt><dd>${esc(p.cap)}<small lang="ja">${esc(p.capJa)}</small></dd></div>
@@ -1194,7 +1227,8 @@ function renderExplore(inkFrom) {
       <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-controls="tabpanel" aria-selected="${tab === k}" tabindex="${tab === k ? 0 : -1}">${l}</button>`).join('')}<span class="tab-ink" aria-hidden="true"></span></div>
     </div>
     <div class="tabpanel" role="tabpanel" id="tabpanel" aria-labelledby="tab-${tab}">${tabBody(p)}</div>
-    <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.</p>
+    <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.${FLAGS[p.id] ? ` Flag: <a href="${esc(FLAGS[p.id].url)}" target="_blank" rel="noopener">${esc(FLAGS[p.id].source)}<span class="sr-only"> (opens in a new tab)</span></a>.` : ''}</p>
+    <p class="note">This atlas is not affiliated with or endorsed by any prefecture.</p>
   </div>`;
   $('#drawer-close').onclick = () => setDrawer(false, true);
   placeTabInk(inkFrom);

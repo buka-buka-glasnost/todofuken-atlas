@@ -17,6 +17,7 @@ No framework and no runtime dependencies: plain HTML, CSS and JavaScript, with t
 src/app.html          the app: markup, styles and all logic (template)
 src/prefectures.js    the content for all 47 prefectures
 src/shapes.json       pre-projected SVG paths, label points, graticule, scale
+src/flags/            the 47 prefectural flags (NN.svg) and their credits (credits.json)
 tools/build-map.mjs   turns boundary data into src/shapes.json
 tools/build-app.mjs   inlines the data into the template -> dist/todofuken-atlas.html
 dist/                 the built, self-contained page
@@ -54,5 +55,8 @@ The map uses a conformal conic projection centred on 136°E. Okinawa and the Ama
 - Area: Geospatial Information Authority of Japan (GSI).
 - Boundaries: GSI Global Map Japan, via the `jpn-atlas` npm package (BSD-3-Clause).
 - Forecast links: Japan Meteorological Agency.
+- Flags: Wikimedia Commons (public domain), linked per prefecture in `src/flags/credits.json`. Kagawa and Hiroshima are redrawn for this project from the prefectures' own specifications, so their files carry no third-party licence.
+
+This atlas is not affiliated with or endorsed by any prefecture. Prefectural flags are official insignia: they are shown here only to identify each prefecture.
 
 This project is still a work in progress, I will update it with more info and quizzes in the future.

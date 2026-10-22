@@ -221,7 +221,7 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 - **Ai Soft** (`ai-soft`): the tint behind pressed segments, active region chips and the selected quiz type. Dark: #1b2a44.
 
 ### Secondary
-- **Shu Vermilion 朱** (`shu-vermilion`): the seal colour. The selected prefecture's fill on the Explore map and the quiz target, the underline of the active reading tab, the prefecture-code seal border and the 全問正解 hanko. Selected shapes take a stroke mixed 55% vermilion with ink. Dark: #ff7b5a.
+- **Shu Vermilion 朱** (`shu-vermilion`): the seal colour. The selected prefecture's fill on the Explore map for the moment before its flag fades in, and the quiz target, the underline of the active reading tab, the prefecture-code seal border and the 全問正解 hanko. Selected shapes take a stroke mixed 55% vermilion with ink. Dark: #ff7b5a.
 
 ### Tertiary (region pastels)
 - **Region pastels** (`region-hokkaido` mint, `region-tohoku` pea, `region-kanto` mustard, `region-chubu` lavender, `region-kansai` sakura, `region-chugoku` apricot, `region-shikoku` leaf, `region-kyushu` coral): fill the Explore map by region and appear as 12px swatches in region chips, the callout's region line and the reading drawer. Two of them double as the youth and elderly segments of the age bar. Dark theme uses deeper, mid-value versions (for example Kantō #b8923a, Chūbu #7568b5).
@@ -247,6 +247,8 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 **The Two Inks Rule.** Indigo points at what you can do; vermilion marks what is chosen or sealed. Never use vermilion for a control or indigo for a selection.
 
 **The One Red Place Rule.** On any map state, at most one prefecture is filled vermilion. Region views highlight with fades, not more red.
+
+**The Flag Rule.** In Explore the chosen prefecture wears its own flag: the vermilion fill comes first, then the flag fades in over it (420ms, out-curve) and keeps the prefecture's outline in a 1.5px ink stroke. The flag covers the prefecture's mainland box at its own proportions, centred, so the emblem sits near the middle of the land. Only one prefecture wears a flag at a time, and never on the Quiz map, where the learner's colours rule.
 
 **The Learner's Colour Rule.** On the Quiz map the land is neutral; only the learner's results (found, late, missed) and the single target carry colour.
 
@@ -325,7 +327,7 @@ Calm, paper-faced, and they give way slightly when pressed.
 ### Callout card (signature)
 The selected prefecture speaks from where it lies.
 - **Body:** 336px paper card, 12px radius, rule border, callout float shadow, 16/18/14px padding, 12px gaps.
-- **Head:** kanji at display size, region swatch and name top-right beside a ghost close (×) button, romaji title with kana beside it.
+- **Head:** kanji at display size on one line (40px for a five-character region name such as 九州・沖縄) with only a ghost close (×) button beside it, the romaji title with kana under it, and the region swatch and name on a muted 13px line of their own, so a long region never squeezes the kanji.
 - **Closing:** the ×, Escape (when the drawer is shut), or a second click on the chosen prefecture clears the selection, region and drawer and leaves the map bare. The second click also eases the map back to the view it had before the first pick (moving between prefectures in the meantime doesn't change that view); the × and Escape leave the map where it is. The card stays away until something is picked again; focus returns to that prefecture on the map.
 - **Facts:** a two-column definition grid (Capital, Population, Area, Density), sentence-case labels over bold tabular figures, a muted "#n of 47" rank beneath each, separated from the head by a hairline.
 - **Foot:** previous/next icon buttons and the primary Read more, behind a hairline.
@@ -337,7 +339,7 @@ Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200m
 
 ### Map
 - **Frame:** sea ground, 12px radius, rule border, 0.8px graticule, dashed inset box for Okinawa.
-- **Explore fills:** region pastels with `region-separator` borders; selection in vermilion; non-region prefectures fade to 0.35 when a region is chosen.
+- **Explore fills:** region pastels with `region-separator` borders; the selection in its prefectural flag (vermilion until the flag fades in); non-region prefectures fade to 0.35 when a region is chosen.
 - **Quiz fills:** neutral land with `border-edge` borders; found, late and hatched-missed fills; a pulsing 2.5px ink ring around the target; a 0.6s bad-red flash on a wrong tap; a green-to-ink pop on a newly named label.
 - **Labels:** 700 gothic in ink with a surface-coloured halo stroke; colliding labels are culled.
 - **Hover:** fine pointers only, a brightness filter (0.92 light, 1.25 dark).

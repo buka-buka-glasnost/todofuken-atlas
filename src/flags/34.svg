@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 600">
+<!-- Hiroshima Prefecture flag, redrawn for this project: 2:3, field Munsell 4R 4/11 (#ac3542), white emblem whose circle is 3/5 of the height
+     (Prefectural Notice No. 572, 1968). The stylised katakana ヒ is two crescents, each a disc minus a disc, fitted to the emblem image on
+     the prefecture's site: https://www.pref.hiroshima.lg.jp/soshiki/19/1168842433111.html -->
+<defs><mask id="u" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="600"><circle cx="455.81" cy="249.54" r="135.19" fill="#fff"/><circle cx="503.08" cy="215.23" r="98.13" fill="#000"/></mask><mask id="l" maskUnits="userSpaceOnUse" x="0" y="0" width="900" height="600"><circle cx="450" cy="300" r="180" fill="#fff"/><circle cx="488.33" cy="253.36" r="149.9" fill="#000"/></mask></defs>
+<rect width="900" height="600" fill="#ac3542"/>
+<rect width="900" height="600" fill="#fff" mask="url(#u)"/>
+<rect width="900" height="600" fill="#fff" mask="url(#l)"/>
+</svg>
