@@ -147,3 +147,6 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Impeccable design notes: kept locally, not on GitHub
+.impeccable/
