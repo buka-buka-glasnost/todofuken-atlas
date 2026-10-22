@@ -43,6 +43,7 @@
   --shadow-drawer: 0 18px 48px rgb(15 23 42 / .22);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);       /* responses: press, enter, fill */
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);   /* things travelling across the screen */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);    /* the phone bottom sheet, iOS-like */
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -86,13 +87,16 @@ button, select, input { font: inherit; color: inherit; }
 .brand-ja { font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: .06em; line-height: 1; }
 .brand-en { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
 .modes { position: relative; isolation: isolate; display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
-.modes button { border: 0; background: none; padding: 6px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; transition: color 200ms ease; }
+.modes button { border: 0; background: none; padding: 6px 18px; border-radius: 999px; cursor: pointer; font-weight: 500; }
 .modes button[aria-pressed="true"] { background: var(--ai); color: var(--ai-ink); }
-/* one indigo thumb slides between the modes instead of two backgrounds swapping */
+.modes-ink { display: none; }
+/* the thumb is an indigo copy of both labels, clipped to one half: as the clip slides, text turns white exactly where indigo arrives */
 @supports selector(:has(a)) {
-  .modes::before { content: ""; position: absolute; z-index: -1; inset: 3px auto 3px 3px; width: calc(50% - 3px); border-radius: 999px; background: var(--ai); transition: transform 250ms var(--ease-in-out); }
-  .modes:has(#mode-quiz[aria-pressed="true"])::before { transform: translateX(100%); }
-  .modes button[aria-pressed="true"] { background: none; }
+  .modes-ink { position: absolute; inset: 3px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 999px; background: var(--ai); color: var(--ai-ink); font-weight: 500; pointer-events: none;
+    clip-path: inset(0 50% 0 0 round 999px); transition: clip-path 250ms var(--ease-in-out); }
+  .modes-ink span { display: grid; place-items: center; transition: transform 160ms var(--ease-out); }
+  .modes:has(#mode-quiz[aria-pressed="true"]) .modes-ink { clip-path: inset(0 0 0 50% round 999px); }
+  .modes button[aria-pressed="true"] { background: none; color: inherit; }
 }
 
 /* ---------- layout ---------- */
@@ -104,7 +108,7 @@ button, select, input { font: inherit; color: inherit; }
 
 /* explore: the map owns the stage; the reading panel becomes a drawer over its right edge */
 .layout.explore { grid-template-columns: minmax(0, 1fr); overflow: hidden; }   /* the closed drawer waits off-canvas without widening the page */
-.layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: var(--shadow-drawer); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 300ms var(--ease-out), visibility 0s 300ms; }
+.layout.explore .panel { position: absolute; z-index: 6; top: 0; right: 0; bottom: 0; width: min(440px, 100%); box-shadow: var(--shadow-drawer); transform: translateX(calc(100% + 24px)); visibility: hidden; transition: transform 200ms var(--ease-out), visibility 0s 200ms; }   /* closing answers faster than opening */
 .layout.explore.drawer-open .panel { transform: none; visibility: visible; transition: transform 300ms var(--ease-out); }
 .drawer-bar { display: flex; align-items: center; justify-content: flex-end; gap: 12px; margin: -6px 0 -4px; }
 
@@ -112,7 +116,7 @@ button, select, input { font: inherit; color: inherit; }
 /* with the drawer open the card keeps only its head: the drawer carries the facts */
 .layout.drawer-open .callout .co-tag, .layout.drawer-open .callout .co-facts { display: none; }
 .callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
-.callout.docked { transform: none !important; left: 16px; top: auto; bottom: 16px; }
+.callout.docked { transform: none !important; left: auto; right: 16px; top: auto; bottom: 16px; }   /* bottom-right is open Pacific, not Kyūshū */
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
 .co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; }
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
@@ -248,9 +252,12 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .agebar .nat { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--ink); }
 .agekey { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .agekey b { color: var(--ink); }
-.tabs { display: flex; gap: 2px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
-.tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; }
-.tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--shu); font-weight: 700; }
+.tabs { position: relative; display: flex; gap: 2px; border-bottom: 1px solid var(--rule); overflow-x: auto; scrollbar-width: none; }
+.tabs button { border: 0; background: none; padding: 8px 10px 9px; cursor: pointer; color: var(--muted); font-weight: 500; white-space: nowrap; }
+.tabs button[aria-selected="true"] { color: var(--ink); font-weight: 700; }
+/* one vermilion underline that slides to the chosen tab (clicks only; arrow keys move it instantly) */
+.tab-ink { position: absolute; left: 0; bottom: 0; width: 1px; height: 2px; background: var(--shu); transform-origin: left; pointer-events: none; }
+.tab-ink.slide { transition: transform 200ms var(--ease-out); }
 .tabpanel { display: grid; gap: 14px; }
 .tabpanel h2, .ages h2 { margin: 0; font-family: var(--f-body); font-weight: 700; font-size: 15px; line-height: 1.3; }
 .context { margin: 0; font-size: 13px; color: var(--muted); }
@@ -334,8 +341,12 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 @media (prefers-reduced-motion: no-preference) {
   .btn:active, .legend button:active, .co-list button:active, .misslist button:active, .qtype:active,
   .answers button:active:not(:disabled), .modes button:active { transform: scale(0.97); }
-  .modes button { transition: color 200ms ease, transform 160ms var(--ease-out); }
+  .modes button { transition: transform 160ms var(--ease-out); }
+  .modes:has(#mode-explore:active) .modes-ink span:first-child, .modes:has(#mode-quiz:active) .modes-ink span:last-child { transform: scale(0.97); }
 }
+/* segments sit inside a clipped group, so they darken on press instead of scaling; the press lands at once, the release fades */
+.tool-group button, .seg button, .tabs button { transition: background-color 150ms ease; }
+.tool-group button:active, .seg button:active, .tabs button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
 .legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
 .legend-q i.missed { background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
@@ -351,7 +362,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .panel { overflow: visible; }
   .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
   #map { aspect-ratio: 1 / .8; height: auto; max-height: 50vh; }
-  .callout, .callout.docked { position: relative; grid-row: 3; left: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
+  .callout, .callout.docked { position: relative; grid-row: 3; left: auto; right: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .map-tools { flex-wrap: wrap; }
   .pick { flex: 1 1 140px; min-width: 140px; max-width: none; order: 0; }   /* keeps the list readable and pushes names + regions to a second row */
@@ -360,9 +371,15 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .legend { order: 2; flex: 1 1 0; flex-basis: 0; }
   .scale { display: none; }
   .tool-label { padding-left: 8px; }
-  .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px)); }
-  .layout.explore.drawer-open .panel { transform: none; }
+  .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; overscroll-behavior: contain; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px));
+    transition: transform 240ms var(--ease-drawer), visibility 0s 240ms; }
+  .layout.explore.drawer-open .panel { transform: none; transition: transform 360ms var(--ease-drawer); }
+  .layout.explore .scrim { display: block; position: fixed; inset: 0; z-index: 5; background: rgb(15 23 42 / .32); opacity: 0; pointer-events: none; transition: opacity 240ms ease; }
+  .layout.explore.drawer-open .scrim { opacity: 1; pointer-events: auto; transition-duration: 360ms; }
+  .drawer-bar::before { content: ""; position: absolute; left: 50%; top: 8px; width: 36px; height: 4px; margin-left: -18px; border-radius: 2px; background: var(--rule); }   /* grabber: the sheet can be swiped down */
+  .drawer-bar { touch-action: none; }
 }
+.scrim { display: none; }
 @media (max-width: 420px) {
   .panel-inner { padding: 16px; }
   .brand-en { display: none; }
@@ -375,10 +392,12 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
   .layout.explore .panel, .layout.explore.drawer-open .panel { transition: none; }
-  .modes::before { transition: none; }
   .progress .fill { transition: none; }
-  .hanko { animation: none; }
+  .modes-ink { transition: none; }
+  .hanko { animation: fade 200ms ease 150ms backwards; }   /* no stamp, but the moment still arrives */
+  .tab-ink.slide { transition: none; }
 }
+@keyframes fade { from { opacity: 0; } }
 </style>
 
 <div class="app">
@@ -387,6 +406,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
     <nav class="modes" aria-label="Mode">
       <button type="button" id="mode-explore" aria-pressed="true">Explore</button>
       <button type="button" id="mode-quiz" aria-pressed="false">Quiz</button>
+      <span class="modes-ink" aria-hidden="true"><span>Explore</span><span>Quiz</span></span>
     </nav>
   </header>
   <main class="layout explore" id="layout">
@@ -414,6 +434,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
       <div class="tip" id="tip" hidden></div>
       <div class="sr-only" id="announce" aria-live="polite"></div>
     </section>
+    <div class="scrim" id="scrim" aria-hidden="true"></div>
     <aside class="panel" id="panel" tabindex="-1"></aside>
   </main>
 </div>
@@ -1980,8 +2001,17 @@ function clampView(v) {
     y: Math.min(Math.max(v.y, BASE.y - h / 2), BASE.y + BASE.h - h / 2)
   };
 }
-function setView(v) {
-  view = clampView(v);
+/* past a limit the view gives with growing resistance (iOS rubber-banding) instead of hitting a wall */
+const band = (v, lo, hi, d) => v < lo ? lo - (1 - 1 / ((lo - v) * 0.55 / d + 1)) * d : v > hi ? hi + (1 - 1 / ((v - hi) * 0.55 / d + 1)) * d : v;
+const bandW = w => band(w, BASE.w / 16, BASE.w, w < BASE.w / 16 ? BASE.w / 16 * 0.3 : BASE.w * 0.15);
+function softView(v) {                                   // v.w is already banded by the caller
+  const w = v.w, h = w * BASE.h / BASE.w;
+  return { w, h, x: band(v.x, BASE.x - w / 2, BASE.x + BASE.w - w / 2, w * 0.25), y: band(v.y, BASE.y - h / 2, BASE.y + BASE.h - h / 2, h * 0.25) };
+}
+const outOfBounds = () => { const c = clampView(view); return Math.abs(c.x - view.x) + Math.abs(c.y - view.y) + Math.abs(c.w - view.w) > 0.01; };
+/* how: 'soft' while a finger holds the map, 'raw' for tweens between valid views, otherwise hard-clamped */
+function setView(v, how) {
+  view = how === 'soft' ? softView(v) : how === 'raw' ? { ...v, h: v.w * BASE.h / BASE.w } : clampView(v);
   svg.setAttribute('viewBox', `${view.x.toFixed(2)} ${view.y.toFixed(2)} ${view.w.toFixed(2)} ${view.h.toFixed(2)}`);
   const k = pxPerUnit();
   gLabels.setAttribute('font-size', (12 / k).toFixed(2));
@@ -2015,16 +2045,34 @@ function cullLabels() {
   hint.hidden = !hidden;
   hint.textContent = hidden ? `${hidden} ${hidden === 1 ? 'name' : 'names'} hidden. Zoom in to see them.` : '';
 }
-let anim = 0;
-function animateTo(target) {
+let anim = 0, animTarget = null;                 // one frame loop for tweens and pan momentum; the target lets wheel notches stack
+function stopAnim() { cancelAnimationFrame(anim); animTarget = null; }
+function animateTo(target, dur = 380) {
   target = clampView(target);
-  cancelAnimationFrame(anim);
+  stopAnim();
   if (reduceMotion) return setView(target);
-  const from = { ...view }, t0 = performance.now(), dur = 380;
+  const from = { ...view }, t0 = performance.now();
+  animTarget = target;
   const step = now => {
     const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 5);   // strong ease-out: the map answers at once, then settles
-    setView({ x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e, h: 0 });
-    if (t < 1) anim = requestAnimationFrame(step);
+    setView({ x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e }, 'raw');
+    if (t < 1) anim = requestAnimationFrame(step); else animTarget = null;
+  };
+  anim = requestAnimationFrame(step);
+}
+/* after a flick the map keeps gliding and slows with friction, stopping dead only against an edge */
+function glide(vx, vy) {                                 // px per ms
+  stopAnim();
+  let last = performance.now();
+  const step = now => {
+    const dt = Math.min(now - last, 32), k = pxPerUnit(); last = now;
+    const want = { ...view, x: view.x - vx * dt / k, y: view.y - vy * dt / k };
+    setView(want);
+    if (Math.abs(view.x - want.x) > 1e-6) vx = 0;
+    if (Math.abs(view.y - want.y) > 1e-6) vy = 0;
+    const f = Math.pow(0.95, dt / 16.67);
+    vx *= f; vy *= f;
+    if (Math.hypot(vx, vy) > 0.02) anim = requestAnimationFrame(step);
   };
   anim = requestAnimationFrame(step);
 }
@@ -2039,10 +2087,12 @@ function unionBox(ids) {
 }
 const resetView = () => animateTo({ ...BASE });
 const toSvg = (cx, cy) => new DOMPoint(cx, cy).matrixTransform(svg.getScreenCTM().inverse());
-function zoomAt(p, f) {
-  const w = Math.min(Math.max(view.w / f, BASE.w / 16), BASE.w);
-  setView({ x: p.x - (p.x - view.x) * (w / view.w), y: p.y - (p.y - view.y) * (w / view.w), w });
+function zoomedView(p, f, from = view) {                 // keep the point under the cursor still; p is in the current view's units
+  const fx = (p.x - view.x) / view.w, fy = (p.y - view.y) / view.h;
+  const w = Math.min(Math.max(from.w / f, BASE.w / 16), BASE.w), h = w * BASE.h / BASE.w;
+  return { x: from.x + fx * from.w - fx * w, y: from.y + fy * from.h - fy * h, w };
 }
+const zoomAt = (p, f) => setView(zoomedView(p, f));
 function zoomCenter(f) {
   const w = Math.min(Math.max(view.w / f, BASE.w / 16), BASE.w), cx = view.x + view.w / 2, cy = view.y + view.h / 2;
   animateTo({ x: cx - w / 2, y: cy - w * BASE.h / BASE.w / 2, w });
@@ -2055,9 +2105,9 @@ svg.addEventListener('pointerdown', e => {
   if (e.button !== 0) return;
   svg.setPointerCapture(e.pointerId);
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-  cancelAnimationFrame(anim);
+  stopAnim();                                            // catching a gliding map stops it where it is
   if (pointers.size === 1) {
-    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: e.target.closest('.pref') };
+    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: e.target.closest('.pref'), trail: [] };
   } else if (pointers.size === 2) {
     if (drag) drag.moved = true;
     const [a, b] = [...pointers.values()];
@@ -2070,14 +2120,19 @@ svg.addEventListener('pointermove', e => {
   if (pinch && pointers.size >= 2) {
     const [a, b] = [...pointers.values()];
     const f = Math.hypot(a.x - b.x, a.y - b.y) / pinch.d;
-    const w = Math.min(Math.max(pinch.view.w / f, BASE.w / 16), BASE.w), m = pinch.mid;
-    setView({ x: m.x - (m.x - pinch.view.x) * (w / pinch.view.w), y: m.y - (m.y - pinch.view.y) * (w / pinch.view.w), w });
+    const w = bandW(pinch.view.w / f), m = pinch.mid;
+    setView({ x: m.x - (m.x - pinch.view.x) * (w / pinch.view.w), y: m.y - (m.y - pinch.view.y) * (w / pinch.view.w), w }, 'soft');
     return;
   }
   if (!drag) return;
   const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
   if (!drag.moved && Math.hypot(dx, dy) > 6) { drag.moved = true; svg.classList.add('panning'); hideTip(); }
-  if (drag.moved) { const k = pxPerUnit(); setView({ ...drag.view, x: drag.view.x - dx / k, y: drag.view.y - dy / k }); }
+  if (drag.moved) {
+    const k = pxPerUnit(), now = performance.now();
+    drag.trail.push({ x: e.clientX, y: e.clientY, t: now });
+    while (drag.trail.length > 2 && now - drag.trail[0].t > 80) drag.trail.shift();   // velocity from the last ~80ms only
+    setView({ ...drag.view, x: drag.view.x - dx / k, y: drag.view.y - dy / k }, 'soft');
+  }
 });
 function pointerEnd(e) {
   if (!pointers.has(e.pointerId)) return;
@@ -2085,11 +2140,17 @@ function pointerEnd(e) {
   if (pointers.size === 1 && pinch) {
     pinch = null;
     const [p] = [...pointers.values()];
-    drag = { x: p.x, y: p.y, view: { ...view }, moved: true, target: null };
+    drag = { x: p.x, y: p.y, view: { ...view }, moved: true, target: null, trail: [] };
     return;
   }
   if (pointers.size === 0) {
     if (drag && !drag.moved && e.type === 'pointerup') onMapClick(drag.target ? drag.target.dataset.id : null);
+    else if (outOfBounds()) animateTo(view, 300);                       // pulled past an edge: ease back inside
+    else if (drag && drag.moved && !reduceMotion && e.type === 'pointerup') {
+      const tr = drag.trail, a = tr[0], b = tr[tr.length - 1];
+      const dt = b && performance.now() - b.t < 60 ? b.t - a.t : 0;        // a pause before letting go means no flick
+      if (dt > 0) glide((b.x - a.x) / dt, (b.y - a.y) / dt);
+    }
     drag = null; pinch = null;
     svg.classList.remove('panning');
   }
@@ -2097,7 +2158,15 @@ function pointerEnd(e) {
 svg.addEventListener('pointerup', pointerEnd);
 svg.addEventListener('pointercancel', pointerEnd);
 svg.addEventListener('pointerleave', hideTip);
-svg.addEventListener('wheel', e => { e.preventDefault(); cancelAnimationFrame(anim); zoomAt(toSvg(e.clientX, e.clientY), Math.exp(-e.deltaY * 0.0018)); }, { passive: false });
+svg.addEventListener('wheel', e => {
+  e.preventDefault();
+  if (pointers.size) return;
+  const f = Math.exp(-(e.deltaMode === 1 ? e.deltaY * 33 : e.deltaY) * 0.0018), p = toSvg(e.clientX, e.clientY);
+  // a mouse wheel moves in coarse notches, so each one tweens (stacking on the last target); trackpads already send smooth input
+  const notch = e.deltaMode !== 0 || (!e.ctrlKey && e.deltaX === 0 && Math.abs(e.deltaY) >= 50);
+  if (notch) animateTo(zoomedView(p, f, animTarget || view), 240);
+  else { stopAnim(); zoomAt(p, f); }
+}, { passive: false });
 $('#zoom-in').onclick = () => zoomCenter(1.6);
 $('#zoom-out').onclick = () => zoomCenter(1 / 1.6);
 $('#zoom-reset').onclick = () => { if (mode === 'explore') { exploreRegion = null; cardView = 'pref'; renderLegend(); paint(); renderCallout(); } resetView(); };
@@ -2398,8 +2467,56 @@ function setDrawer(open, moveFocus) {
   else { const b = $('#co-more'); if (b) b.focus({ preventScroll: true }); }
 }
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && drawerOpen) setDrawer(false, true); });
+$('#scrim').onclick = () => setDrawer(false, true);
 
-function renderExplore() {
+/* ---- phone sheet: drag it down from the top of its content; a quick flick is enough, no distance needed ---- */
+let sheet = null;
+panel.addEventListener('touchstart', e => {
+  if (!narrow.matches || !drawerOpen || sheet || e.touches.length > 1) return;   // the first finger owns the drag
+  const t = e.changedTouches[0];
+  sheet = { id: t.identifier, y: t.clientY, dy: 0, trail: [], active: false, fromTop: panel.scrollTop <= 0 };
+}, { passive: true });
+panel.addEventListener('touchmove', e => {
+  if (!sheet) return;
+  const t = [...e.changedTouches].find(c => c.identifier === sheet.id);
+  if (!t) return;
+  const dy = t.clientY - sheet.y;
+  if (!sheet.active) {
+    if (!sheet.fromTop || dy < -4) { sheet = null; return; }   // scrolling the reading, not moving the sheet
+    if (dy > 0) e.preventDefault();
+    if (dy <= 4) return;
+    sheet.active = true; panel.style.transition = 'none';
+  }
+  e.preventDefault();
+  sheet.dy = dy;
+  const now = performance.now();
+  sheet.trail.push({ dy, t: now });
+  while (sheet.trail.length > 2 && now - sheet.trail[0].t > 80) sheet.trail.shift();
+  panel.style.transform = `translateY(${(dy >= 0 ? dy : band(dy, 0, 0, 24)).toFixed(1)}px)`;   // pulled up past open: friction
+}, { passive: false });
+function sheetEnd(e) {
+  if (!sheet || ![...e.changedTouches].some(c => c.identifier === sheet.id)) return;
+  const s = sheet; sheet = null;
+  if (!s.active) return;
+  const a = s.trail[0], b = s.trail[s.trail.length - 1];
+  const v = b && performance.now() - b.t < 60 && b.t > a.t ? (b.dy - a.dy) / (b.t - a.t) : 0;   // speed at release; holding still first means no flick
+  panel.style.transition = ''; panel.style.transform = '';      // the CSS transition carries on from where the finger left it
+  if (e.type === 'touchend' && (s.dy > panel.offsetHeight * 0.25 || v > 0.11)) setDrawer(false, true);
+}
+panel.addEventListener('touchend', sheetEnd);
+panel.addEventListener('touchcancel', sheetEnd);
+
+/* the panel re-renders on every tab change, so a click hands over where the old underline was and the new one slides from there */
+function placeTabInk(from) {
+  const ink = panel.querySelector('.tab-ink'), b = panel.querySelector('[role="tab"][aria-selected="true"]');
+  if (!ink || !b) return;
+  const to = `translateX(${b.offsetLeft}px) scaleX(${b.offsetWidth})`;
+  if (!from || from === to) { ink.style.transform = to; return; }
+  ink.style.transform = from; void ink.offsetWidth;
+  ink.classList.add('slide'); ink.style.transform = to;
+}
+if (document.fonts) document.fonts.ready.then(() => placeTabInk());   // webfont widths move the tabs
+function renderExplore(inkFrom) {
   if (mode !== 'explore') return;
   renderPick(); renderCallout();
   if (!sel) { panel.innerHTML = ''; return; }
@@ -2436,13 +2553,18 @@ function renderExplore() {
       <div class="agekey"><span>Under 15 <b>${p.u15}%</b></span><span>15–64 <b>${mid}%</b></span><span>65+ <b>${p.o65}%</b></span><span>Marker: Japan's 65+ share, ${NATIONAL.o65}%</span></div>
     </div>
     <div>
-      <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-controls="tabpanel" aria-selected="${tab === k}" tabindex="${tab === k ? 0 : -1}">${l}</button>`).join('')}</div>
+      <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-controls="tabpanel" aria-selected="${tab === k}" tabindex="${tab === k ? 0 : -1}">${l}</button>`).join('')}<span class="tab-ink" aria-hidden="true"></span></div>
     </div>
     <div class="tabpanel" role="tabpanel" id="tabpanel" aria-labelledby="tab-${tab}">${tabBody(p)}</div>
     <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.</p>
   </div>`;
   $('#drawer-close').onclick = () => setDrawer(false, true);
-  panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => { tab = b.dataset.tab; store.set('tab', tab); renderExplore(); });
+  placeTabInk(inkFrom);
+  panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+    if (b.dataset.tab === tab) return;
+    const from = panel.querySelector('.tab-ink').style.transform;
+    tab = b.dataset.tab; store.set('tab', tab); renderExplore(from);
+  });
   panel.querySelector('[role="tablist"]').onkeydown = e => {
     const i = TABS.findIndex(t => t[0] === tab), n = TABS.length;
     const j = { ArrowRight: (i + 1) % n, ArrowLeft: (i + n - 1) % n, Home: 0, End: n - 1 }[e.key];
@@ -2502,7 +2624,12 @@ function suggestFix(text, id, accept) {
   f.append(' ', b);
 }
 function feedback(msg, cls) { Q.feedback = msg; Q.fbClass = cls || ''; const f = $('#feedback'); if (f) { f.textContent = msg; f.className = 'feedback ' + Q.fbClass; } }
-function flash(id) { Q.flash = id; paint(); setTimeout(() => { if (Q && Q.flash === id) { Q.flash = null; paint(); } }, 650); }
+function flash(id) {
+  const tok = Q.flashTok = (Q.flashTok || 0) + 1;
+  Q.flash = id; paint();
+  const g = prefEl[id]; g.classList.remove('flash'); void g.getBoundingClientRect(); g.classList.add('flash');   // restart, so a second wrong tap flashes again
+  setTimeout(() => { if (Q && Q.flashTok === tok) { Q.flash = null; paint(); } }, 650);
+}
 
 function findClick(id) {
   if (Q.locked || !id || !Q.scope.has(id)) return;

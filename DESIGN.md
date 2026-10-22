@@ -278,9 +278,9 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 
 A single full-height grid: a top bar (wordmark left, Explore/Quiz toggle right) over a stage, with 16px side gutters and 12px between rows.
 
-- **Explore:** the map frame takes the full width. Its first row is the tool strip (prefecture picker, Names Off/ABC/漢字, zoom, scale bar) with the region chips as a second, horizontally scrolling line; its second row is the map. The callout card (336px) is positioned in map space beside the selected prefecture with a 48px gap, preferring the open-sea east side and flipping west when it will not fit; it docks to the bottom-left (16px inset) when there is no selection box. The reading drawer (up to 440px) slides over the right edge.
+- **Explore:** the map frame takes the full width. Its first row is the tool strip (prefecture picker, Names Off/ABC/漢字, zoom, scale bar) with the region chips as a second, horizontally scrolling line; its second row is the map. The callout card (336px) is positioned in map space beside the selected prefecture with a 48px gap, preferring the open-sea east side and flipping west when it will not fit; it docks to the bottom-right (16px inset, over open Pacific) when there is no selection box. The reading drawer (up to 440px) slides over the right edge.
 - **Quiz:** the map frame plus a 320–420px panel column, 16px gap.
-- **Phones (≤860px):** everything stacks; the map is capped at 52vh with a 1 : 0.86 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow); the drawer becomes a bottom sheet (max 85vh, 16px top corners); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
+- **Phones (≤860px):** everything stacks; the map is capped at 52vh with a 1 : 0.86 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow); the drawer becomes a bottom sheet (max 85vh, 16px top corners, a grabber, a dimming scrim that closes it, and swipe-down to dismiss: a flick faster than 0.11px/ms or a drag past a quarter of its height); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
 - **Touch:** every map tool, chip, callout button and picker is at least 44px tall under `pointer: coarse`.
 - **Rhythm:** 6 / 8 / 12 / 16 / 24px. Card internals use 10–14px gaps; fact grids are always two columns.
 
@@ -319,7 +319,8 @@ Calm, paper-faced, and they give way slightly when pressed.
 - **Drawer chips:** static pills for region and suffix (県/府/都/道), 12px.
 
 ### Segmented toggles
-- **Mode toggle:** a pill track on paper with an indigo thumb that slides 250ms (in-out curve) between Explore and Quiz.
+- **Mode toggle:** a pill track on paper with an indigo thumb that slides 250ms (in-out curve) between Explore and Quiz. The thumb is an indigo copy of both labels clipped to one half, so the text turns white exactly where the indigo arrives.
+- **Segment presses:** segments inside clipped groups (tools, timer, tabs) darken on press instead of scaling; the press lands instantly and the release fades over 150ms.
 - **Tool groups:** 8px-rounded segments with rule dividers; the pressed segment is indigo-on-`ai-soft`, 700. Icons are drawn 16px stroke SVGs (1.75 stroke, round caps).
 
 ### Callout card (signature)
@@ -332,7 +333,7 @@ The selected prefecture speaks from where it lies.
 - **Phone:** docked strip under the map, kanji at 34px.
 
 ### Reading drawer
-Paper panel up to 440px over the map's right edge, sliding in 300ms with the out-curve. Holds the full prefecture page: kanji head with the code seal, chips, tagline, a facts grid between hairlines, the age-structure bar with a national marker, and tabs whose active tab carries a 2px vermilion underline. On phones it is a bottom sheet.
+Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200ms with the out-curve. Holds the full prefecture page: kanji head with the code seal, chips, tagline, a facts grid between hairlines, the age-structure bar with a national marker, and tabs whose active tab carries a 2px vermilion underline that slides 200ms to a clicked tab (arrow keys move it instantly). On phones it is a bottom sheet.
 
 ### Map
 - **Frame:** sea ground, 12px radius, rule border, 0.8px graticule, dashed inset box for Okinawa.
@@ -354,7 +355,7 @@ Paper panel up to 440px over the map's right edge, sliding in 300ms with the out
 - **Result:** the Mincho score, missed names grouped as pill chips bordered in `bad-fill`, and for a perfect round the 全問正解 hanko, stamped in over 320ms (scale 1.35 to 1).
 
 ### Motion
-Two curves: `cubic-bezier(0.23, 1, 0.32, 1)` for responses (press, enter, drawer, progress, stamp) and `cubic-bezier(0.77, 0, 0.175, 1)` for things travelling across the screen (the mode thumb). The map view tweens 380ms with a quintic ease-out. Colour changes run 150–200ms ease. Under `prefers-reduced-motion: reduce` the drawer, thumb, progress, hanko and map tween are instant and press-scaling is off; colour and opacity changes that carry meaning remain.
+Two curves: `cubic-bezier(0.23, 1, 0.32, 1)` for responses (press, enter, drawer, progress, stamp) and `cubic-bezier(0.77, 0, 0.175, 1)` for things travelling across the screen (the mode thumb). The map view tweens 380ms with a quintic ease-out; mouse-wheel notches tween 240ms and stack on the pending target, trackpads zoom directly. A released pan glides on with 0.95-per-frame friction, a held map pulled past its limits gives with rubber-band resistance and eases back in 300ms. The phone sheet uses `cubic-bezier(0.32, 0.72, 0, 1)`, 360ms in and 240ms out. Colour changes run 150–200ms ease. Under `prefers-reduced-motion: reduce` the drawer, thumb, progress, tab underline and map tween are instant, pan momentum and press-scaling are off, and the hanko fades in without the stamp; colour and opacity changes that carry meaning remain.
 
 ## Do's and Don'ts
 
