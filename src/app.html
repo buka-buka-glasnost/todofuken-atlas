@@ -79,6 +79,7 @@ button, select, input { font: inherit; color: inherit; }
 /* ---------- top bar ---------- */
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .brand { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+.brand h1 { display: contents; }   /* the page's title is the wordmark itself */
 .brand-ja { font-family: var(--f-display); font-weight: 800; font-size: 26px; letter-spacing: .06em; line-height: 1; }
 .brand-en { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
 .modes { position: relative; isolation: isolate; display: inline-grid; grid-template-columns: 1fr 1fr; background: var(--surface); border: 1px solid var(--rule); border-radius: 999px; padding: 3px; }
@@ -120,7 +121,7 @@ button, select, input { font: inherit; color: inherit; }
 .co-region { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--muted); }
 .co-close { min-width: 34px; padding-inline: 8px; }
 .co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
-.co-facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.co-facts dt { font-size: 12px; color: var(--muted); font-weight: 500; }   /* labels name the figure under them, in sentence case */
 .co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
 .co-facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-foot { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
@@ -195,7 +196,7 @@ button, select, input { font: inherit; color: inherit; }
 .tool-group button { border: 0; background: none; padding: 5px 10px; cursor: pointer; font-size: 13px; line-height: 1.4; min-width: 34px; }
 .tool-group button + button { border-left: 1px solid var(--rule); }
 .tool-group button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
-.tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 12px; color: var(--muted); }
 
 /* region row: the second line of the tool strip; each chip zooms to its region and lists it in the callout */
 .legend { flex-basis: 100%; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
@@ -237,7 +238,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .tagline { margin: 0; font-size: 17px; line-height: 1.55; }
 .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; margin: 0; padding: 14px 0; border-block: 1px solid var(--rule); }
 .facts > div { min-width: 0; }
-.facts dt { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.facts dt { font-size: 12px; color: var(--muted); font-weight: 500; }
 .facts dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.3; }
 .facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .facts .wide { grid-column: 1 / -1; }
@@ -276,7 +277,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .qtype b { font-size: 15px; }
 .qtype span { font-size: 13px; color: var(--muted); }
 .field { display: grid; gap: 6px; }
-.field label, .field .lbl { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.field label, .field .lbl { font-size: 12px; color: var(--muted); font-weight: 500; }
 .field select { padding: 8px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; width: fit-content; }
 .seg button { border: 0; background: none; padding: 6px 14px; cursor: pointer; }
@@ -345,7 +346,32 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .tool-group button, .seg button, .tabs button { transition: background-color 150ms ease; }
 .tool-group button:active, .seg button:active, .tabs button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
 .legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
-.legend-q i.missed { background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
+.legend-q i.missed { /* taste-skill-ignore: the map's miss hatch drawn small, not a decorative gradient */ background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
+/* the record: a ruled ledger, figures right-aligned; the chosen game's column and scope's row are picked out in indigo */
+.record { position: relative; padding-top: 14px; border-top: 1px solid var(--rule); }   /* positioned, so its sr-only header stays inside the scrolling panel */
+.record summary { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; cursor: pointer; font-weight: 700; list-style: none; }
+.record summary::-webkit-details-marker { display: none; }
+.record summary > span:first-child::after { content: ""; display: inline-block; width: 6px; height: 6px; margin: 0 0 3px 9px; border: solid var(--muted); border-width: 0 1.5px 1.5px 0; transform: rotate(45deg); transition: transform 160ms var(--ease-out); }
+.record:not([open]) summary > span:first-child::after { transform: rotate(-45deg); }
+.record table { width: 100%; margin-top: 8px; border-collapse: collapse; font-size: 13px; }
+.record th, .record td { padding: 0; border-bottom: 1px solid var(--rule); font-weight: 400; }
+.record tbody tr:last-child > * { border-bottom: 0; }
+.record table { table-layout: fixed; }
+.record thead th { padding: 0 8px 6px; font-size: 12px; line-height: 1.3; color: var(--muted); text-align: left; vertical-align: bottom; }
+.record thead th.num { width: 4.6em; text-align: right; }
+.record thead th.on { color: var(--ai); font-weight: 700; }
+.record .num { text-align: right; font-variant-numeric: tabular-nums; }
+.record button { display: flex; align-items: center; gap: 6px; width: 100%; min-height: 32px; padding: 4px 8px; border: 0; background: none; cursor: pointer; text-align: left; line-height: 1.3; transition: background-color 150ms ease; }
+.record td button { justify-content: flex-end; font-weight: 700; white-space: nowrap; }
+.record th button { flex-wrap: wrap; column-gap: 6px; row-gap: 0; }
+.record th button .swatch { margin-right: -2px; }
+.record th button span[lang] { color: var(--muted); }
+.record tr.cur th button { color: var(--ai); font-weight: 700; }
+.record tr.cur td.on button { background: var(--ai-soft); color: var(--ai); }
+.record .none { color: var(--muted); font-weight: 400; }
+.record .zen { display: inline-grid; place-items: center; width: 17px; height: 17px; border: 1.5px solid var(--shu); border-radius: 50%; color: var(--shu); font-family: var(--f-display); font-size: 10px; font-weight: 800; line-height: 1; transform: rotate(-8deg); }
+.record button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
+@media (hover: hover) and (pointer: fine) { .record button:hover { background: var(--ai-soft); } }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
 
 /* ---------- small screens ---------- */
@@ -362,10 +388,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .callout, .callout.docked { position: relative; grid-row: 3; left: auto; right: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .map-tools { flex-wrap: wrap; }
-  .pick { flex: 1 1 140px; min-width: 140px; max-width: none; order: 0; }   /* keeps the list readable and pushes names + regions to a second row */
+  .pick { flex: 1 1 100%; min-width: 0; max-width: none; order: 0; }   /* the list on its own row, names and zoom under it, then the regions */
   #names-group { order: 1; flex: none; }
-  .map-tools > .tool-group[aria-label="Zoom"] { order: 0; }
-  .legend { order: 2; flex: 1 1 0; flex-basis: 0; }
+  .map-tools > .tool-group[aria-label="Zoom"] { order: 1; flex: none; }
+  .legend { order: 2; flex: 1 1 100%; }   /* the regions get their own row, so more than one chip shows */
   .scale { display: none; }
   .tool-label { padding-left: 8px; }
   .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; overscroll-behavior: contain; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px));
@@ -399,7 +425,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 
 <div class="app">
   <header class="bar">
-    <div class="brand"><span class="brand-ja" lang="ja">都道府県</span><span class="brand-en">Todōfuken Atlas · Japan's 47 prefectures</span></div>
+    <div class="brand"><h1><span class="brand-ja" lang="ja">都道府県</span><span class="brand-en">Todōfuken Atlas · Japan's 47 prefectures</span></h1></div>
     <nav class="modes" aria-label="Mode">
       <button type="button" id="mode-explore" aria-pressed="true">Explore</button>
       <button type="button" id="mode-quiz" aria-pressed="false">Quiz</button>
@@ -863,6 +889,7 @@ function rememberFocus() {
   const a = document.activeElement;
   if (!a || a === panel || !panel.contains(a)) return () => {};
   const key = a.id ? '#' + a.id : a.dataset.tab ? `[data-tab="${a.dataset.tab}"]` : a.dataset.answer ? `[data-answer="${a.dataset.answer}"]`
+    : a.dataset.scope ? `[data-scope="${CSS.escape(a.dataset.scope)}"]${a.dataset.type ? `[data-type="${a.dataset.type}"]` : ':not([data-type])'}`
     : a.name ? `[name="${a.name}"][value="${a.value}"]` : null;
   return () => { const t = key && panel.querySelector(key); (t || panel).focus({ preventScroll: true }); };
 }
@@ -927,15 +954,17 @@ function frameSelection(id, force) {
   const b = frameBox(id), r = svg.getBoundingClientRect(), m = svg.getScreenCTM();
   if (!m || !r.width) return;
   const card = narrow.matches ? 0 : callout.offsetWidth + 64;
+  const drawer = drawerOpen && !narrow.matches ? panel.offsetWidth + 8 : 0;          // the open drawer covers the map's east side
   const q0 = new DOMPoint(b[0], b[1]).matrixTransform(m), q1 = new DOMPoint(b[0] + b[2], b[1] + b[3]).matrixTransform(m);
   const size = Math.max(q1.x - q0.x, q1.y - q0.y);
-  const inView = q0.x - r.left >= 16 && q0.y - r.top >= 16 && r.bottom - q1.y >= 16 && r.right - q1.x >= 16 + card;
+  const inView = q0.x - r.left >= 16 && q0.y - r.top >= 16 && r.bottom - q1.y >= 16 && r.right - drawer - q1.x >= 16 + card;
   if (!force && size >= 110 && inView) return;
   const fitW = Math.min(r.width, r.height * BASE.w / BASE.h);                       // the dimension that sets the scale under "meet"
   let w = size < 110 ? fitW * Math.max(b[2], b[3]) / 180 : view.w;                 // small: zoom so it is ~180px; large: just pan
+  if (drawer) w = Math.max(w, fitW * b[2] / Math.max(r.width - drawer - card - 32, 60));   // beside the drawer: zoom out until it fits west of the card
   w = Math.min(Math.max(w, BASE.w / 16), BASE.w);
   const h = w * BASE.h / BASE.w, k = fitW / w;
-  const cx = b[0] + b[2] / 2 + card / 2 / k, cy = b[1] + b[3] / 2;                  // shift west so the card fits east
+  const cx = b[0] + b[2] / 2 + (card + drawer) / 2 / k, cy = b[1] + b[3] / 2;       // shift west so the card (and drawer) fit east
   animateTo({ x: cx - w / 2, y: cy - h / 2, w });
 }
 const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
@@ -1055,6 +1084,7 @@ function setDrawer(open, moveFocus) {
   drawerOpen = open && mode === 'explore' && !!sel;
   $('#layout').classList.toggle('drawer-open', drawerOpen);
   renderCallout();
+  if (drawerOpen) frameSelection(sel, false);   // the drawer must not slide over the place it is about
   if (!moveFocus) return;
   if (drawerOpen) { const h = panel.querySelector('.pf-kanji'); if (h) h.focus({ preventScroll: true }); }
   else { const b = $('#co-more'); if (b) b.focus({ preventScroll: true }); }
@@ -1136,7 +1166,7 @@ function renderExplore(inkFrom) {
   panel.innerHTML = `<div class="panel-inner">
     <div class="drawer-bar"><button type="button" class="btn ghost small" id="drawer-close">Close</button></div>
     <header class="pf-head">
-      <h1 class="pf-kanji" lang="ja" tabindex="-1">${esc(p.ja)}</h1>
+      <h2 class="pf-kanji" lang="ja" tabindex="-1">${esc(p.ja)}</h2>
       <div class="seal" title="Prefecture code JP-${p.id} (ISO 3166-2)" aria-label="Prefecture code JP-${p.id}"><small>JP</small><span>${p.id}</span></div>
       <div class="pf-name">${esc(p.en)}<span class="kana" lang="ja">${esc(p.kana)}</span></div>
       <div class="chips">
@@ -1360,7 +1390,33 @@ function quizSetupHTML() {
       <span class="best">${best ? `Best: ${best.pct}% in ${mmss(best.ms)}` : 'No best score yet'}</span>
     </div>
     <div class="legend-q"><span><i style="background:var(--ok-fill)"></i>First try</span>${setup.type === 'find' ? `<span><i style="background:var(--late-fill)"></i>Found after a miss</span>` : ''}<span><i class="missed"></i>Missed</span></div>
+    ${recordHTML()}
   </div>`;
+}
+/* the learner's ledger: best score for every game in every scope, kept in this browser. A perfect round carries the 全 seal. */
+let recordOpen = null;
+function bestOf(type, scope) {
+  const all = (type === 'name' ? ['choice', 'type'] : [setup.answer]).map(a => store.get(bestKey(type, scope, a), null)).filter(Boolean);
+  return all.sort((a, b) => b.pct - a.pct || a.ms - b.ms)[0] || null;
+}
+function recordHTML() {
+  const scopes = ['all', ...REGIONS.map(r => r.key)], types = Object.keys(QTYPES);
+  const played = scopes.reduce((n, s) => n + types.filter(t => bestOf(t, s)).length, 0);
+  const rows = scopes.map(s => {
+    const r = REGION[s];
+    const name = r ? `<span class="swatch" style="background:var(--r-${r.slug})"></span>${esc(r.key)} <span lang="ja">${esc(r.ja)}</span>` : `All Japan <span lang="ja">日本</span>`;
+    return `<tr${s === setup.scope ? ' class="cur"' : ''}><th scope="row"><button type="button" data-scope="${esc(s)}" aria-pressed="${s === setup.scope}">${name}</button></th>${types.map(t => {
+      const b = bestOf(t, s);
+      const label = `${QTYPES[t].title}, ${scopeLabel(s)}: ${b ? `best ${b.pct}% in ${mmss(b.ms)}` : 'not played yet'}`;
+      return `<td class="num${t === setup.type ? ' on' : ''}"><button type="button" data-scope="${esc(s)}" data-type="${t}" aria-label="${esc(label)}" title="${b ? esc(mmss(b.ms)) : ''}">${b ? `${b.pct}%${b.pct === 100 ? '<span class="zen" lang="ja" aria-hidden="true">全</span>' : ''}` : '<span class="none">–</span>'}</button></td>`;
+    }).join('')}</tr>`;
+  }).join('');
+  if (recordOpen === null) recordOpen = !narrow.matches;   // folded on phones, where it would push the map down
+  return `<details class="record"${recordOpen ? ' open' : ''}>
+    <summary><span>Your record</span><span class="best">${played} of ${scopes.length * types.length} played</span></summary>
+    <table><thead><tr><th scope="col"><span class="sr-only">Region</span></th>${types.map(t => `<th scope="col" class="num${t === setup.type ? ' on' : ''}">${QTYPES[t].title}</th>`).join('')}</tr></thead>
+    <tbody>${rows}</tbody></table>
+  </details>`;
 }
 function quizRunHTML() {
   const t = byId[Q.current];
@@ -1444,6 +1500,12 @@ function renderQuizPanel() {
     $('#scope').onchange = e => { setup.scope = e.target.value; store.set('setup', setup); renderQuiz(); previewScope(); };
     panel.querySelectorAll('[data-answer]').forEach(b => b.onclick = () => { setup.answer = b.dataset.answer; store.set('setup', setup); renderQuiz(); });
     $('#start').onclick = () => startQuiz();
+    $('.record').ontoggle = e => { recordOpen = e.target.open; };
+    panel.querySelectorAll('.record [data-scope]').forEach(b => b.onclick = () => {   // a cell picks that game in that scope
+      const scope = b.dataset.scope, moved = scope !== setup.scope;
+      setup.scope = scope; if (b.dataset.type) setup.type = b.dataset.type;
+      store.set('setup', setup); renderQuiz(); if (moved) previewScope();
+    });
     return;
   }
   if (Q.phase === 'running') {

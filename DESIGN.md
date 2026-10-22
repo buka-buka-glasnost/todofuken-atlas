@@ -89,10 +89,9 @@ typography:
     lineHeight: 1.4
   label:
     fontFamily: "Zen Kaku Gothic New, Hiragino Sans, Yu Gothic, Segoe UI, system-ui, sans-serif"
-    fontSize: "11px"
-    fontWeight: 700
+    fontSize: "12px"
+    fontWeight: 500
     lineHeight: 1.4
-    letterSpacing: "0.08em"
 rounded:
   swatch: "4px"
   xs: "6px"
@@ -204,7 +203,7 @@ The page is a survey sheet of Japan laid on cool washi-grey paper. The map is no
 
 Colour is quiet and assigned by meaning. Indigo 藍 is the hand of the interface: controls, pressed states, focus, progress. Vermilion 朱 is the seal: it marks the one chosen place, the active reading tab, the prefecture code seal and the perfect-score hanko, and nothing else. Region pastels carry geography on the Explore map; on the Quiz map the land goes neutral so the learner's own marks (found, late, missed) carry the colour. Japanese is set as content, in a heavy Mincho, at the largest size on the screen.
 
-The density is a field atlas's: compact controls, tabular figures, small tracked labels over large bold numbers, hairline rules between groups. Depth comes from paper on paper with thin borders; only floating things (the callout and the drawer) cast a soft ambient shadow.
+The density is a field atlas's: compact controls, tabular figures, small sentence-case labels over large bold numbers, hairline rules between groups. Depth comes from paper on paper with thin borders; only floating things (the callout and the drawer) cast a soft ambient shadow.
 
 **Key Characteristics:**
 - The map owns the viewport; content floats over it or docks beneath it on phones.
@@ -267,7 +266,7 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 - **Figure** (700, 17px, 1.25, tabular): fact values (capital, population, area, density), 18px in the drawer, each with a 12px muted rank line beneath.
 - **Body** (400, 15px, 1.6): running text; taglines at 14–16px.
 - **Control** (500, 13px): tool toggles, region chips, selects, small buttons. Buttons proper inherit 15px.
-- **Label** (700, 11px, +0.08em, uppercase): term labels over fact figures, form field labels, the tool-strip group label. Labels name a value directly beneath them; they are never placed above a heading.
+- **Label** (500, 12px, sentence case, muted): term labels over fact figures, form field labels, the tool-strip group label. Labels name a value directly beneath them; they are never placed above a heading. No tracked uppercase anywhere: the kanji carries the character, the labels stay quiet.
 
 ### Named Rules
 **The Kanji Is Largest Rule.** On any screen the largest text is Japanese in Mincho (or the score). English never outranks the kanji it translates.
@@ -279,8 +278,8 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 A single full-height grid: a top bar (wordmark left, Explore/Quiz toggle right) over a stage, with 16px side gutters and 12px between rows.
 
 - **Explore:** the map frame takes the full width. Its first row is the tool strip (prefecture picker, Names Off/ABC/漢字, zoom, scale bar) with the region chips as a second, horizontally scrolling line; its second row is the map. The callout card (336px) is positioned in map space beside the selected prefecture with a 48px gap, preferring the open-sea east side and flipping west when it will not fit; it docks to the bottom-right (16px inset, over open Pacific) when there is no selection box. The reading drawer (up to 440px) slides over the right edge.
-- **Quiz:** the map frame plus a 320–420px panel column, 16px gap.
-- **Phones (≤860px):** everything stacks; the map is capped at 52vh with a 1 : 0.86 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow); the drawer becomes a bottom sheet (max 85vh, 16px top corners, a grabber, a dimming scrim that closes it, and swipe-down to dismiss: a flick faster than 0.11px/ms or a drag past a quarter of its height); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
+- **Quiz:** the map frame plus a 320–420px panel column, 16px gap. The setup panel ends with the learner's record, so the column is never half empty.
+- **Phones (≤860px):** everything stacks; the tool strip runs in three rows (the picker; names and zoom; the region chips, scrolling sideways); the map is capped at 52vh with a 1 : 0.86 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow); the drawer becomes a bottom sheet (max 85vh, 16px top corners, a grabber, a dimming scrim that closes it, and swipe-down to dismiss: a flick faster than 0.11px/ms or a drag past a quarter of its height); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
 - **Touch:** every map tool, chip, callout button and picker is at least 44px tall under `pointer: coarse`.
 - **Rhythm:** 6 / 8 / 12 / 16 / 24px. Card internals use 10–14px gaps; fact grids are always two columns.
 
@@ -328,13 +327,13 @@ The selected prefecture speaks from where it lies.
 - **Body:** 336px paper card, 12px radius, rule border, callout float shadow, 16/18/14px padding, 12px gaps.
 - **Head:** kanji at display size, region swatch and name top-right beside a ghost close (×) button, romaji title with kana beside it.
 - **Closing:** the ×, Escape (when the drawer is shut), or a second click on the chosen prefecture clears the selection, region and drawer and leaves the map bare. The second click also eases the map back to the view it had before the first pick (moving between prefectures in the meantime doesn't change that view); the × and Escape leave the map where it is. The card stays away until something is picked again; focus returns to that prefecture on the map.
-- **Facts:** a two-column definition grid (Capital, Population, Area, Density), uppercase labels over bold tabular figures, a muted "#n of 47" rank beneath each, separated from the head by a hairline.
+- **Facts:** a two-column definition grid (Capital, Population, Area, Density), sentence-case labels over bold tabular figures, a muted "#n of 47" rank beneath each, separated from the head by a hairline.
 - **Foot:** previous/next icon buttons and the primary Read more, behind a hairline.
 - **Leader:** a 1.25px ink line from card to prefecture ending in a 3.5px paper dot with an ink ring. It follows the prefecture through pan and zoom; the card swaps sides near an edge.
 - **Phone:** docked strip under the map, kanji at 34px.
 
 ### Reading drawer
-Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200ms with the out-curve. Holds the full prefecture page: kanji head with the code seal, chips, tagline, a facts grid between hairlines, the age-structure bar with a national marker, and tabs whose active tab carries a 2px vermilion underline that slides 200ms to a clicked tab (arrow keys move it instantly). On phones it is a bottom sheet.
+Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200ms with the out-curve. Opening it reframes the map when needed so the chosen prefecture and its card sit in the strip left of the drawer, never underneath it. Holds the full prefecture page: kanji head with the code seal, chips, tagline, a facts grid between hairlines, the age-structure bar with a national marker, and tabs whose active tab carries a 2px vermilion underline that slides 200ms to a clicked tab (arrow keys move it instantly). On phones it is a bottom sheet.
 
 ### Map
 - **Frame:** sea ground, 12px radius, rule border, 0.8px graticule, dashed inset box for Okinawa.
@@ -349,6 +348,9 @@ Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200m
 - **Selects:** paper face, rule border, 8px radius.
 - **Type-in:** 17px text, 1.5px `border-edge` stroke, 8px radius; focus turns the border indigo instead of drawing an outline.
 - **Quiz type cards:** 10px cards with a radio; the checked card turns indigo-bordered on `ai-soft`.
+
+### Your record (quiz setup)
+The learner's ledger under the game choices: one row per scope (All Japan and the eight regions, each with its swatch and kanji) and one column per game, holding the best score kept in this browser. A ruled table in 13px with right-aligned tabular figures, a muted dash for a game not yet played, and a "n of 27 played" count in the summary. The chosen game's column header and the chosen scope's row turn indigo, their shared cell sits on `ai-soft`, and every cell is a button that picks that game in that scope. A 100% cell carries a 17px vermilion 全 seal, the hanko in miniature. It is a `<details>`, open on desktop and folded on phones so the map stays near the top.
 
 ### Quiz feedback
 - **Answer cards:** two-column 10px cards with a key hint, bold name and muted reading; right answers fill `ok-fill` with an `ok` border, wrong ones `bad-fill` with a `bad` border.
@@ -374,6 +376,6 @@ Two curves: `cubic-bezier(0.23, 1, 0.32, 1)` for responses (press, enter, drawer
 - **Don't** split Explore into a map on the left and a card column on the right; the reading panel is a drawer.
 - **Don't** fill more than one prefecture vermilion, or use vermilion on a button.
 - **Don't** colour quiz land by region; the learner's results are the only colour there.
-- **Don't** put small uppercase labels above headings; tracked uppercase is only for labels that name the value directly beneath them.
+- **Don't** use tracked uppercase labels; labels are 12px sentence case and only name the value directly beneath them.
 - **Don't** set UI copy or English body text in the Mincho.
 - **Don't** add hover effects that fire on touch; hover rules live behind `(hover: hover) and (pointer: fine)`.
