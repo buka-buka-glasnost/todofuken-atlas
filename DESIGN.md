@@ -248,7 +248,7 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 
 **The One Red Place Rule.** On any map state, at most one prefecture is filled vermilion. Region views highlight with fades, not more red.
 
-**The Flag Rule.** In Explore the chosen prefecture wears its own flag: the vermilion fill comes first, then the flag fades in over it (420ms, out-curve) and keeps the prefecture's outline in a 1.5px ink stroke. The flag covers the prefecture's mainland box at its own proportions, centred, so the emblem sits near the middle of the land. Only one prefecture wears a flag at a time, and never on the Quiz map, where the learner's colours rule.
+**The Flag Rule.** In Explore the chosen prefecture wears its own flag: the vermilion fill comes first, then the flag fades in over it (420ms, out-curve) and keeps the prefecture's outline in a 1.5px ink stroke. The flag covers the prefecture's mainland box at its own proportions, centred, so the emblem sits near the middle of the land; inset islands (Amami, Okinawa) get their own copy. It is drawn as plain images clipped to the outline, not an SVG pattern, because browsers do not repaint a pattern whose picture finishes loading after the first paint. Only one prefecture wears a flag at a time, and never on the Quiz map, where the learner's colours rule.
 
 **The Learner's Colour Rule.** On the Quiz map the land is neutral; only the learner's results (found, late, missed) and the single target carry colour.
 
@@ -334,6 +334,9 @@ The selected prefecture speaks from where it lies.
 - **Leader:** a 1.25px ink line from card to prefecture ending in a 3.5px paper dot with an ink ring. It follows the prefecture through pan and zoom; the card swaps sides near an edge.
 - **Phone:** docked strip under the map, kanji at 34px.
 
+### Place card
+The same card, speaking from a capital or landmark instead of the whole prefecture: clicking a marker (or a capital link, or "Show on map" in the drawer's Sights tab) chooses its prefecture too, so the flag stays on. Head: the Japanese name in Mincho (34px from five characters, 26px and allowed two lines from eight), the English name, and a muted line with the map symbol, "Prefectural capital" or "Landmark", and the prefecture. Body: the place's note (15px, 500), then a two-or-three-sentence summary from the place's English Wikipedia article (14px, at most about 360 characters, with Japanese script, pronunciations and romanisations removed) and a 12px muted credit line, "From Wikipedia, CC BY-SA 4.0"; capitals add the city population with its year. When the only article is about the town around a landmark, the card links it as "Wikipedia: <town>" and shows no summary, so it never describes the wrong place. Foot: previous/next through that prefecture's capital and landmarks, a ghost Wikipedia link, and the primary "Back to <prefecture>". The ×, Escape and Back all return to the prefecture card. The leader line ends on the marker itself; the map pans, never zooms, to keep the place beside its card.
+
 ### Reading drawer
 Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200ms with the out-curve. Opening it reframes the map when needed so the chosen prefecture and its card sit in the strip left of the drawer, never underneath it. Holds the full prefecture page: kanji head with the code seal, chips, tagline, a facts grid between hairlines, the age-structure bar with a national marker, and tabs whose active tab carries a 2px vermilion underline that slides 200ms to a clicked tab (arrow keys move it instantly). On phones it is a bottom sheet.
 
@@ -344,7 +347,8 @@ Paper panel up to 440px over the map's right edge, sliding in 300ms and out 200m
 - **Labels:** 700 gothic in ink with a surface-coloured halo stroke; colliding labels are culled.
 - **Hover:** fine pointers only, a brightness filter (0.92 light, 1.25 dark).
 - **Focus:** a 3px indigo outline path drawn above all prefectures.
-- **Tooltip:** ink pill (6px) with paper text, the name in 700 and its kanji at 75% opacity.
+- **Tooltip:** ink pill (6px) with paper text, the name in 700 and its kanji at 75% opacity. Places use the same tooltip.
+- **Places:** every prefectural capital is a ◎ (an 11px ink ring with a dot, the symbol Japanese maps use for prefectural capitals) and always shows in Explore. Each landmark is a 9px indigo dot with a paper ring; landmarks show for the chosen prefecture, and for all prefectures once the map is zoomed in past a sixth of its full width. Markers keep their screen size at every zoom (`--u`, one pixel in map units) and have a 24px hit area. The open place turns vermilion (ring and dot for a capital). Places are hidden on the Quiz map.
 
 ### Inputs / Fields
 - **Selects:** paper face, rule border, 8px radius.

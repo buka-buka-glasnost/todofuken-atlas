@@ -61,6 +61,9 @@ let lo = 0, hi = 5;
 for (let i = 0; i < 50; i++) { const m = (lo + hi) / 2; (geoDistance([138, 36], [138 + m, 36]) * 6371 < 200) ? lo = m : hi = m; }
 const a = proj([138, 36]), c = proj([138 + lo, 36]);
 const km200 = +Math.hypot(c[0] - a[0], c[1] - a[1]).toFixed(1);
-fs.writeFileSync(process.argv[3], JSON.stringify({ viewBox: vb, inset: box, grat, km200, shapes: out }));
+// the projections themselves, so places (capitals, landmarks) can be put on the same map later without d3
+const params = (p, rotate, parallels) => ({ rotate, parallels, scale: +p.scale().toFixed(4), translate: p.translate().map(v => +v.toFixed(4)) });
+const projOut = { main: params(proj, -136, [33, 44]), inset: { ...params(proj2, -127, [24, 30]), test: 'pref 47, or 46 south of 29.6N' } };
+fs.writeFileSync(process.argv[3], JSON.stringify({ viewBox: vb, inset: box, grat, km200, shapes: out, proj: projOut }));
 console.error('km200 px', km200);
 console.error('viewBox', vb, 'size', fs.statSync(process.argv[3]).size);

@@ -111,11 +111,28 @@ button, select, input { font: inherit; color: inherit; }
 /* ---------- callout: the selected prefecture speaks from where it lies ---------- */
 /* with the drawer open the card keeps only its head: the drawer carries the facts */
 .layout.drawer-open .callout .co-tag, .layout.drawer-open .callout .co-facts { display: none; }
-.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
+.callout { position: absolute; z-index: 4; left: 0; top: 0; width: 336px; display: grid; gap: 12px; padding: 16px 18px 14px; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); overflow-y: auto; overscroll-behavior: contain; }
 .callout.docked { transform: none !important; left: auto; right: 16px; top: auto; bottom: 16px; }   /* bottom-right is open Pacific, not Kyūshū */
 .co-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: end; }
 .co-kanji { margin: 0; font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: .04em; white-space: nowrap; }
 .co-kanji.long { font-size: 40px; }   /* 九州・沖縄 still fits beside the close button */
+.co-kanji.co-place.long { font-size: 34px; }
+.co-kanji.co-place.longer { font-size: 26px; white-space: normal; text-wrap: balance; }   /* long landmark names may take two lines */
+.co-place-title { margin: 0; font-size: 20px; }
+.co-note { margin: 0; font-size: 15px; line-height: 1.5; font-weight: 500; }
+.co-summary { margin: -4px 0 0; font-size: 14px; line-height: 1.55; }
+.co-credit { margin: -8px 0 0; font-size: 12px; color: var(--muted); }
+.co-credit a { color: inherit; }
+.co-wiki { margin-left: auto; }
+.co-wiki + .btn.primary { margin-left: 0; }
+/* the map's own symbols, small, in the card that explains them */
+.pmark { flex: none; display: inline-block; box-sizing: border-box; width: 11px; height: 11px; border-radius: 50%; }
+.pmark.sight { background: var(--ai); }
+.pmark.capital { border: 1.5px solid var(--ink); background: radial-gradient(circle, var(--ink) 0 2px, transparent 2.5px); }   /* taste-skill-ignore: ◎, the capital symbol, not decoration */
+.placelink { padding: 0; border: 0; background: none; font: inherit; color: var(--ai); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; cursor: pointer; }
+.items li.has-map { grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
+.items li.has-map > :not(.onmap) { grid-column: 1; }
+.items li.has-map .onmap { grid-column: 2; grid-row: 1 / span 2; align-self: center; gap: 6px; color: var(--ai); }
 .co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-top { grid-row: 1; grid-column: 2; align-self: start; display: flex; align-items: center; gap: 4px; margin: -8px -10px 0 0; }   /* the close button, tucked into the corner */
@@ -168,8 +185,25 @@ button, select, input { font: inherit; color: inherit; }
 #map.m-explore .pref[data-r="kyushu"] .shape { fill: var(--r-kyushu); }
 #map .pref.fade { opacity: .35; }
 #map.m-explore .pref.sel .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
+/* places: indigo dots for landmarks (something to click), ◎ in ink for capitals; the open one turns vermilion, like any chosen thing.
+   Sizes are in screen pixels: --u is one pixel in map units, set on every view change */
+#map .places { pointer-events: none; }
+#map.m-quiz .places { display: none; }
+#map .place { pointer-events: auto; cursor: pointer; }
+#map .place.sight { display: none; }
+#map .place.sight.on, #map.deep .place.sight { display: inline; }
+#map .place .hit { r: calc(var(--u) * 12); fill: transparent; }
+#map .place .m { r: calc(var(--u) * 4.5); fill: var(--ai); stroke: var(--surface); stroke-width: 1.5px; vector-effect: non-scaling-stroke; transition: fill 150ms ease; }
+#map .place.capital .m { r: calc(var(--u) * 5.5); fill: var(--surface); stroke: var(--ink); }
+#map .place.capital .dot { r: calc(var(--u) * 2.2); fill: var(--ink); transition: fill 150ms ease; }
+#map .place.open .m { fill: var(--shu); }
+#map .place.capital.open .m { fill: var(--surface); stroke: var(--shu); stroke-width: 2px; }
+#map .place.capital.open .dot { fill: var(--shu); }
+@media (hover: hover) and (pointer: fine) {
+  #map .place:hover .m { stroke-width: 2.5px; }
+}
 /* the chosen prefecture wears its flag: vermilion first, then the flag settles over it */
-#map .flag { stroke: var(--ink); stroke-width: 1.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+#map .flag-edge { fill: none; stroke: var(--ink); stroke-width: 1.5px; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
 #map .flag.in { animation: flag-in 420ms var(--ease-out) 80ms both; }
 @keyframes flag-in { from { opacity: 0; } }
 
@@ -477,6 +511,9 @@ const SHAPES = __SHAPES__;
 const FLAGS = __FLAGS__;
 </script>
 <script>
+const PLACES = __PLACES__;
+</script>
+<script>
 (() => {
 'use strict';
 
@@ -558,7 +595,8 @@ function nearName(s) {
 /* ================= app state ================= */
 let mode = store.get('mode', 'explore');
 let sel = byId[store.get('sel', null)] ? store.get('sel', null) : null;   // nothing chosen on a first visit
-let cardView = 'pref';                          // pref | region: what the callout is showing
+let cardView = 'pref';                          // pref | region | place: what the callout is showing
+let placeOn = null;                             // the capital or landmark whose card is open
 let drawerOpen = false;
 let tab = store.get('tab', 'overview');
 let names = store.get('names', 'off');         // off | romaji | kanji
@@ -586,27 +624,33 @@ mk('text', { class: 'inset-cap', x: ib.x + ib.w - 14, y: ib.y + ib.h - 14, 'text
   mk('rect', { class: 'hatch-bg', width: h, height: h }, pat);
   mk('line', { class: 'hatch-line', x1: 0, y1: 0, x2: 0, y2: h }, pat);
 }
-/* the chosen prefecture becomes its flag: one pattern, sized to the prefecture's mainland box, fills a copy of its outline */
-const flagPat = mk('pattern', { id: 'flag-fill', patternUnits: 'userSpaceOnUse' }, svg.querySelector('defs'));
-const flagImg = mk('image', { preserveAspectRatio: 'none' }, flagPat);
-const flagPath = mk('path', { class: 'flag', fill: 'url(#flag-fill)' });
+/* the chosen prefecture becomes its flag: the flag picture covers each part of the prefecture (its mainland, and its inset
+   islands if it has any), clipped to that part's outline, with the outline drawn on top. Plain clipped images, not a
+   pattern: browsers do not repaint a pattern when its picture finishes loading after the first paint. */
+const flagDefs = svg.querySelector('defs');
+const flagGroup = mk('g', { class: 'flag' });
 let flagOn = null;
 function placeFlag(id) {
-  if (id === flagOn && (!id || flagPath.parentNode === prefEl[id])) return;
+  if (id === flagOn && (!id || flagGroup.parentNode === prefEl[id])) return;
   flagOn = id;
-  if (!id || !FLAGS[id]) { flagPath.remove(); return; }
-  const [x, y, w, h] = frameBox(id), s = SHAPES.shapes[id];
-  Object.entries({ x, y, width: w, height: h }).forEach(([k, v]) => flagPat.setAttribute(k, v));
-  // cover the tile at the flag's own proportions, centred (browsers letterbox SVG pictures even when asked to slice);
-  // pattern content is placed from the tile's corner, and the tile clips what overhangs
-  const r = FLAGS[id].ratio, iw = Math.max(w, h * r), ih = iw / r;
-  Object.entries({ x: (w - iw) / 2, y: (h - ih) / 2, width: iw, height: ih }).forEach(([k, v]) => flagImg.setAttribute(k, v.toFixed(2)));
-  flagImg.setAttribute('href', FLAGS[id].svg);
-  flagPath.setAttribute('d', (s.d || '') + (s.di || ''));
-  flagPath.classList.remove('in');
-  prefEl[id].appendChild(flagPath);
-  flagPath.getBoundingClientRect();   // restart the fade for each new prefecture
-  flagPath.classList.add('in');
+  flagGroup.replaceChildren();
+  flagDefs.querySelectorAll('.flag-clip').forEach(c => c.remove());
+  if (!id || !FLAGS[id]) { flagGroup.remove(); return; }
+  const s = SHAPES.shapes[id], r = FLAGS[id].ratio;
+  [s.d, s.di].filter(Boolean).forEach((d, n) => {
+    const clip = mk('clipPath', { id: 'flag-clip-' + n, class: 'flag-clip' }, flagDefs);
+    mk('path', { d }, clip);
+    const box = () => { const t = mk('path', { d, visibility: 'hidden' }, svg), b = t.getBBox(); t.remove(); return [b.x, b.y, b.width, b.height]; };
+    const [x, y, w, h] = n === 0 ? frameBox(id) : box();   // the mainland box, so Tōkyō's islands do not shrink its flag
+    // cover the box at the flag's own proportions, centred (browsers letterbox SVG pictures even when asked to slice)
+    const iw = Math.max(w, h * r), ih = iw / r;
+    mk('image', { href: FLAGS[id].svg, x: (x + (w - iw) / 2).toFixed(2), y: (y + (h - ih) / 2).toFixed(2), width: iw.toFixed(2), height: ih.toFixed(2), preserveAspectRatio: 'none', 'clip-path': `url(#flag-clip-${n})` }, flagGroup);
+  });
+  mk('path', { class: 'flag-edge', d: (s.d || '') + (s.di || '') }, flagGroup);
+  flagGroup.classList.remove('in');
+  prefEl[id].appendChild(flagGroup);
+  flagGroup.getBoundingClientRect();   // restart the fade for each new prefecture
+  flagGroup.classList.add('in');
 }
 const gPrefs = mk('g', { class: 'prefs' }, svg);
 const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
@@ -625,6 +669,20 @@ PREFS.forEach(p => {
   labelEl[p.id] = t;
 });
 PREFS.filter(p => p.area < 2600).forEach(p => gPrefs.appendChild(prefEl[p.id]));   // small ones drawn last so their tap edge wins
+/* places: ◎ for each prefectural capital, as Japanese maps mark them, and a dot for each landmark.
+   Capitals always show; landmarks show for the chosen prefecture, or everywhere once the map is zoomed well in. */
+const gPlaces = mk('g', { class: 'places' }, svg);
+const placeById = {}, placeEl = {};
+['sight', 'capital'].forEach(kind => PLACES.filter(pl => pl.kind === kind).forEach(pl => {   // capitals drawn last, on top
+  placeById[pl.id] = pl;
+  const g = mk('g', { class: 'place ' + kind, 'data-place': pl.id, transform: `translate(${pl.xy[0]} ${pl.xy[1]})` }, gPlaces);
+  mk('circle', { class: 'hit' }, g);
+  mk('circle', { class: 'm' }, g);
+  if (kind === 'capital') mk('circle', { class: 'dot' }, g);
+  placeEl[pl.id] = g;
+}));
+const placeName = pl => pl.kind === 'capital' ? byId[pl.pref].cap : byId[pl.pref].sights[pl.i][0];
+const placeJa = pl => pl.kind === 'capital' ? byId[pl.pref].capJa : pl.ja;
 function setLabelText() {
   const kanji = names === 'kanji';
   PREFS.forEach(p => { labelEl[p.id].textContent = kanji ? p.ja : p.en; labelEl[p.id].setAttribute('lang', kanji ? 'ja' : 'en'); });
@@ -658,6 +716,8 @@ function setView(v, how) {
   gLabels.setAttribute('font-size', (12 / k).toFixed(2));
   gLabels.setAttribute('stroke-width', (3.2 / k).toFixed(2));
   ring.setAttribute('r', (22 / k).toFixed(2));
+  gPlaces.style.setProperty('--u', (1 / k).toFixed(4) + 'px');   // one screen pixel in map units: markers keep their size at any zoom
+  svg.classList.toggle('deep', view.w < BASE.w / 6);             // zoomed well in: every landmark shows
   // scale bar: pick a round distance that fits ~120px
   const pxPerKm = SHAPES.km200 / 200 * k;
   const km = [10, 20, 50, 100, 200, 500].reverse().find(d => d * pxPerKm <= 120) || 10;
@@ -695,7 +755,8 @@ function animateTo(target, dur = 380) {
   const from = { ...view }, t0 = performance.now();
   animTarget = target;
   const step = now => {
-    const t = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - t, 5);   // strong ease-out: the map answers at once, then settles
+    const t = Math.min(1, Math.max(0, (now - t0) / dur)), e = 1 - Math.pow(1 - t, 5);   // strong ease-out: the map answers at once, then settles
+    // (a frame's timestamp can be a little earlier than t0; unclamped, the curve would overshoot backwards, even to a negative width)
     setView({ x: from.x + (target.x - from.x) * e, y: from.y + (target.y - from.y) * e, w: from.w + (target.w - from.w) * e }, 'raw');
     if (t < 1) anim = requestAnimationFrame(step); else animTarget = null;
   };
@@ -748,7 +809,8 @@ svg.addEventListener('pointerdown', e => {
   pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
   stopAnim();                                            // catching a gliding map stops it where it is
   if (pointers.size === 1) {
-    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: e.target.closest('.pref'), trail: [] };
+    const place = e.target.closest('.place');
+    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: place ? null : e.target.closest('.pref'), place, trail: [] };
   } else if (pointers.size === 2) {
     if (drag) drag.moved = true;
     const [a, b] = [...pointers.values()];
@@ -785,7 +847,7 @@ function pointerEnd(e) {
     return;
   }
   if (pointers.size === 0) {
-    if (drag && !drag.moved && e.type === 'pointerup') onMapClick(drag.target ? drag.target.dataset.id : null);
+    if (drag && !drag.moved && e.type === 'pointerup') drag.place ? openPlace(drag.place.dataset.place) : onMapClick(drag.target ? drag.target.dataset.id : null);
     else if (outOfBounds()) animateTo(view, 300);                       // pulled past an edge: ease back inside
     else if (drag && drag.moved && !reduceMotion && e.type === 'pointerup') {
       const tr = drag.trail, a = tr[0], b = tr[tr.length - 1];
@@ -822,10 +884,11 @@ function tipAllowed(id) {
 }
 function hover(e) {
   if (e.pointerType === 'touch') return;
-  const g = e.target.closest && e.target.closest('.pref');
-  if (!g || !tipAllowed(g.dataset.id)) return hideTip();
-  const p = byId[g.dataset.id];
-  tip.innerHTML = `<b>${esc(p.en)}</b><span lang="ja">${esc(p.ja)}</span>`;
+  const pl = e.target.closest && e.target.closest('.place');
+  const g = !pl && e.target.closest && e.target.closest('.pref');
+  if (pl) { const q = placeById[pl.dataset.place], ja = placeJa(q); tip.innerHTML = `<b>${esc(placeName(q))}</b>${ja ? `<span lang="ja">${esc(ja)}</span>` : ''}`; }
+  else if (!g || !tipAllowed(g.dataset.id)) return hideTip();
+  else { const p = byId[g.dataset.id]; tip.innerHTML = `<b>${esc(p.en)}</b><span lang="ja">${esc(p.ja)}</span>`; }
   tip.hidden = false;
   const r = $('#mapwrap').getBoundingClientRect();
   let x = e.clientX - r.left + 14, y = e.clientY - r.top + 16;
@@ -843,6 +906,11 @@ function paint() {
   svg.classList.toggle('gaveup', !!(quiz && Q && Q.gaveUp && Q.phase === 'done'));
   let ringAt = null, ringPulse = false;
   placeFlag(!quiz && sel && cardView !== 'region' ? sel : null);
+  PLACES.forEach(pl => {
+    placeEl[pl.id].classList.toggle('on', !quiz && pl.pref === sel && cardView !== 'region');
+    placeEl[pl.id].classList.toggle('open', !quiz && pl.id === placeOn && cardView === 'place');
+  });
+  if (placeOn && cardView === 'place') gPlaces.appendChild(placeEl[placeOn]);   // the open place on top of its neighbours
   PREFS.forEach(p => {
     const cls = ['pref'];
     let labOn = false;
@@ -952,7 +1020,7 @@ function renderLegend() {
     const k = b.dataset.region;
     exploreRegion = exploreRegion === k ? null : k;
     if (exploreRegion) dismissed = false;
-    cardView = exploreRegion ? 'region' : 'pref';
+    cardView = exploreRegion ? 'region' : 'pref'; placeOn = null;
     renderLegend(); paint(); renderCallout();
     if (exploreRegion) fitBox(unionBox(PREFS.filter(p => p.region === k).map(p => p.id)), 0.1); else resetView();
   });
@@ -962,7 +1030,7 @@ function renderLegend() {
 const panel = $('#panel');
 function selectPref(id, opts = {}) {
   if (!sel) viewBeforeSel = { ...(animTarget || view) };   // mid-tween, the view it was heading to
-  sel = id; store.set('sel', id); cardView = 'pref'; dismissed = false;
+  sel = id; store.set('sel', id); cardView = 'pref'; placeOn = null; dismissed = false;
   const hadFocus = document.activeElement === prefEl[id];
   gPrefs.appendChild(prefEl[id]);              // draw selected border on top (moving it drops focus, so restore it)
   if (hadFocus) prefEl[id].focus({ preventScroll: true });
@@ -1005,7 +1073,7 @@ function itemList(rows, withJa) {
 }
 function tabBody(p) {
   if (tab === 'history') return `<p>${esc(p.history)}</p>`;
-  if (tab === 'sights') return `<h2>Landmarks &amp; monuments</h2>${itemList(p.sights, false)}`;
+  if (tab === 'sights') return `<h2>Landmarks &amp; monuments</h2><ul class="items">${p.sights.map(([nm, ds], i) => `<li class="has-map"><div><span class="nm">${esc(nm)}</span>${placeById[`${p.id}-${i}`]?.ja ? `<span class="jp" lang="ja">${esc(placeById[`${p.id}-${i}`].ja)}</span>` : ''}</div><span class="ds">${esc(ds)}</span>${placeById[`${p.id}-${i}`] ? `<button type="button" class="btn small ghost onmap" data-place="${p.id}-${i}"><span class="pmark sight" aria-hidden="true"></span>Show on map<span class="sr-only">: ${esc(nm)}</span></button>` : ''}</li>`).join('')}</ul>`;
   if (tab === 'food') return `<h2>Local food</h2>${itemList(p.food, true)}`;
   if (tab === 'omiyage') return `<p class="muted">Omiyage (お土産) are the gifts people bring back from a trip for family and co-workers, usually something only sold in that region.</p><h2>Popular omiyage</h2>${itemList(p.omiyage, true)}`;
   const forecast = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${jmaCode(p.id)}&lang=en`;
@@ -1031,7 +1099,30 @@ function renderCallout() {
   const restore = (() => { const a = document.activeElement; if (!a || !callout.contains(a)) return () => {};
     const key = a.id ? '#' + a.id : a.dataset.pick ? `[data-pick="${a.dataset.pick}"]` : null;
     return () => { const t = key && callout.querySelector(key); if (t) t.focus({ preventScroll: true }); }; })();
-  if (cardView === 'region' && exploreRegion) {
+  if (cardView === 'place' && placeOn) {
+    const pl = placeById[placeOn], p = byId[pl.pref], cap = pl.kind === 'capital';
+    const name = placeName(pl), ja = placeJa(pl), note = cap ? pl.note : p.sights[pl.i][1];
+    const list = PLACES.filter(q => q.pref === pl.pref), at = list.indexOf(pl);
+    const prev = list[(at + list.length - 1) % list.length], next = list[(at + 1) % list.length];
+    const len = ja ? [...ja].length : 0, size = len > 7 ? ' longer' : len > 4 ? ' long' : '';
+    callout.setAttribute('aria-label', `${name}, ${cap ? 'capital' : 'landmark'} of ${p.en}`);
+    callout.innerHTML = `<div class="co-head">${ja
+        ? `<h2 class="co-kanji co-place${size}" lang="ja">${esc(ja)}</h2><div class="co-top">${CLOSE}</div><div class="co-name">${esc(name)}</div>`
+        : `<h2 class="co-name co-place-title">${esc(name)}</h2><div class="co-top">${CLOSE}</div>`}
+        <div class="co-region"><span class="pmark ${pl.kind}" aria-hidden="true"></span>${cap ? 'Prefectural capital' : 'Landmark'} · ${esc(p.en)} <span lang="ja">${esc(p.ja)}</span></div></div>
+      <p class="co-note">${esc(note)}</p>
+      ${pl.summary ? `<p class="co-summary">${esc(pl.summary)}</p><p class="co-credit">From Wikipedia, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>` : ''}
+      ${cap && pl.pop ? `<dl class="co-facts"><div><dt>City population</dt><dd>${fmt(pl.pop)}<small>${pl.popYear ? `in ${pl.popYear}` : ''}</small></dd></div></dl>` : ''}
+      <div class="co-foot">
+        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous place: ${esc(placeName(prev))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-next" aria-label="Next place: ${esc(placeName(next))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
+        ${pl.wiki ? `<a class="btn ghost small co-wiki" href="https://en.wikipedia.org/wiki/${encodeURIComponent(pl.wiki.replace(/ /g, '_'))}" target="_blank" rel="noopener">${pl.wikiBroader ? `Wikipedia: ${esc(pl.wiki.replace(/,.*| (.*)/, ''))}` : 'Wikipedia'}<svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5h6v6M12.5 3.5 4 12" /></svg><span class="sr-only"> (opens in a new tab)</span></a>` : ''}
+        <button type="button" class="btn primary small" id="co-back">Back to ${esc(p.en)}</button>
+      </div>`;
+    $('#co-prev').onclick = () => openPlace(prev.id);
+    $('#co-next').onclick = () => openPlace(next.id);
+    $('#co-back').onclick = () => closePlace(true);
+  } else if (cardView === 'region' && exploreRegion) {
     const r = REGION[exploreRegion], ps = PREFS.filter(q => q.region === exploreRegion);
     callout.setAttribute('aria-label', `${r.key} region`);
     callout.innerHTML = `<div class="co-head"><h2 class="co-kanji${[...r.ja].length > 4 ? ' long' : ''}" lang="ja">${esc(r.ja)}</h2>
@@ -1050,7 +1141,7 @@ function renderCallout() {
         <div class="co-region"><span class="swatch" style="background:var(--r-${p.slug})"></span>${esc(p.region)} <span lang="ja">${esc(REGION[p.region].ja)}</span></div></div>
       <p class="co-tag">${esc(p.tag)}</p>
       <dl class="co-facts">
-        <div><dt>Capital</dt><dd>${esc(p.cap)}<small lang="ja">${esc(p.capJa)}</small></dd></div>
+        <div><dt>Capital</dt><dd><button type="button" class="placelink" data-place="${p.id}-c">${esc(p.cap)}</button><small lang="ja">${esc(p.capJa)}</small></dd></div>
         <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47</small></dd></div>
         <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
         <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
@@ -1063,17 +1154,19 @@ function renderCallout() {
     $('#co-prev').onclick = () => selectPref(prev.id, { zoom: true });
     $('#co-next').onclick = () => selectPref(next.id, { zoom: true });
     $('#co-more').onclick = () => setDrawer(!drawerOpen, true);
+    callout.querySelectorAll('[data-place]').forEach(b => b.onclick = () => openPlace(b.dataset.place, true));
   } else {
     callout.setAttribute('aria-label', 'Getting started');
     callout.innerHTML = `<div class="co-head"><h2 class="co-name" style="margin:0">Pick a prefecture</h2><div class="co-top">${CLOSE}</div></div>
       <p class="co-hint">Tap any prefecture on the map, choose a region above, or find one in the list.</p>`;
   }
-  $('#co-close').onclick = () => clearSelection(true);
+  $('#co-close').onclick = () => cardView === 'place' ? closePlace(true) : clearSelection(true);   // a place card closes back to its prefecture
   restore();
   positionCallout();
 }
-/* place the card beside its prefecture (or region) on the side with more open room, and draw the leader line to it */
+/* place the card beside its prefecture (or region, or place) on the side with more open room, and draw the leader line to it */
 function anchorBox() {
+  if (cardView === 'place' && placeOn) { const [x, y] = placeById[placeOn].xy; return [x, y, 0, 0]; }
   if (cardView === 'region' && exploreRegion) return unionBox(PREFS.filter(q => q.region === exploreRegion).map(q => q.id));
   return sel ? SHAPES.shapes[sel].b : null;
 }
@@ -1087,28 +1180,30 @@ function positionCallout() {
   const px = (x, y) => { const q = new DOMPoint(x, y).matrixTransform(m); return [q.x - wrap.left, q.y - wrap.top]; };
   const regionPts = cardView === 'region' ? PREFS.filter(q => q.region === exploreRegion).map(q => SHAPES.shapes[q.id].l) : null;
   const pt = regionPts ? [regionPts.reduce((n, l) => n + l[0], 0) / regionPts.length, regionPts.reduce((n, l) => n + l[1], 0) / regionPts.length]   // the middle of the region's land, not its bounding box
-    : SHAPES.shapes[sel].l;
+    : cardView === 'place' && placeOn ? placeById[placeOn].xy : SHAPES.shapes[sel].l;
   const [ax, ay] = px(pt[0], pt[1]), [x0, y0] = px(box[0], box[1]), [x1] = px(box[0] + box[2], box[1] + box[3]);
   const top = sv.top - wrap.top, bottom = sv.bottom - wrap.top;
   let ex, ey;
   if (narrow.matches) {
+    callout.style.maxHeight = '';
     const c = callout.getBoundingClientRect();
     ex = Math.min(Math.max(ax, 24), wrap.width - 24); ey = c.top - wrap.top;
   } else {
+    callout.style.maxHeight = Math.max(160, bottom - top - 32 - 32) + 'px';   // a short window: the card scrolls inside rather than leaving the map (32 more for its padding and border)
     const W = callout.offsetWidth, H = callout.offsetHeight, pad = 16, gap = 48;
     const room = drawerOpen ? wrap.width - $('#panel').offsetWidth - 8 : wrap.width;
     const right = x1 + gap, left = x0 - gap - W;
     const fitsR = right + W <= room - pad, fitsL = left >= pad, moreR = room - x1 >= x0;
     // east of a prefecture is usually the Pacific, so the card prefers that side; west only when it won't fit
     const x = fitsR ? right : fitsL ? left : moreR ? room - pad - W : pad;
-    const y = Math.min(Math.max(ay - H / 2, top + pad), bottom - pad - H);
+    const y = Math.max(Math.min(Math.max(ay - H / 2, top + pad), bottom - pad - H), top + pad);   // never above the map's top edge
     callout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
     ex = x > ax ? x : x + W; ey = Math.min(Math.max(ay, y + 24), y + H - 24);
   }
   if (ax < 0 || ax > wrap.width || ay < top || ay > bottom) return hide();   // the anchor has been panned out of view
   leaderLine.setAttribute('x1', ax.toFixed(1)); leaderLine.setAttribute('y1', ay.toFixed(1));
   leaderLine.setAttribute('x2', ex.toFixed(1)); leaderLine.setAttribute('y2', ey.toFixed(1));
-  leaderDot.setAttribute('cx', ax.toFixed(1)); leaderDot.setAttribute('cy', ay.toFixed(1));
+  leaderDot.setAttribute('cx', cardView === 'place' ? -99 : ax.toFixed(1)); leaderDot.setAttribute('cy', ay.toFixed(1));   // a place's own marker ends the line
 }
 narrow.addEventListener('change', () => positionCallout());
 
@@ -1125,6 +1220,7 @@ function setDrawer(open, moveFocus) {
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape' || mode !== 'explore') return;
   if (drawerOpen) setDrawer(false, true);
+  else if (cardView === 'place' && placeOn) closePlace(true);
   else if (!callout.hidden && (sel || exploreRegion) && (callout.contains(document.activeElement) || svg.contains(document.activeElement) || document.activeElement === document.body)) clearSelection(true);
 });
 /* close the card: no selection, no region, no drawer; the map stays where it is */
@@ -1132,13 +1228,48 @@ function clearSelection(fromCard, restoreView) {
   const was = sel || focusId, back = viewBeforeSel;
   viewBeforeSel = null;
   drawerOpen = false; $('#layout').classList.remove('drawer-open');
-  sel = null; store.set('sel', null); exploreRegion = null; cardView = 'pref'; dismissed = true;
+  sel = null; store.set('sel', null); exploreRegion = null; cardView = 'pref'; placeOn = null; dismissed = true;
   renderLegend(); paint(); renderExplore();
   announce('Card closed.');
   if (restoreView && back) animateTo(back);
   if (fromCard && was && prefEl[was]) prefEl[was].focus({ preventScroll: true });   // focus goes back to the map, not to the page top
 }
 $('#scrim').onclick = () => setDrawer(false, true);
+
+/* ---- place cards: a capital or landmark speaks from its own spot; its prefecture is chosen with it ---- */
+function openPlace(id, moveFocus) {
+  const pl = placeById[id];
+  if (!pl || mode !== 'explore') return;
+  if (sel !== pl.pref) {
+    if (!sel) viewBeforeSel = { ...(animTarget || view) };
+    sel = pl.pref; store.set('sel', sel);
+    gPrefs.appendChild(prefEl[sel]);
+  }
+  placeOn = id; cardView = 'place'; dismissed = false;
+  if (drawerOpen && narrow.matches) { drawerOpen = false; $('#layout').classList.remove('drawer-open'); }   // the phone sheet would hide the card
+  paint(); renderExplore();
+  announce(`${placeName(pl)}, ${pl.kind === 'capital' ? 'capital' : 'landmark'} of ${byId[pl.pref].en}.`);
+  framePlace(pl);
+  if (moveFocus) { const b = $('#co-back'); if (b) b.focus({ preventScroll: true }); }
+}
+function closePlace(moveFocus) {
+  const was = placeOn;
+  placeOn = null; cardView = 'pref';
+  paint(); renderCallout();
+  if (moveFocus) { const b = was && callout.querySelector(`[data-place="${was}"]`) || $('#co-more'); if (b) b.focus({ preventScroll: true }); }
+}
+/* pan (never zoom) so the place sits in the open part of the map, with room for its card beside it */
+function framePlace(pl) {
+  const r = svg.getBoundingClientRect(), m = svg.getScreenCTM();
+  if (!m || !r.width) return;
+  const k = pxPerUnit(), card = narrow.matches ? 0 : callout.offsetWidth + 64;
+  const drawer = drawerOpen && !narrow.matches ? panel.offsetWidth + 8 : 0;
+  const q = new DOMPoint(pl.xy[0], pl.xy[1]).matrixTransform(m), x = q.x - r.left, y = q.y - r.top;
+  const room = r.width - drawer;
+  if (x >= 24 && y >= 24 && y <= r.height - 24 && (x + card <= room - 16 || x - card >= 16)) return;
+  const target = animTarget || view;
+  animateTo({ ...target, x: target.x + (x - (room - card) / 2) / k, y: target.y + (y - r.height / 2) / k, w: target.w });
+}
 
 /* ---- phone sheet: drag it down from the top of its content; a quick flick is enough, no distance needed ---- */
 let sheet = null;
@@ -1209,7 +1340,7 @@ function renderExplore(inkFrom) {
     </header>
     <p class="tagline">${esc(p.tag)}</p>
     <dl class="facts">
-      <div class="wide"><dt>Capital</dt><dd>${esc(p.cap)} <span class="muted" style="font-weight:400" lang="ja">${esc(p.capJa)}</span></dd></div>
+      <div class="wide"><dt>Capital</dt><dd><button type="button" class="placelink" data-place="${p.id}-c">${esc(p.cap)}</button> <span class="muted" style="font-weight:400" lang="ja">${esc(p.capJa)}</span></dd></div>
       <div><dt>Population</dt><dd>${fmt(p.pop)}<small>#${p.popRank} of 47 · <span class="${chg < 0 ? 'down' : 'up'}">${chg > 0 ? '+' : '−'}${Math.abs(chg).toFixed(1)}%</span> since 2020</small></dd></div>
       <div><dt>Area</dt><dd>${fmt(p.area)} km²<small>#${p.areaRank} of 47</small></dd></div>
       <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
@@ -1231,6 +1362,7 @@ function renderExplore(inkFrom) {
     <p class="note">This atlas is not affiliated with or endorsed by any prefecture.</p>
   </div>`;
   $('#drawer-close').onclick = () => setDrawer(false, true);
+  panel.querySelectorAll('[data-place]').forEach(b => b.onclick = () => openPlace(b.dataset.place, true));
   placeTabInk(inkFrom);
   panel.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
     if (b.dataset.tab === tab) return;

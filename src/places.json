@@ -1,0 +1,2855 @@
+{
+ "10": {
+  "capital": {
+   "lat": 36.3895,
+   "lon": 139.0634,
+   "wiki": "Maebashi",
+   "pop": 331849,
+   "popYear": 2021,
+   "note": "Prefectural seat on the Tone River; neighbouring Takasaki is the larger city.",
+   "summary": "Maebashi is the capital city of Gunma Prefecture, in the northern Kantō region of Japan. It was the most populous city within Gunma Prefecture until Takasaki merged with nearby towns between 2006 and 2009."
+  },
+  "sights": [
+   {
+    "name": "Kusatsu Onsen",
+    "lat": 36.6383,
+    "lon": 138.5933,
+    "ja": "草津温泉",
+    "wiki": "Kusatsu Onsen",
+    "summary": "Kusatsu Onsen is a hot spring resort located in Gunma Prefecture, Japan, northwest of Tokyo. It is a popular tourist destination."
+   },
+   {
+    "name": "Ikaho Onsen",
+    "lat": 36.496,
+    "lon": 138.92,
+    "ja": "伊香保温泉",
+    "wiki": "Shibukawa, Gunma",
+    "wikiBroader": true
+   },
+   {
+    "name": "Tomioka Silk Mill",
+    "lat": 36.2553,
+    "lon": 138.8878,
+    "ja": "富岡製糸場",
+    "wiki": "Tomioka Silk Mill",
+    "summary": "Tomioka Silk Mill is Japan's oldest modern model silk reeling factory, established in 1872 by the government to introduce modern machine silk reeling from France and spread its technology in Japan. The factory is designated by the government as a National Historic Site and all its buildings are preserved in very good condition."
+   },
+   {
+    "name": "Oze National Park",
+    "lat": 36.9272,
+    "lon": 139.3161,
+    "ja": "尾瀬国立公園",
+    "wiki": "Oze National Park",
+    "summary": "Oze National Park, is an area consisting of open greenland in Fukushima, Tochigi, Gunma and Niigata Prefectures in Japan."
+   },
+   {
+    "name": "Shōrinzan Daruma-ji",
+    "lat": 36.3303,
+    "lon": 138.9569,
+    "ja": "達磨寺",
+    "wiki": "Shorinzan Daruma Temple",
+    "summary": "Shorinzan Daruma Temple is a small temple located in Takasaki, Gunma Prefecture. It was built in 1697 by the Obaku school of Zen Buddhism. Takasaki is known as the birthplace of daruma, as it is believed that the dolls originated from the region many years ago."
+   },
+   {
+    "name": "Minakami",
+    "lat": 36.6786,
+    "lon": 138.9991,
+    "ja": "みなかみ町",
+    "wiki": "Minakami, Gunma",
+    "summary": "Minakami is a town located in Gunma Prefecture, Japan. Much of the town is within the borders of Jōshin'etsu-kōgen National Park."
+   }
+  ]
+ },
+ "11": {
+  "capital": {
+   "lat": 35.8614,
+   "lon": 139.6456,
+   "wiki": "Saitama (city)",
+   "pop": 1325843,
+   "popYear": 2021,
+   "note": "Formed in 2001 by merging Urawa, Ōmiya and Yono; a major rail hub north of Tōkyō.",
+   "summary": "Saitama is the capital and largest city of Saitama Prefecture, Japan. Its area incorporates the former cities of Urawa, Ōmiya, Yono and Iwatsuki. It is a city designated by government ordinance."
+  },
+  "sights": [
+   {
+    "name": "Kawagoe",
+    "lat": 35.9251,
+    "lon": 139.4858,
+    "ja": "川越市",
+    "wiki": "Kawagoe, Saitama",
+    "summary": "Kawagoe is a city in Saitama Prefecture, Japan. The city is known locally as \"Little Edo\" after the old name for Tokyo, due to its many historic buildings."
+   },
+   {
+    "name": "Chichibu",
+    "lat": 35.9918,
+    "lon": 139.0855,
+    "ja": "秩父市",
+    "wiki": "Chichibu, Saitama",
+    "summary": "Chichibu is a city located in Saitama Prefecture, Japan."
+   },
+   {
+    "name": "Nagatoro",
+    "lat": 36.1148,
+    "lon": 139.1097,
+    "ja": "長瀞町",
+    "wiki": "Nagatoro, Saitama",
+    "summary": "Nagatoro is a town located in Saitama Prefecture, Japan. The Nagatoro River is well known for its rapids and whitewater rafting and boating, and the entire town is designated as a prefectural nature park and preserve."
+   },
+   {
+    "name": "Railway Museum",
+    "lat": 35.9211,
+    "lon": 139.6181,
+    "ja": "鉄道博物館",
+    "wiki": "Railway Museum (Saitama)",
+    "summary": "The Railway Museum is a railway museum in Saitama, Saitama, Japan, which opened on 14 October 2007. It was built and is operated by the East Japan Railway Culture Foundation, a non-profit subsidiary of the East Japan Railway Company (JR East). It consists of a 19,800 m2 building on a site covering 42,500 m2, with a display area 9,500 m2 in size."
+   },
+   {
+    "name": "Sakitama Kofun Park",
+    "lat": 36.1263,
+    "lon": 139.477,
+    "ja": "さきたま古墳公園",
+    "wiki": "Sakitama Kofun Cluster",
+    "summary": "The Saikitama Kofun Cluster is a group of burial mounds located in the city of Gyōda, Saitama Prefecture, in the Kantō region of Japan. The site was designated a National Historic Site in 1938, and was upgraded in status to a Special National Historic Site of Japan in 2020."
+   },
+   {
+    "name": "G-Cans",
+    "lat": 35.9975,
+    "lon": 139.8117,
+    "ja": "首都圏外郭放水路",
+    "wiki": "Metropolitan Area Outer Underground Discharge Channel",
+    "summary": "The Metropolitan Area Outer Underground Discharge Channel, popularly known as G-Cans, is an underground water infrastructure project in Japan. It is the world's largest underground flood water diversion facility, built to mitigate overflowing of the city's major waterways and rivers during rain and typhoon seasons."
+   }
+  ]
+ },
+ "12": {
+  "capital": {
+   "lat": 35.6073,
+   "lon": 140.1064,
+   "wiki": "Chiba (city)",
+   "pop": 975014,
+   "popYear": 2021,
+   "note": "Port city on Tokyo Bay with the world's longest suspended monorail.",
+   "summary": "Chiba is the capital city of Chiba Prefecture, Japan. It sits about 40 kilometres (25 mi) east of the centre of Tokyo on Tokyo Bay. The city became a government-designated city in 1992."
+  },
+  "sights": [
+   {
+    "name": "Naritasan Shinshō-ji",
+    "lat": 35.7861,
+    "lon": 140.3183,
+    "ja": "成田山新勝寺",
+    "wiki": "Narita-san",
+    "summary": "Narita-san Shinshō-ji is a Shingon Buddhist temple located in central Narita, Chiba, Japan. It was founded in 940 by Kanchō Daisōjō, a disciple of Kōbō Daishi. It is a lead temple in the Chisan branch of New Shingon, includes a large complex of buildings and grounds, and is one of the best-known temples in the Kantō region."
+   },
+   {
+    "name": "Tokyo Disney Resort",
+    "lat": 35.6297,
+    "lon": 139.8828,
+    "ja": "東京ディズニーリゾート",
+    "wiki": "Tokyo Disney Resort",
+    "summary": "Tokyo Disney Resort (local nickname TDR) is a theme park and vacation resort located in Urayasu, Chiba, Japan, just east of Tokyo."
+   },
+   {
+    "name": "Mt. Nokogiri",
+    "lat": 35.1603,
+    "lon": 139.8408,
+    "ja": "鋸山",
+    "wiki": "Mount Nokogiri (Chiba)",
+    "summary": "Mount Nokogiri literally \"saw mountain\" is a low mountain on the Bōsō Peninsula on Honshu, Japan. It lies on the southern border of the city of Futtsu and the town Kyonan in Awa District in Chiba Prefecture."
+   },
+   {
+    "name": "Sawara",
+    "lat": 35.883,
+    "lon": 140.5,
+    "ja": "佐原市",
+    "wiki": "Sawara, Chiba",
+    "summary": "Sawara was a city located in Katori District, Chiba Prefecture, Japan."
+   },
+   {
+    "name": "Kujūkuri Beach",
+    "lat": 35.529,
+    "lon": 140.452,
+    "ja": "九十九里浜",
+    "wiki": "Kujūkuri Beach",
+    "summary": "Kujūkuri Beach is a sandy beach that occupies much of the northeast coast of the Bōsō Peninsula in Chiba Prefecture, Japan. Kujūkuri Beach is a popular swimming and surfing destination for inhabitants of Greater Tokyo. The beach is protected as part of Kujūkuri Prefectural Natural Park."
+   },
+   {
+    "name": "Yōrō Valley",
+    "lat": 35.2575,
+    "lon": 140.16,
+    "ja": "千葉県立養老渓谷奥清澄自然公園",
+    "wiki": "Yōrō Keikoku Okukiyosumi Prefectural Natural Park",
+    "summary": "Yōrō Keikoku Okukiyosumi Prefectural Natural Park is a Prefectural Natural Park in southern Chiba Prefecture, Japan. First designated for protection in 1935, the park's central features are the Yōrō Valley and Kiyosumi Mountains. The park spans the municipalities of Ichihara, Kamogawa, Kimitsu, and Ōtaki."
+   }
+  ]
+ },
+ "13": {
+  "capital": {
+   "lat": 35.6939,
+   "lon": 139.7034,
+   "wiki": "Shinjuku",
+   "pop": 346115,
+   "popYear": 2021,
+   "note": "Tōkyō's government sits in Shinjuku; the metropolis has no separate capital city.",
+   "summary": "Shinjuku, officially called Shinjuku City, is one of the 23 special wards of Tokyo."
+  },
+  "sights": [
+   {
+    "name": "Sensō-ji",
+    "lat": 35.7147,
+    "lon": 139.7968,
+    "ja": "浅草寺",
+    "wiki": "Sensō-ji",
+    "summary": "Sensō-ji, is an ancient Buddhist temple in Asakusa, Tokyo, Japan. It is Tokyo's oldest-established temple, and one of its most significant. It is dedicated to Kannon, the bodhisattva of compassion."
+   },
+   {
+    "name": "Meiji Jingū",
+    "lat": 35.6761,
+    "lon": 139.6992,
+    "ja": "明治神宮",
+    "wiki": "Meiji Shrine",
+    "summary": "Meiji Shrine is a Shinto shrine in Shibuya, Tokyo, that is dedicated to the deified spirits of Emperor Meiji and his wife, Empress Shōken. The shrine does not contain the emperor's grave, which is located at Fushimi-momoyama, south of Kyoto."
+   },
+   {
+    "name": "Imperial Palace East Gardens",
+    "lat": 35.6824,
+    "lon": 139.7527,
+    "ja": "皇居東御苑",
+    "wiki": "Tokyo Imperial Palace",
+    "summary": "The Imperial Palace is the main residence of the emperor of Japan."
+   },
+   {
+    "name": "Tokyo Skytree",
+    "lat": 35.7101,
+    "lon": 139.8107,
+    "ja": "東京スカイツリー",
+    "wiki": "Tokyo Skytree",
+    "summary": "Tokyo Skytree, a.k.a Tokyo Sky Tree, is a broadcasting and observation tower, located in Sumida, Tokyo, Japan."
+   },
+   {
+    "name": "Shibuya Crossing",
+    "lat": 35.6595,
+    "lon": 139.7006,
+    "ja": "渋谷スクランブル交差点",
+    "wiki": "Shibuya Crossing",
+    "summary": "Shibuya Scramble Crossing, commonly known as Shibuya Crossing, is a scramble crossing in Shibuya, Tokyo, Japan. It is located near Shibuya Station in Shibuya, a major commercial and entertainment district in Tokyo. It has been described as the world's busiest pedestrian crossing, with 1,000–2,000 people crossing during a single green light cycle."
+   },
+   {
+    "name": "Ogasawara Islands",
+    "ja": "小笠原諸島",
+    "wiki": "Bonin Islands",
+    "offmap": true,
+    "summary": "The Bonin Islands, also known as the Ogasawara Islands, are a Japanese archipelago of over 30 subtropical and tropical islands located around 1,000 kilometers (620 mi) SSE of Tokyo and 1,600 kilometers (1,000 mi) northwest of Guam. Together, their population was 2,560 as of 2021."
+   }
+  ]
+ },
+ "14": {
+  "capital": {
+   "lat": 35.4503,
+   "lon": 139.6342,
+   "wiki": "Yokohama",
+   "pop": 3757630,
+   "popYear": 2020,
+   "note": "Opened to foreign trade in 1859; Chinatown, Minato Mirai and Japan's second-largest city.",
+   "summary": "Yokohama is the second-largest city in Japan by population as well as by area, and the country's most populous municipality. The population was the same in 2026, but steadily decreased over 2025. It lies on Tokyo Bay, south of Tokyo, in the Kantō region of the main island of Honshu."
+  },
+  "sights": [
+   {
+    "name": "Great Buddha of Kamakura",
+    "lat": 35.3169,
+    "lon": 139.5357,
+    "ja": "鎌倉大仏",
+    "wiki": "Kōtoku-in",
+    "summary": "Kōtoku-in is a Buddhist temple of the Jōdo-shū sect in the city of Kamakura in Kanagawa Prefecture, Japan. Its mountain name is Daii-zan, and its common temple name is Shōjōsen-ji."
+   },
+   {
+    "name": "Tsurugaoka Hachimangū",
+    "lat": 35.3247,
+    "lon": 139.5558,
+    "ja": "鶴岡八幡宮",
+    "wiki": "Tsurugaoka Hachimangū",
+    "summary": "Tsurugaoka Hachimangū is the most important Shinto shrine in the city of Kamakura, Kanagawa Prefecture, Japan. The shrine is a cultural center of the city of Kamakura and serves as the venue of many of its most important festivals with two museums."
+   },
+   {
+    "name": "Hakone",
+    "lat": 35.1894,
+    "lon": 139.0247,
+    "ja": "箱根町",
+    "wiki": "Hakone",
+    "summary": "Hakone is a town in Kanagawa Prefecture, Japan."
+   },
+   {
+    "name": "Yokohama Chinatown",
+    "lat": 35.4437,
+    "lon": 139.6466,
+    "ja": "横浜中華街",
+    "wiki": "Yokohama Chinatown",
+    "summary": "Yokohama Chinatown is located in Yokohama, Japan, which is located just south of Tokyo. It was established in the late 19th century, and has a population of about 3,000 to 4,000."
+   },
+   {
+    "name": "Minato Mirai",
+    "lat": 35.458,
+    "lon": 139.632,
+    "ja": "横浜みなとみらい21",
+    "wiki": "Minato Mirai 21",
+    "summary": "Minato Mirai 21, often known as simply Minato Mirai and abbreviated as MM (used on the Minatomirai Line station numbering; e.g. \"MM 1\"), is the central business district of Yokohama, Japan."
+   },
+   {
+    "name": "Enoshima",
+    "lat": 35.299,
+    "lon": 139.48,
+    "ja": "江の島",
+    "wiki": "Enoshima",
+    "summary": "Enoshima is a small offshore island, about 4 km (2.5 mi) in circumference, at the mouth of the Katase River which flows into the Sagami Bay of Kanagawa Prefecture, Japan. Administratively, Enoshima is part of the mainland city of Fujisawa, and is linked to the Katase section of that city by a 389-metre-long (1,276 ft) bridge."
+   }
+  ]
+ },
+ "15": {
+  "capital": {
+   "lat": 37.9162,
+   "lon": 139.0364,
+   "wiki": "Niigata (city)",
+   "pop": 790646,
+   "popYear": 2021,
+   "note": "Port at the mouth of the Shinano, Japan's longest river, and a gateway to Sado Island.",
+   "summary": "Niigata is a city located in the northern part of Niigata Prefecture (Kaetsu area). It is the capital and the most populous city of Niigata Prefecture, and one of the cities designated by government ordinance of Japan, located in the Chūbu region of Japan."
+  },
+  "sights": [
+   {
+    "name": "Sado Island",
+    "lat": 38.0183,
+    "lon": 138.3683,
+    "ja": "佐渡島",
+    "wiki": "Sado Island",
+    "summary": "Sado Island is an island located in the eastern part of the Sea of Japan, under the jurisdiction of Sado City, Niigata Prefecture, Japan, with a coastline of 262.7 kilometres (163.2 mi). The shortest distance between Sado Island and Honshu is 32 km (20 mi). The highest peak on Sado Island is Mount Kinpoku, with an elevation of 1,172 m (3,845 ft)."
+   },
+   {
+    "name": "Echigo-Yuzawa",
+    "lat": 36.9361,
+    "lon": 138.8099,
+    "ja": "越後湯沢",
+    "wiki": "Yuzawa, Niigata",
+    "summary": "Yuzawa is a town located in Niigata Prefecture, Japan. The town is famous for its hot springs, ski resorts and Snow country."
+   },
+   {
+    "name": "Kiyotsu Gorge Tunnel",
+    "lat": 36.9539,
+    "lon": 138.7553,
+    "ja": "清津峡",
+    "wiki": "Kiyotsu Gorge",
+    "summary": "Kiyotsu Gorge is a nationally designated Place of Scenic Beauty and Natural Monument on the border between Yuzawa and Tōkamachi, Niigata Prefecture, Japan."
+   },
+   {
+    "name": "Echigo-Tsumari Art Field",
+    "lat": 37.0167,
+    "lon": 138.6,
+    "ja": "大地の芸術祭 越後妻有アートトリエンナーレ",
+    "wiki": "Echigo-Tsumari Art Triennial",
+    "summary": "The Echigo-Tsumari Art Triennial (ETAT) is an international contemporary art festival held once every three years in Niigata Prefecture, Japan. The festival was created by the Tokyo commercial gallery Art Front Gallery (AFG) and is directed by gallery director Fram Kitagawa."
+   },
+   {
+    "name": "Yahiko Shrine",
+    "lat": 37.7066,
+    "lon": 138.8261,
+    "ja": "彌彦神社",
+    "wiki": "Yahiko Shrine",
+    "summary": "Yahiko jinja, also known as Iyahiko-jinja, is a Shinto shrine in the Yahiko neighborhood of the village of Yahiko, Nishikanbara District, Niigata Prefecture, Japan. It is one of the three shrines which claim the title of ichinomiya of former Echigo Province. The shrine's annual festival is held on February 2."
+   },
+   {
+    "name": "Murakami",
+    "lat": 38.224,
+    "lon": 139.48,
+    "ja": "村上市",
+    "wiki": "Murakami, Niigata",
+    "summary": "Murakami is a city located in Niigata Prefecture, Japan."
+   }
+  ]
+ },
+ "16": {
+  "capital": {
+   "lat": 36.5514,
+   "lon": 137.2986,
+   "wiki": "Toyama (city)",
+   "pop": 413028,
+   "popYear": 2021,
+   "note": "Built on medicine peddling; the Tateyama range rises behind the city.",
+   "summary": "Toyama is the capital city of Toyama Prefecture, Japan, located on the coast of the Sea of Japan in the Chūbu region on central Honshū, about 200 km (120 mi) north of the city of Nagoya and 300 km (190 mi) northwest of Tokyo."
+  },
+  "sights": [
+   {
+    "name": "Tateyama Kurobe Alpine Route",
+    "lat": 36.5696,
+    "lon": 137.532,
+    "ja": "立山黒部アルペンルート",
+    "wiki": "Tateyama Kurobe Alpine Route",
+    "summary": "The Tateyama Kurobe Alpine Route is a mountain sightseeing route between Tateyama, Toyama and Ōmachi, Nagano, Japan. Opened on June 1, 1971, it is 37 kilometres (23 miles) long, with a difference in elevation of as much as 1,975 metres (6,480 feet)."
+   },
+   {
+    "name": "Kurobe Dam",
+    "lat": 36.5664,
+    "lon": 137.6614,
+    "ja": "黒部ダム",
+    "wiki": "Kurobe Dam",
+    "summary": "The Kurobe Dam, or Kuroyon Dam, is a 186 m (610 ft) high variable-radius arch dam on the Kurobe River in Toyama Prefecture, Japan. The tallest dam in Japan, it supports the 335 MW Kurobe No. 4 Hydropower Plant and is owned by Kansai Electric Power Company. It was constructed between 1956 and 1963 at a cost of 51.3 billion yen."
+   },
+   {
+    "name": "Gokayama",
+    "lat": 36.4256,
+    "lon": 136.9357,
+    "ja": "五箇山",
+    "wiki": "Gokayama",
+    "summary": "Gokayama is an area within the city of Nanto in Toyama Prefecture, Japan. It has been inscribed on the UNESCO World Heritage List due to its traditional gasshō-zukuri houses, alongside nearby Shirakawa-gō in Gifu Prefecture."
+   },
+   {
+    "name": "Kurobe Gorge Railway",
+    "lat": 36.817,
+    "lon": 137.584,
+    "ja": "黒部峡谷鉄道",
+    "wiki": "Kurobe Gorge Railway",
+    "summary": "The Kurobe Gorge Railway, or Kurotetsu for short, is a private, 762 mm (2 ft 6 in) narrow gauge railway company operating the Kurobe Gorge Main Line along the Kurobe River in the Kurobe gorge area of Toyama Prefecture, Japan."
+   },
+   {
+    "name": "Amaharashi Coast",
+    "lat": 36.807,
+    "lon": 137.051,
+    "ja": "雨晴海岸",
+    "wiki": "Takaoka, Toyama",
+    "wikiBroader": true
+   },
+   {
+    "name": "Toyama Glass Art Museum",
+    "lat": 36.691,
+    "lon": 137.213,
+    "ja": "富山市ガラス美術館",
+    "wiki": "Toyama (city)",
+    "wikiBroader": true
+   }
+  ]
+ },
+ "17": {
+  "capital": {
+   "lat": 36.5611,
+   "lon": 136.6565,
+   "wiki": "Kanazawa",
+   "pop": 462479,
+   "popYear": 2020,
+   "note": "Former seat of the Maeda clan, with the Kenroku-en garden and gold-leaf crafts.",
+   "summary": "Kanazawa is the capital of Ishikawa Prefecture in central Japan."
+  },
+  "sights": [
+   {
+    "name": "Kenrokuen",
+    "lat": 36.5619,
+    "lon": 136.6625,
+    "ja": "兼六園",
+    "wiki": "Kenroku-en",
+    "summary": "Kenroku-en, located in Kanazawa, Ishikawa, Japan, is a strolling style garden constructed during the Edo period by the Maeda clan. Along with Kairaku-en and Kōraku-en, Kenroku-en is considered one of the Three Great Gardens of Japan and is noted for its beauty across all seasons, particularly in winter."
+   },
+   {
+    "name": "Higashi Chaya District",
+    "lat": 36.573,
+    "lon": 136.666,
+    "ja": "ひがし茶屋街"
+   },
+   {
+    "name": "Kanazawa Castle Park",
+    "lat": 36.565,
+    "lon": 136.659,
+    "ja": "金沢城公園",
+    "wiki": "Kanazawa Castle",
+    "summary": "Kanazawa Castle is a large, partially restored Japanese castle in Kanazawa, Ishikawa, Japan. It is located adjacent to the celebrated Kenroku-en Garden, which once formed the castle's private outer garden."
+   },
+   {
+    "name": "21st Century Museum",
+    "lat": 36.5608,
+    "lon": 136.6581,
+    "ja": "金沢21世紀美術館",
+    "wiki": "21st Century Museum of Contemporary Art, Kanazawa",
+    "summary": "The 21st Century Museum of Contemporary Art, Kanazawa is a museum of contemporary art located in Kanazawa, Ishikawa, Japan."
+   },
+   {
+    "name": "Shiroyone Senmaida",
+    "lat": 37.424,
+    "lon": 136.999,
+    "ja": "白米千枚田",
+    "wiki": "Wajima, Ishikawa",
+    "wikiBroader": true
+   },
+   {
+    "name": "Nagamachi",
+    "lat": 36.563,
+    "lon": 136.649,
+    "ja": "長町武家屋敷跡",
+    "wiki": "Kanazawa",
+    "wikiBroader": true
+   }
+  ]
+ },
+ "18": {
+  "capital": {
+   "lat": 36.0641,
+   "lon": 136.2196,
+   "wiki": "Fukui (city)",
+   "pop": 261474,
+   "popYear": 2021,
+   "note": "Castle town rebuilt after war and the 1948 earthquake; gateway to the dinosaur museum and Eihei-ji.",
+   "summary": "Fukui is the capital city of Fukui Prefecture, Japan. Most of the population lives in a small central area; the city limits include rural plains, mountainous areas, and suburban sprawl along the Route 8 bypass."
+  },
+  "sights": [
+   {
+    "name": "Fukui Prefectural Dinosaur Museum",
+    "lat": 36.083,
+    "lon": 136.506,
+    "ja": "福井県立恐竜博物館",
+    "wiki": "Fukui Prefectural Dinosaur Museum",
+    "summary": "The Fukui Prefectural Dinosaur Museum, located in Katsuyama, Fukui, Japan, is one of the leading dinosaur museums in Asia that is renowned for its exhibits of fossil specimens of dinosaurs and paleontological research."
+   },
+   {
+    "name": "Tōjinbō",
+    "lat": 36.238,
+    "lon": 136.124,
+    "ja": "東尋坊",
+    "wiki": "Tōjinbō",
+    "summary": "Tōjinbō is a series of cliffs on the Sea of Japan in Japan made from columnar joints of pyroxene andesite. It is located in the Antō part of Mikuni-chō in Sakai, Fukui Prefecture. The cliffs average 30 metres (98 ft) in height and stretch for 1 km (3,281 ft)."
+   },
+   {
+    "name": "Eihei-ji",
+    "lat": 36.0531,
+    "lon": 136.3556,
+    "ja": "永平寺",
+    "wiki": "Eihei-ji",
+    "summary": "Eihei-ji is one of two main temples of the Sōtō school of Zen Buddhism, the largest single religious denomination in Japan (by number of temples in a single legal entity). The other is Sōji-ji in Yokohama. Eihei-ji is located about 15 km (9 mi) east of Fukui in Fukui Prefecture, Japan."
+   },
+   {
+    "name": "Ichijōdani",
+    "lat": 35.9995,
+    "lon": 136.2956,
+    "ja": "一乗谷朝倉氏遺跡",
+    "wiki": "Ichijōdani Asakura Family Historic Ruins",
+    "summary": "The Ichijōdani Asakura Family Historic Ruins are historic ruins located in the Kidonouchi section of the city of Fukui, Fukui Prefecture, in the Hokuriku region of Japan. This area was controlled by the Asakura clan for 103 years during the Sengoku period."
+   },
+   {
+    "name": "Maruoka Castle",
+    "lat": 36.1523,
+    "lon": 136.2721,
+    "ja": "丸岡城",
+    "wiki": "Maruoka Castle",
+    "summary": "Maruoka Castle is a hirayama-style Japanese castle located in the Maruoka neighbourhood of the city of Sakai, Fukui Prefecture, in the Hokuriku region of Japan. It also called Kasumi-ga-jō due to the legend that whenever an enemy approaches the castle, a thick mist appears and hides it."
+   },
+   {
+    "name": "Mikata Five Lakes",
+    "lat": 35.5722,
+    "lon": 135.8844,
+    "ja": "三方五湖",
+    "wiki": "Mikata Five Lakes",
+    "summary": "Mikata Five Lakes, also called the Five Lakes of Mikata, are a series of brackish and freshwater lakes located in Mihama and Wakasa, Fukui, Japan, which are close to the coast of Wakasa Bay. They consist of Lakes Mikata, Suigetsu, Suga, Kugushi and Hiruga. These five lakes are all located in Wakasa Wan Quasi-National Park."
+   }
+  ]
+ },
+ "19": {
+  "capital": {
+   "lat": 35.6621,
+   "lon": 138.5682,
+   "wiki": "Kōfu",
+   "pop": 187144,
+   "popYear": 2021,
+   "note": "Former base of the warlord Takeda Shingen, with views of Mount Fuji; known for wine and jewellery crafts.",
+   "summary": "Kōfu is the capital city of Yamanashi Prefecture, Japan."
+  },
+  "sights": [
+   {
+    "name": "Fuji Five Lakes",
+    "lat": 35.4158,
+    "lon": 138.8711,
+    "ja": "富士五湖",
+    "wiki": "Fuji Five Lakes",
+    "summary": "Fuji Five Lakes is the name of the area located at the base of Mount Fuji in the Yamanashi Prefecture of Japan. It has a population of about 100,000 and sits about 1,000 meters (3,300 ft) above sea level. The five lakes created in the area by previous eruptions of Mount Fuji has given the area its name."
+   },
+   {
+    "name": "Chūreitō Pagoda",
+    "lat": 35.5012,
+    "lon": 138.8014,
+    "ja": "新倉山浅間公園 忠霊塔",
+    "wiki": "Arakurayama Sengen Park",
+    "summary": "Arakurayama Sengen Park is a block park located at 3353 Arakura, Fujiyoshida, Yamanashi Prefecture, Japan. Installed in October 1959. Located on the hillside of Mount Arakura, it covers an area of about 4.3 hectares."
+   },
+   {
+    "name": "Oshino Hakkai",
+    "lat": 35.4601,
+    "lon": 138.8329,
+    "ja": "忍野八海",
+    "wiki": "Oshino Hakkai",
+    "summary": "Oshino Hakkai are the eight springs found in Oshino, Yamanashi, Japan. The aquifer water from Mount Fuji comes out to the ground to form these springs. They are a Natural monument of Japan, part of the Mount Fuji World Heritage Site, and one of Yamanashi Prefecture's important tourist attractions."
+   },
+   {
+    "name": "Shōsenkyō Gorge",
+    "lat": 35.73,
+    "lon": 138.57,
+    "ja": "昇仙峡",
+    "wiki": "Kōfu",
+    "wikiBroader": true
+   },
+   {
+    "name": "Katsunuma wineries",
+    "lat": 35.66,
+    "lon": 138.73,
+    "ja": "勝沼のワイナリー",
+    "wiki": "Katsunuma, Yamanashi",
+    "summary": "Katsunuma was a town in Higashiyamanashi District, Yamanashi Prefecture, Japan."
+   },
+   {
+    "name": "Minobusan Kuon-ji",
+    "lat": 35.385,
+    "lon": 138.42,
+    "ja": "身延山久遠寺",
+    "wiki": "Kuon-ji",
+    "summary": "Kuon-ji is a major Buddhist temple in Yamanashi Prefecture, Japan. Founded by Nichiren in 1281 it is today the head temple of Nichiren Shū. While the Ikegami Honmon-ji in Tokyo is also the Nichiren sect's administrative centre, Kuon-ji today plays an important role as a seminary."
+   }
+  ]
+ },
+ "20": {
+  "capital": {
+   "lat": 36.6487,
+   "lon": 138.1947,
+   "wiki": "Nagano (city)",
+   "pop": 367184,
+   "popYear": 2021,
+   "note": "Grew up around the temple Zenkō-ji; host of the 1998 Winter Olympics.",
+   "summary": "Nagano is the capital and largest city of Nagano Prefecture, located in the Nagano Basin (Zenkoji Daira) in the central Chūbu region of Japan. Nagano is categorized as a core city of Japan. Nagano City is the highest prefectural capital in Japan, with an altitude of 371.4 meters (1,219 ft)."
+  },
+  "sights": [
+   {
+    "name": "Matsumoto Castle",
+    "lat": 36.2389,
+    "lon": 137.9692,
+    "ja": "松本城",
+    "wiki": "Matsumoto Castle",
+    "summary": "Matsumoto Castle, originally known as Fukashi Castle, is a castle in city of Matsumoto, Nagano Prefecture. It is one of Japan's premier historic castles, along with Himeji and Kumamoto. It was the seat of Matsumoto Domain under the Edo Period Tokugawa shogunate."
+   },
+   {
+    "name": "Zenkō-ji",
+    "lat": 36.6617,
+    "lon": 138.1878,
+    "ja": "善光寺",
+    "wiki": "Zenkō-ji",
+    "summary": "Zenkō-ji is a Buddhist temple located in the city of Nagano, Japan. The temple was built in the 7th century. It is one of the few remaining pilgrimage sites in Japan."
+   },
+   {
+    "name": "Jigokudani Monkey Park",
+    "lat": 36.733,
+    "lon": 138.462,
+    "ja": "地獄谷野猿公苑",
+    "wiki": "Jigokudani Monkey Park",
+    "summary": "Jigokudani Monkey Park is located in Yamanouchi, Nagano Prefecture, Japan, about 3.5 hours from Tokyo. It is part of the Joshinetsu Kogen National Park (locally known as Shigakogen), and is located in the valley of the Yokoyu-River, in the northern part of the prefecture."
+   },
+   {
+    "name": "Kamikōchi",
+    "lat": 36.247,
+    "lon": 137.6333,
+    "ja": "上高地",
+    "wiki": "Kamikōchi",
+    "summary": "Kamikōchi is a remote mountainous highland valley within the Hida Mountains range, in the western region of Nagano Prefecture, Japan."
+   },
+   {
+    "name": "Tsumago-juku",
+    "lat": 35.5753,
+    "lon": 137.5951,
+    "ja": "妻籠宿",
+    "wiki": "Tsumago-juku",
+    "summary": "Tsumago-juku is a historic town in Nagiso in Nagano Prefecture, Japan. It was the forty-second of the sixty-nine post towns on the Nakasendō. It has been restored to its appearance as an Edo-era post town and is a popular tourist destination."
+   },
+   {
+    "name": "Suwa Taisha",
+    "lat": 36.0753,
+    "lon": 138.0911,
+    "ja": "諏訪大社",
+    "wiki": "Suwa-taisha",
+    "summary": "Suwa Grand Shrine, historically also known as Suwa Shrine or Suwa Daimyōjin, is a group of Shinto shrines in Nagano Prefecture, Japan. The shrine complex is the ichinomiya of former Shinano Province and is considered to be one of the oldest shrines in existence, being implied by the Nihon Shoki to already stand in the late 7th century."
+   }
+  ]
+ },
+ "21": {
+  "capital": {
+   "lat": 35.4263,
+   "lon": 136.7594,
+   "wiki": "Gifu",
+   "pop": 400118,
+   "popYear": 2020,
+   "note": "Riverside city where cormorant fishing on the Nagara has run for some 1,300 years.",
+   "summary": "Gifu is a city located in the south-central portion of Gifu Prefecture, Japan, and serves as the prefectural capital. The city has played an important strategic role in Japan's history because of its location in the middle of the country. During the Sengoku period, various warlords used the area as a base in their efforts to unify and control Japan."
+  },
+  "sights": [
+   {
+    "name": "Shirakawa-gō",
+    "lat": 36.257,
+    "lon": 136.906,
+    "ja": "白川郷",
+    "wiki": "Shirakawa, Gifu (village)",
+    "summary": "Shirakawa is a village located in Ōno District, Gifu Prefecture, Japan. It is best known for being the site of Shirakawa-gō, a small, traditional village showcasing a building style known as gasshō-zukuri. Together with Gokayama in Nanto, Toyama, it is one of UNESCO's World Heritage Sites."
+   },
+   {
+    "name": "Takayama",
+    "lat": 36.146,
+    "lon": 137.2522,
+    "ja": "高山市",
+    "wiki": "Takayama, Gifu",
+    "summary": "Takayama is a city located in Gifu Prefecture, Japan. The high altitude and separation from other areas of Japan kept the area fairly isolated, allowing Takayama to develop its own culture over about a 300-year period."
+   },
+   {
+    "name": "Gifu Castle",
+    "lat": 35.434,
+    "lon": 136.782,
+    "ja": "岐阜城",
+    "wiki": "Gifu Castle",
+    "summary": "Gifu Castle is a Japanese castle located in the city of Gifu, Gifu Prefecture, Japan. Along with Mount Kinka and the Nagara River, it is one of the main symbols of the city. The castle is also known as Inabayama Castle."
+   },
+   {
+    "name": "Nagara River ukai",
+    "lat": 35.441,
+    "lon": 136.7787,
+    "ja": "長良川鵜飼",
+    "wiki": "Cormorant fishing",
+    "summary": "Cormorant fishing is a traditional fishing technique in which fishermen use trained cormorants to catch fish in rivers. Historically, cormorant fishing has taken place in China and Japan, as well as Greece, North Macedonia, and briefly, England and France."
+   },
+   {
+    "name": "Gujō Hachiman",
+    "lat": 35.7533,
+    "lon": 136.9614,
+    "ja": "郡上八幡",
+    "wiki": "Gujō, Gifu"
+   },
+   {
+    "name": "Magome-juku",
+    "lat": 35.5268,
+    "lon": 137.5681,
+    "ja": "馬籠宿",
+    "wiki": "Magome-juku",
+    "summary": "Magome-juku was the forty-third of the sixty-nine stations of the Nakasendō connecting Edo with Kyoto in Edo period Japan. It is located in former Mino Province in what is now part of the city of Nakatsugawa, Gifu Prefecture, Japan."
+   }
+  ]
+ },
+ "22": {
+  "capital": {
+   "lat": 34.9756,
+   "lon": 138.3825,
+   "wiki": "Shizuoka (city)",
+   "pop": 685589,
+   "popYear": 2021,
+   "note": "Where Tokugawa Ieyasu retired; green tea and views of Mount Fuji.",
+   "summary": "Shizuoka is the capital city of Shizuoka Prefecture, Japan, and the prefecture's second-largest city in both population and area. It has been populated since prehistoric times."
+  },
+  "sights": [
+   {
+    "name": "Mt. Fuji & Miho no Matsubara",
+    "lat": 35.3606,
+    "lon": 138.7274,
+    "ja": "富士山・三保松原",
+    "wiki": "Mount Fuji",
+    "summary": "Mount Fuji is an active stratovolcano located on the Japanese island of Honshu, with a summit elevation of 3,776.24 m (12,389 ft 3 in). It is the highest mountain in Japan, the second-highest volcano on any Asian island (after Mount Kerinci on the Indonesian island of Sumatra), and the seventh-highest peak of an island on Earth."
+   },
+   {
+    "name": "Izu Peninsula",
+    "lat": 34.9,
+    "lon": 138.95,
+    "ja": "伊豆半島",
+    "wiki": "Izu Peninsula",
+    "summary": "The Izu Peninsula is a mountainous peninsula with a deeply indented coastline to the west of Tokyo on the Pacific coast of the island of Honshu, Japan, the largest of the four main islands of Japan. Formerly known as Izu Province, Izu Peninsula is now a part of Shizuoka Prefecture. The peninsula's populated areas are located primarily on the north and east."
+   },
+   {
+    "name": "Kunōzan Tōshō-gū",
+    "lat": 34.9647,
+    "lon": 138.4676,
+    "ja": "久能山東照宮",
+    "wiki": "Kunōzan Tōshō-gū",
+    "summary": "The Kunōzan Tōshō-gū is a Shintō shrine in Suruga-ku in the city of Shizuoka in Shizuoka Prefecture, Japan. It is the original burial place of the first shōgun of the Tokugawa shogunate, Tokugawa Ieyasu, and is thus the oldest of the Tōshō-gū shrines in the country."
+   },
+   {
+    "name": "Shuzenji",
+    "lat": 34.9717,
+    "lon": 138.9304,
+    "ja": "修善寺",
+    "wiki": "Shuzenji, Shizuoka",
+    "summary": "Shuzenji was a town located in Tagata District, Shizuoka Prefecture, Japan, in central Izu Peninsula."
+   },
+   {
+    "name": "Ōigawa Railway",
+    "lat": 35.051,
+    "lon": 138.135,
+    "ja": "大井川鐵道",
+    "wiki": "Ōigawa Railway",
+    "summary": "Ōigawa Railway is a private railway company in Shizuoka Prefecture, Japan, founded in 1925. The company is commonly known as Daitetsu. The company was a subsidiary of the Meitetsu Group until 2015, when it was restructured and sold to Eclipse Hidaka, a food, hotel, and investment company headquartered in Hidaka, Hokkaido."
+   },
+   {
+    "name": "Lake Hamana",
+    "lat": 34.7411,
+    "lon": 137.5697,
+    "ja": "浜名湖",
+    "wiki": "Lake Hamana",
+    "summary": "Lake Hamana is a brackish lagoon in Shizuoka Prefecture, Japan. Formerly a true lake, it is now connected to the Pacific Ocean by a channel. As an internal body of water, it is considered Japan's tenth-largest lake (by area)."
+   }
+  ]
+ },
+ "23": {
+  "capital": {
+   "lat": 35.1814,
+   "lon": 136.9064,
+   "wiki": "Nagoya",
+   "pop": 2326844,
+   "popYear": 2021,
+   "note": "One of Japan's largest cities and its industrial heart, with the castle's golden shachihoko.",
+   "summary": "Nagoya is the capital and most populous city of Aichi Prefecture in Japan. Nagoya is located on the Pacific coast in central Honshu, and its seaport is the largest in Japan."
+  },
+  "sights": [
+   {
+    "name": "Nagoya Castle",
+    "lat": 35.185,
+    "lon": 136.899,
+    "ja": "名古屋城",
+    "wiki": "Nagoya Castle",
+    "summary": "Nagoya Castle is a Japanese castle located in Nagoya, Japan."
+   },
+   {
+    "name": "Atsuta Jingū",
+    "lat": 35.128,
+    "lon": 136.908,
+    "ja": "熱田神宮",
+    "wiki": "Atsuta Shrine",
+    "summary": "Atsuta Shrine is a Shinto shrine, home to the sacred sword Kusanagi no Tsurugi, one of the three Imperial Regalia of Japan—traditionally believed to have been established during the reign of Emperor Keikō (reigned 71–130 CE). It is located in Atsuta-ku, Nagoya, Aichi Prefecture in Japan."
+   },
+   {
+    "name": "Inuyama Castle",
+    "lat": 35.388,
+    "lon": 136.939,
+    "ja": "犬山城",
+    "wiki": "Inuyama Castle",
+    "summary": "Inuyama Castle is a hirayama-style Japanese castle located in the city of Inuyama, Aichi Prefecture, Japan. The castle overlooks the Kiso River, which serves as the border between Aichi and Gifu Prefectures."
+   },
+   {
+    "name": "Toyota museums",
+    "lat": 35.0824,
+    "lon": 137.1563,
+    "wiki": "Toyota, Aichi",
+    "wikiBroader": true
+   },
+   {
+    "name": "Ghibli Park",
+    "lat": 35.1725,
+    "lon": 137.0898,
+    "ja": "ジブリパーク",
+    "wiki": "Ghibli Park",
+    "summary": "Ghibli Park is a theme park in Nagakute, Aichi, Japan. It opened on 1 November 2022 and features attractions based on several of the movies produced by Studio Ghibli. First announced in 2017, with construction starting in 2020, the park is located within the grounds of the Expo 2005 Aichi Commemorative Park."
+   },
+   {
+    "name": "Meiji Mura",
+    "lat": 35.3406,
+    "lon": 136.9887,
+    "ja": "博物館明治村",
+    "wiki": "Meiji-mura",
+    "summary": "Meiji-mura is an open-air architectural museum and theme park in Inuyama, near Nagoya in Aichi prefecture, Japan. It was opened on March 18, 1965. The museum preserves historic buildings from Japan's Meiji (1867–1912), Taishō (1912–1926), and early Shōwa (1926–1945) periods."
+   }
+  ]
+ },
+ "24": {
+  "capital": {
+   "lat": 34.7184,
+   "lon": 136.5058,
+   "wiki": "Tsu, Mie",
+   "pop": 273267,
+   "popYear": 2020,
+   "note": "Small port city; the prefecture's best-known sights are at Ise and Suzuka.",
+   "summary": "Tsu is the capital city of Mie Prefecture, Japan. Although the second largest city in the prefecture in terms of population (behind Yokkaichi), its designation as the prefectural capital and its holding of a large concentration of national government offices and educational facilities make the city the administrative and educational center of Mie Prefecture."
+  },
+  "sights": [
+   {
+    "name": "Ise Jingū",
+    "lat": 34.455,
+    "lon": 136.7258,
+    "ja": "伊勢神宮",
+    "wiki": "Ise Shrine",
+    "summary": "The Ise Shrine, located in Ise, Mie Prefecture of Japan, is a Shinto shrine dedicated to the solar goddess Amaterasu Ōmikami and the grain goddess Toyouke-hime. Also known simply as Jingū, Ise Shrine is a shrine complex composed of many Shinto shrines centered on two main shrines, Naikū and Gekū."
+   },
+   {
+    "name": "Okage Yokochō",
+    "lat": 34.462,
+    "lon": 136.725,
+    "ja": "おかげ横丁",
+    "wiki": "Ise, Mie",
+    "wikiBroader": true
+   },
+   {
+    "name": "Iga-Ueno",
+    "lat": 34.75,
+    "lon": 136.1422,
+    "ja": "伊賀上野",
+    "wiki": "Iga, Mie",
+    "summary": "Iga is a city located in Mie Prefecture, Japan."
+   },
+   {
+    "name": "Meoto Iwa",
+    "lat": 34.5094,
+    "lon": 136.7883,
+    "ja": "夫婦岩",
+    "wiki": "Meoto Iwa",
+    "summary": "Meoto Iwa, or Married Couple Rocks, are a kind of rock formation seen as religiously significant in Shinto. They are a subtype of Iwakura rock."
+   },
+   {
+    "name": "Mikimoto Pearl Island",
+    "lat": 34.4833,
+    "lon": 136.8469,
+    "ja": "ミキモト真珠島",
+    "wiki": "Mikimoto Pearl Island",
+    "summary": "Mikimoto Pearl Island is a small island in Ise Bay, offshore Toba, Mie Prefecture, Japan. The island is known as the birthplace of cultured pearl aquaculture."
+   },
+   {
+    "name": "Suzuka Circuit",
+    "lat": 34.843,
+    "lon": 136.541,
+    "ja": "鈴鹿サーキット",
+    "wiki": "Suzuka Circuit",
+    "summary": "The Suzuka International Racing Course, a.k.a. the Suzuka Circuit, is a 5.807 km (3.608 mi) long motorsport race track located in Ino, Suzuka City, Mie Prefecture, Japan, and operated by Honda Mobilityland, a subsidiary of Honda Motor Co, Ltd. It has a capacity of 155,000."
+   }
+  ]
+ },
+ "25": {
+  "capital": {
+   "lat": 35.0178,
+   "lon": 135.8548,
+   "wiki": "Ōtsu",
+   "pop": 342607,
+   "popYear": 2021,
+   "note": "On the shore of Lake Biwa, with the temple Mii-dera and Hiei-zan above it.",
+   "summary": "Ōtsu is the capital city of Shiga Prefecture, Japan."
+  },
+  "sights": [
+   {
+    "name": "Lake Biwa",
+    "lat": 35.255,
+    "lon": 136.08,
+    "ja": "琵琶湖",
+    "wiki": "Lake Biwa",
+    "summary": "Lake Biwa is the largest freshwater lake in Japan. It is located entirely within Shiga Prefecture (west-central Honshu), northeast of the former capital city of Kyoto. Lake Biwa is an ancient lake, over 4 million years old."
+   },
+   {
+    "name": "Shirahige Shrine",
+    "lat": 35.2744,
+    "lon": 136.0111,
+    "ja": "白鬚神社",
+    "wiki": "Shirahige Shrine",
+    "summary": "Shirahige Jinja is a Shinto shrine in Takashima in Shiga Prefecture, Japan. The shrine is dedicated to Sarutahiko Okami. It is the head shrine of the Shirahige Shrines around the country."
+   },
+   {
+    "name": "Enryaku-ji",
+    "lat": 35.0706,
+    "lon": 135.8411,
+    "ja": "延暦寺",
+    "wiki": "Enryaku-ji",
+    "summary": "Enryaku-ji is a Tendai monastery located on Mount Hiei in Ōtsu, overlooking Kyoto. It was first founded in 788 during the early Heian period (794–1185) by Saichō (767–822), also known as Dengyō Daishi, who introduced the Tendai sect of Mahayana Buddhism to Japan from China."
+   },
+   {
+    "name": "Hikone Castle",
+    "lat": 35.276,
+    "lon": 136.252,
+    "ja": "彦根城",
+    "wiki": "Hikone Castle",
+    "summary": "Hikone Castle is an Edo-period Japanese castle located in the city of Hikone, Shiga Prefecture, Japan. It is considered the most significant historical site in Shiga. The site has been protected as a National Historic Site since 1951."
+   },
+   {
+    "name": "Ōmi-Hachiman",
+    "lat": 35.1283,
+    "lon": 136.0981,
+    "ja": "近江八幡市",
+    "wiki": "Ōmihachiman",
+    "summary": "Ōmihachiman is a city located in Shiga Prefecture, Japan."
+   },
+   {
+    "name": "Miho Museum",
+    "lat": 34.9146,
+    "lon": 136.0229,
+    "ja": "MIHO MUSEUM",
+    "wiki": "Miho Museum",
+    "summary": "The Miho Museum is an art museum located southeast of Kyoto, Japan, in the Shigaraki neighborhood of the city of Kōka, in Shiga Prefecture."
+   }
+  ]
+ },
+ "26": {
+  "capital": {
+   "lat": 35.0116,
+   "lon": 135.7681,
+   "wiki": "Kyoto",
+   "pop": 1448964,
+   "popYear": 2022,
+   "note": "Imperial capital for over 1,000 years, with some 1,600 temples and most of the UNESCO-listed sites of ancient Kyoto.",
+   "summary": "Kyoto, officially Kyoto City, is the capital city of Kyoto Prefecture in the Kansai region of Japan's largest and most populous island of Honshu. More than half (56.8%) of Kyoto Prefecture's population resides in the city."
+  },
+  "sights": [
+   {
+    "name": "Kiyomizu-dera",
+    "lat": 34.995,
+    "lon": 135.785,
+    "ja": "清水寺",
+    "wiki": "Kiyomizu-dera",
+    "summary": "Kiyomizu-dera is a Buddhist temple located in eastern Kyoto, Japan. It belongs to the Kita-Hosso sect of Japanese Buddhism and its honzon is a hibutsu statue of Jūichimen Kannon. The temple's full name is Otowa-san Kiyomizu-dera."
+   },
+   {
+    "name": "Fushimi Inari Taisha",
+    "lat": 34.9672,
+    "lon": 135.7728,
+    "ja": "伏見稲荷大社",
+    "wiki": "Fushimi Inari-taisha",
+    "summary": "Fushimi Inari-taisha is the head shrine of the kami Inari, located in Fushimi-ku, Kyoto, Japan. The shrine sits at the base of a mountain, also named Inari, which is 233 metres (764 ft) above sea level, and includes trails up the mountain to many smaller shrines which span 4 kilometres (2.5 mi) and take approximately 2 hours to walk up."
+   },
+   {
+    "name": "Kinkaku-ji",
+    "lat": 35.0395,
+    "lon": 135.7285,
+    "ja": "金閣寺",
+    "wiki": "Kinkaku-ji",
+    "summary": "Kinkaku-ji, officially named Rokuon-ji, is a Zen Buddhist temple in Kyoto, Japan and a tourist attraction. It is designated as a World Heritage Site, a National Special Historic Site, a National Special Landscape, and one of the 17 Historic Monuments of Ancient Kyoto."
+   },
+   {
+    "name": "Arashiyama",
+    "lat": 35.0151,
+    "lon": 135.6707,
+    "ja": "嵐山",
+    "wiki": "Arashiyama",
+    "summary": "Arashiyama is a district on the western outskirts of Kyoto, Japan. It also refers to the mountain across the Ōi River, which forms a backdrop to the district. Arashiyama is a nationally designated historic site and place of scenic beauty."
+   },
+   {
+    "name": "Byōdō-in",
+    "lat": 34.8894,
+    "lon": 135.8078,
+    "ja": "平等院",
+    "wiki": "Byōdō-in",
+    "summary": "Byōdō-in is a Buddhist temple in the city of Uji in Kyoto Prefecture, Japan, built in the late Heian period. It is jointly a temple of the Jōdo-shū (Pure Land) and Tendai-shū (Heavenly Level) sects."
+   },
+   {
+    "name": "Amanohashidate",
+    "lat": 35.5694,
+    "lon": 135.1915,
+    "ja": "天橋立",
+    "wiki": "Amanohashidate",
+    "summary": "Amanohashidate is one of Japan's three scenic views. It is a sandbar located in Miyazu Bay in northern Kyoto Prefecture. It forms part of the Tango-Amanohashidate-Ōeyama Quasi-National Park."
+   }
+  ]
+ },
+ "27": {
+  "capital": {
+   "lat": 34.6938,
+   "lon": 135.5021,
+   "wiki": "Osaka",
+   "pop": 2751862,
+   "popYear": 2021,
+   "note": "Merchant city and \"Japan's kitchen\": Osaka Castle, Dōtonbori and street food.",
+   "summary": "Osaka is a designated city in the Kansai region of Honshu in Japan. It is the capital of and most populous city in Osaka Prefecture, and the third-most populous city proper in Japan, following the special wards of Tokyo and Yokohama."
+  },
+  "sights": [
+   {
+    "name": "Osaka Castle",
+    "lat": 34.687,
+    "lon": 135.526,
+    "ja": "大阪城",
+    "wiki": "Osaka Castle",
+    "summary": "Osaka Castle is a Japanese castle in Chūō-ku, Osaka, Japan. The castle is one of Japan's most famous landmarks and played a major role in the unification of Japan during the sixteenth century of the Azuchi–Momoyama period."
+   },
+   {
+    "name": "Dōtonbori",
+    "lat": 34.6687,
+    "lon": 135.5013,
+    "ja": "道頓堀",
+    "wiki": "Dōtonbori",
+    "summary": "Dōtonbori or Dōtombori is a district in Osaka, Japan. Known as one of Osaka's principal tourist and nightlife areas, the area runs along the Dōtonbori canal from Dōtonboribashi Bridge to Nipponbashi Bridge in the Namba district of the city's Chūō ward."
+   },
+   {
+    "name": "Shitennō-ji",
+    "lat": 34.6539,
+    "lon": 135.5164,
+    "ja": "四天王寺",
+    "wiki": "Shitennō-ji",
+    "summary": "Shitennō-ji is a Buddhist temple in Ōsaka, Japan. It is also known as Arahaka-ji, Nanba-ji/Naniwa-daiji, or Mitsu-ji 御津寺. The temple is sometimes regarded as the first Buddhist and oldest officially administered temple in Japan, although the temple complex and buildings have been rebuilt over the centuries, with the last reconstruction taking place in 1963."
+   },
+   {
+    "name": "Sumiyoshi Taisha",
+    "lat": 34.6128,
+    "lon": 135.4929,
+    "ja": "住吉大社",
+    "wiki": "Sumiyoshi-taisha",
+    "summary": "Sumiyoshi-taisha, also known as Sumiyoshi Grand Shrine, is a Shinto shrine in Sumiyoshi-ku, Osaka, Osaka Prefecture, Japan. It is the main shrine of all the Sumiyoshi shrines. It gives its name to a style of shrine architecture known as Sumiyoshi-zukuri."
+   },
+   {
+    "name": "Shinsekai & Tsūtenkaku",
+    "lat": 34.6522,
+    "lon": 135.5061,
+    "ja": "新世界・通天閣",
+    "wiki": "Shinsekai",
+    "summary": "Shinsekai is a neighbourhood located next to south Osaka City's downtown \"Minami\" area. The neighbourhood was created in 1912 with New York (specifically, Coney Island) as a model for its southern half and Paris for its northern half. At this location, a Luna Park amusement park operated from 1912 until it closed in 1923."
+   },
+   {
+    "name": "Daisen Kofun",
+    "lat": 34.564,
+    "lon": 135.488,
+    "ja": "大仙陵古墳",
+    "wiki": "Mozu Kofun Group",
+    "summary": "The Mozu Kofun Group is a group of kofun—megalithic tombs—in Sakai, Osaka Prefecture, Japan. Originally consisting of more than 100 tombs, fewer than 50% of the key-hole, round, and rectangular tombs remain."
+   }
+  ]
+ },
+ "28": {
+  "capital": {
+   "lat": 34.6902,
+   "lon": 135.1954,
+   "wiki": "Kobe",
+   "pop": 1521707,
+   "popYear": 2021,
+   "note": "Port city between the mountains and the sea, known for Kobe beef and its night view.",
+   "summary": "Kobe, officially Kobe City, is the capital city of Hyōgo Prefecture, Japan. With a population of around 1.5 million, Kobe is Japan's seventh-largest city and the third-largest port city after Tokyo and Yokohama. It is located in the Kansai region, which makes up the southern side of the main island of Honshū, on the north shore of Osaka Bay."
+  },
+  "sights": [
+   {
+    "name": "Himeji Castle",
+    "lat": 34.8394,
+    "lon": 134.6939,
+    "ja": "姫路城",
+    "wiki": "Himeji Castle",
+    "summary": "Himeji Castle is a hilltop Japanese castle complex situated in Himeji, a city in Hyōgo Prefecture, Japan. The castle is regarded as the finest surviving example of prototypical Japanese castle architecture, comprising a network of 83 structures with advanced defensive systems from the feudal period."
+   },
+   {
+    "name": "Kinosaki Onsen",
+    "lat": 35.6238,
+    "lon": 134.8134,
+    "ja": "城崎温泉",
+    "wiki": "Kinosaki, Hyōgo",
+    "summary": "Kinosaki was a town in Kinosaki District, Hyōgo Prefecture, Japan."
+   },
+   {
+    "name": "Arima Onsen",
+    "lat": 34.7981,
+    "lon": 135.2475,
+    "ja": "有馬温泉",
+    "wiki": "Arima Onsen",
+    "summary": "Arima Onsen is an onsen, or hot spring resort in Kita-ku, Kobe, Japan, located near Mount Rokkō. This onsen attracts many Japanese because of its easy access from the busy cities in the Kansai metropolitan area including Osaka and Kobe. Arima Onsen was named in the Heian-period The Pillow Book as one of the three famous springs in Japan."
+   },
+   {
+    "name": "Takeda Castle Ruins",
+    "lat": 35.3,
+    "lon": 134.8289,
+    "ja": "竹田城",
+    "wiki": "Takeda Castle",
+    "summary": "Takeda Castle was a Sengoku period Japanese castle located in the Wadayama neighborhood of the city of Asago, in the northern part of Hyōgo Prefecture, Japan. It is located north of Himeji, and north-west of Kyoto, and is situated some 353 metres above sea level It is often referred to locally as the \"Machu Picchu of Japan\"."
+   },
+   {
+    "name": "Kobe's Kitano",
+    "lat": 34.7,
+    "lon": 135.19,
+    "ja": "北野異人館街",
+    "wiki": "Kitano-chō",
+    "summary": "Kitano-chō or Kitano Ijinkan is a historical district in Kobe, Hyōgo Prefecture, Japan, which contains a number of foreign residences from the late Meiji and early Taishō eras of Japanese history."
+   },
+   {
+    "name": "Akashi Kaikyō Bridge",
+    "lat": 34.6162,
+    "lon": 135.0205,
+    "ja": "明石海峡大橋",
+    "wiki": "Akashi Kaikyo Bridge",
+    "summary": "The Akashi Kaikyo Bridge is a suspension bridge that links the city of Kobe on the Japanese island of Honshu and Iwaya, Awaji on Awaji Island. It is part of the Kobe-Awaji-Naruto Expressway, and crosses the busy and turbulent Akashi Strait."
+   }
+  ]
+ },
+ "29": {
+  "capital": {
+   "lat": 34.685,
+   "lon": 135.8048,
+   "wiki": "Nara (city)",
+   "pop": 352377,
+   "popYear": 2021,
+   "note": "Japan's capital in the 8th century; deer roam the park around Tōdai-ji.",
+   "summary": "Nara is the capital city of Nara Prefecture, Japan. Nara is a core city located in the northern part of Nara Prefecture bordering the Kyoto Prefecture."
+  },
+  "sights": [
+   {
+    "name": "Tōdai-ji",
+    "lat": 34.6892,
+    "lon": 135.8397,
+    "ja": "東大寺",
+    "wiki": "Tōdai-ji",
+    "summary": "Tōdai-ji is a Buddhist temple complex that was once one of the powerful Seven Great Temples, located in the city of Nara, Japan. The construction of the temple was an attempt to imitate Chinese temples from the much-admired Tang dynasty. Though it was originally founded in the year 738 CE, Tōdai-ji was not opened until the year 752 CE."
+   },
+   {
+    "name": "Nara Park",
+    "lat": 34.685,
+    "lon": 135.85,
+    "ja": "奈良公園",
+    "wiki": "Nara Park",
+    "summary": "Nara Park is a public park located in the city of Nara, Japan, at the foot of Mount Wakakusa. Established in 1880, it is one of the oldest parks in Japan. Administratively, the park is under the control of Nara Prefecture."
+   },
+   {
+    "name": "Kasuga Taisha",
+    "lat": 34.6814,
+    "lon": 135.8483,
+    "ja": "春日大社",
+    "wiki": "Kasuga-taisha",
+    "summary": "Kasuga-taisha is a Shinto shrine in Nara, Nara Prefecture, Japan. It is the shrine of the Fujiwara family, established in 768 CE and rebuilt several times over the centuries. The interior is famous for its many bronze lanterns, as well as the many stone lanterns that lead up to the shrine."
+   },
+   {
+    "name": "Hōryū-ji",
+    "lat": 34.6144,
+    "lon": 135.7342,
+    "ja": "法隆寺",
+    "wiki": "Hōryū-ji",
+    "summary": "Hōryū-ji is a Buddhist temple that was once one of the powerful Seven Great Temples, located in Ikaruga, Nara Prefecture, Japan. Built shortly after Buddhism was introduced to Japan, it is also one of the oldest Buddhist sites in the country."
+   },
+   {
+    "name": "Yoshino-yama",
+    "lat": 34.3567,
+    "lon": 135.8706,
+    "ja": "吉野山",
+    "wiki": "Mount Yoshino",
+    "summary": "Mount Yoshino is the general name for the mountain ridge that stretches from the south bank of the Yoshino River in the town of Yoshino central Nara Prefecture, Japan, to the Ōmine Mountains, stretching for about eight kilometers from north-to-south, or the broader name of the area dotted with shrines and temples, centered around Kinpusen-ji Temple."
+   },
+   {
+    "name": "Asuka",
+    "lat": 34.4713,
+    "lon": 135.8207,
+    "ja": "明日香村",
+    "wiki": "Asuka, Nara",
+    "summary": "Asuka is a village located in Takaichi District, Nara Prefecture, Japan."
+   }
+  ]
+ },
+ "30": {
+  "capital": {
+   "lat": 34.2304,
+   "lon": 135.1707,
+   "wiki": "Wakayama (city)",
+   "pop": 353299,
+   "popYear": 2021,
+   "note": "Castle town of a Tokugawa branch family on the Kii Peninsula.",
+   "summary": "Wakayama is the capital city of Wakayama Prefecture in the Kansai region of Japan."
+  },
+  "sights": [
+   {
+    "name": "Kōya-san",
+    "lat": 34.2125,
+    "lon": 135.5864,
+    "ja": "高野山",
+    "wiki": "Mount Kōya",
+    "summary": "Mount Kōya is a large temple settlement in Wakayama Prefecture, Japan to the south of Osaka. In the strictest sense, Mount Kōya is the mountain name (sangō) of Kongōbu-ji Temple, the ecclesiastical headquarters of the Kōyasan sect of Shingon Buddhism."
+   },
+   {
+    "name": "Okunoin",
+    "lat": 34.2175,
+    "lon": 135.605,
+    "ja": "奥之院",
+    "wiki": "Okunoin",
+    "summary": "Okunoin or Oku-no-in is a sacred Buddhist site and cemetery on Mount Kōya, in Wakayama Prefecture, Japan. Opened in 835, it houses the mausoleum of Kūkai, founder of the Shingon school of esoteric Buddhism. It is considered the largest cemetery in Japan, with more than two hundred thousand graves and memorial monuments."
+   },
+   {
+    "name": "Kumano Kodō",
+    "lat": 33.6686,
+    "lon": 135.8906,
+    "ja": "熊野古道",
+    "wiki": "Kumano Kodō",
+    "summary": "The Kumano Kodō is a series of ancient pilgrimage routes that crisscross the Kii Peninsula, the largest peninsula of Japan. These mountainous trails are used by pilgrims to the \"Kumano Sanzan\" - the Three Grand Shrines of Kumano: Kumano Hongū Taisha, Kumano Nachi Taisha and Kumano Hayatama Taisha."
+   },
+   {
+    "name": "Nachi Falls",
+    "lat": 33.672,
+    "lon": 135.891,
+    "ja": "那智滝",
+    "wiki": "Nachi Falls",
+    "summary": "Nachi Falls in Nachikatsuura, Wakayama Prefecture, Japan, is one of the best-known waterfalls in Japan."
+   },
+   {
+    "name": "Shirahama",
+    "lat": 33.6817,
+    "lon": 135.3444,
+    "ja": "白浜町",
+    "wiki": "Shirahama, Wakayama",
+    "summary": "Shirahama is a town in Nishimuro District, Wakayama Prefecture, Japan."
+   },
+   {
+    "name": "Kishi Station",
+    "lat": 34.2096,
+    "lon": 135.312,
+    "ja": "貴志駅",
+    "wiki": "Kishi Station (Wakayama)",
+    "summary": "Kishi Station is a passenger railway station located in the city of Kinokawa, Wakayama Prefecture, Japan, operated by the private railway company Wakayama Electric Railway."
+   }
+  ]
+ },
+ "31": {
+  "capital": {
+   "lat": 35.4944,
+   "lon": 134.2216,
+   "wiki": "Tottori (city)",
+   "pop": 187323,
+   "popYear": 2021,
+   "note": "Small castle town beside the Tottori Sand Dunes.",
+   "summary": "Tottori is the capital and the largest city of Tottori Prefecture in the Chūgoku region of Japan. Most of the city is within the San'in Kaigan Geopark."
+  },
+  "sights": [
+   {
+    "name": "Tottori Sand Dunes",
+    "lat": 35.54,
+    "lon": 134.2275,
+    "ja": "鳥取砂丘",
+    "wiki": "Tottori Sand Dunes",
+    "summary": "The Tottori Sand Dunes are sand dunes located outside the city center of Tottori in Tottori Prefecture, Japan. With a length of 9 miles (14 km) and a width of less than 1.5 miles (2.4 km), it is the largest sand dune in Japan. The sand dunes are part of the San'in Kaigan Geopark, which is part of the UNESCO Global Geoparks."
+   },
+   {
+    "name": "Sand Museum",
+    "lat": 35.5397,
+    "lon": 134.2381,
+    "ja": "砂の美術館",
+    "wiki": "Tottori Sand Museum",
+    "summary": "The Tottori Sand Museum was opened on November 18, 2006, in Tottori, Japan, close to the Tottori Sand Dunes, displaying sand sculptures in temporary facilities. On April 14, 2012, it reopened as the world's first permanent indoor exhibition space dedicated to sand art, exhibiting works by fifteen international sculptors."
+   },
+   {
+    "name": "Mt. Daisen",
+    "lat": 35.3711,
+    "lon": 133.5464,
+    "ja": "大山",
+    "wiki": "Mount Daisen",
+    "summary": "Mount Daisen is a dormant stratovolcano in Tottori Prefecture, Japan. It has an elevation of 1,729 m (5,673 ft). This mountain is the highest in the Chūgoku region, and the most important volcano on the Daisen volcanic belt, which is a part of the Southwestern Honshu volcanic arc, where the Philippine Sea Plate is subducting under the Amurian Plate."
+   },
+   {
+    "name": "Mizuki Shigeru Road",
+    "lat": 35.544,
+    "lon": 133.233,
+    "ja": "水木しげるロード"
+   },
+   {
+    "name": "Nageire-dō",
+    "lat": 35.3993,
+    "lon": 133.9558,
+    "ja": "三徳山投入堂",
+    "wiki": "Sanbutsu-ji",
+    "summary": "Sanbutsu-ji is a Buddhist temple in the town of Misasa, Tottori Prefecture, Japan. The Nageire Hall of Sanbutsu-ji, built in the Heian period is designated a National Treasure of Japan."
+   },
+   {
+    "name": "Kurayoshi",
+    "lat": 35.4333,
+    "lon": 133.8167,
+    "ja": "倉吉市",
+    "wiki": "Kurayoshi, Tottori",
+    "summary": "Kurayoshi is a city located in the central part of Tottori Prefecture, Japan."
+   }
+  ]
+ },
+ "32": {
+  "capital": {
+   "lat": 35.4681,
+   "lon": 133.0485,
+   "wiki": "Matsue",
+   "pop": 201802,
+   "popYear": 2021,
+   "note": "The \"Water Capital\" between Lake Shinji and the sea, around an original castle keep.",
+   "summary": "Matsue is the capital city of Shimane Prefecture, Japan, located in the Chūgoku region of Honshu. Matsue is home to the Tokugawa-era Matsue Castle, one of the last surviving feudal castles in Japan."
+  },
+  "sights": [
+   {
+    "name": "Izumo Taisha",
+    "lat": 35.4019,
+    "lon": 132.6856,
+    "ja": "出雲大社",
+    "wiki": "Izumo-taisha",
+    "summary": "Izumo-taisha, officially Izumo Ōyashiro, is one of the most ancient and important Shinto shrines in Japan. No record gives the date of establishment. Located in Izumo, Shimane Prefecture, it hosts two major festivals."
+   },
+   {
+    "name": "Matsue Castle",
+    "lat": 35.475,
+    "lon": 133.0506,
+    "ja": "松江城",
+    "wiki": "Matsue Castle",
+    "summary": "Matsue Castle is a Japanese castle located in Matsue, Shimane Prefecture."
+   },
+   {
+    "name": "Adachi Museum of Art",
+    "lat": 35.38,
+    "lon": 133.1942,
+    "ja": "足立美術館",
+    "wiki": "Adachi Museum of Art",
+    "summary": "The Adachi Museum of Art opened in Yasugi, Shimane Prefecture, Japan in 1970. It houses a collection of nihonga, including paintings by Yokoyama Taikan, and has a celebrated garden."
+   },
+   {
+    "name": "Iwami Ginzan",
+    "lat": 35.1072,
+    "lon": 132.4375,
+    "ja": "石見銀山",
+    "wiki": "Iwami Ginzan Silver Mine",
+    "summary": "The Iwami Ginzan was an underground silver mine in the city of Ōda, in Shimane Prefecture on the main island of Honshu, Japan. It was the largest silver mine in Japanese history. It was active for almost four hundred years, from its discovery in 1526 to its closing in 1923."
+   },
+   {
+    "name": "Lake Shinji",
+    "lat": 35.45,
+    "lon": 132.9667,
+    "ja": "宍道湖",
+    "wiki": "Lake Shinji",
+    "summary": "Lake Shinji is a brackish coastal lagoon in the northeast area of the Shimane Prefecture in Japan. It is considered to be the seventh largest lake in Japan, with a circumference of 48 kilometres (30 mi)."
+   },
+   {
+    "name": "Tsuwano",
+    "lat": 34.5419,
+    "lon": 131.8353,
+    "ja": "津和野町",
+    "wiki": "Tsuwano, Shimane",
+    "summary": "Tsuwano is a town located in Kanoashi District, Shimane Prefecture, Japan. Popularly called the \"Little Kyoto of San'in,\" Tsuwano is known for its picturesque main street, \"Tono-machi,\" which is an Important Preservation District for Groups of Traditional Building lined with Edo period buildings and Koi ponds."
+   }
+  ]
+ },
+ "33": {
+  "capital": {
+   "lat": 34.6551,
+   "lon": 133.9196,
+   "wiki": "Okayama",
+   "pop": 720043,
+   "popYear": 2021,
+   "note": "Home of Kōraku-en garden and the black \"Crow Castle\".",
+   "summary": "Okayama is the capital city of Okayama Prefecture in the Chūgoku region of Japan. The Okayama metropolitan area, centered around the city, has the largest urban employment zone in the Chugoku region of western Japan. The city was founded on June 1, 1889."
+  },
+  "sights": [
+   {
+    "name": "Kōrakuen",
+    "lat": 34.6678,
+    "lon": 133.935,
+    "ja": "後楽園",
+    "wiki": "Kōraku-en",
+    "summary": "Kōraku-en is a Japanese garden located in Okayama, Okayama Prefecture. It is one of the Three Great Gardens of Japan, along with Kenroku-en and Kairaku-en. Korakuen was built in 1700 by Ikeda Tsunamasa, lord of Okayama."
+   },
+   {
+    "name": "Okayama Castle",
+    "lat": 34.665,
+    "lon": 133.936,
+    "ja": "岡山城",
+    "wiki": "Okayama Castle",
+    "summary": "Okayama Castle is a Japanese castle in the city of Okayama in Okayama Prefecture in Japan. The main tower was completed in 1597, destroyed in 1945 and replicated in concrete in 1966. Two of the watch towers survived the bombing of 1945 and are now listed by the national Agency for Cultural Affairs as Important Cultural Properties."
+   },
+   {
+    "name": "Kurashiki Bikan",
+    "lat": 34.595,
+    "lon": 133.771,
+    "ja": "倉敷美観地区",
+    "wiki": "Kurashiki",
+    "wikiBroader": true
+   },
+   {
+    "name": "Ōhara Museum of Art",
+    "lat": 34.5962,
+    "lon": 133.7707,
+    "ja": "大原美術館",
+    "wiki": "Ohara Museum of Art",
+    "summary": "The Ohara Museum of Art in Kurashiki was the first collection of Western art to be permanently exhibited in Japan. The museum opened in 1930 and originally consisted almost entirely of French paintings and sculptures of the 19th and 20th centuries."
+   },
+   {
+    "name": "Bitchū Matsuyama Castle",
+    "lat": 34.809,
+    "lon": 133.622,
+    "ja": "備中松山城",
+    "wiki": "Bitchū Matsuyama Castle",
+    "summary": "Bitchū Matsuyama Castle, also known as Takahashi Castle, is a Japanese castle located in the city of Takahashi, Okayama Prefecture, in the San'yō region of Japan."
+   },
+   {
+    "name": "Kibitsu Shrine",
+    "lat": 34.6707,
+    "lon": 133.8506,
+    "ja": "吉備津神社",
+    "wiki": "Kibitsu Shrine (Bitchū)",
+    "summary": "Kibitsu Jinja is a Shinto shrine in the Kibitsu neighborhood of Kita-ku, Okayama in Okayama Prefecture, Japan. It is the ichinomiya (first shrine) of former Bitchū Province. The shrine's main festivals are held on the second Sunday in May and October 15 each year."
+   }
+  ]
+ },
+ "34": {
+  "capital": {
+   "lat": 34.3852,
+   "lon": 132.4553,
+   "wiki": "Hiroshima",
+   "pop": 1198021,
+   "popYear": 2021,
+   "note": "Rebuilt after the 1945 atomic bombing; the Peace Memorial Park is at its heart.",
+   "summary": "Hiroshima is the capital of Hiroshima Prefecture in Japan. The gross domestic product (GDP) in Greater Hiroshima, Hiroshima Urban Employment Area, was US$61.3 billion as of 2010. Kazumi Matsui has been the city's mayor since April 2011."
+  },
+  "sights": [
+   {
+    "name": "Atomic Bomb Dome & Peace Park",
+    "lat": 34.3956,
+    "lon": 132.4536,
+    "ja": "原爆ドーム・平和記念公園",
+    "wiki": "Hiroshima Peace Memorial",
+    "summary": "The Hiroshima Peace Memorial, originally the Hiroshima Prefectural Industrial Promotion Hall, and now commonly called the Genbaku Dome, Atomic Bomb Dome or A-Bomb Dome, is part of Hiroshima Peace Memorial Park in Hiroshima, Japan, and was designated a UNESCO World Heritage Site in 1996."
+   },
+   {
+    "name": "Itsukushima Shrine",
+    "lat": 34.2756,
+    "lon": 132.3078,
+    "ja": "厳島神社",
+    "wiki": "Itsukushima Shrine",
+    "summary": "Itsukushima Shrine is a Shinto shrine on the island of Itsukushima (popularly known as Miyajima), best known for its \"floating\" torii. It is in the city of Hatsukaichi, in Hiroshima Prefecture in Japan, accessible from the mainland by ferry at Miyajimaguchi Station."
+   },
+   {
+    "name": "Shimanami Kaidō",
+    "lat": 34.3861,
+    "lon": 133.2009,
+    "ja": "しまなみ海道",
+    "wiki": "Nishiseto Expressway",
+    "summary": "The Nishiseto Expressway, often called the Shimanami Kaidō, is an expressway in Japan that connects Onomichi, Hiroshima and Imabari, Ehime, going through nine of the Geiyo Islands, including Ōshima, Ōmishima, and Innoshima."
+   },
+   {
+    "name": "Onomichi",
+    "lat": 34.4167,
+    "lon": 133.2,
+    "ja": "尾道市",
+    "wiki": "Onomichi",
+    "summary": "Onomichi is a city located in Hiroshima Prefecture, Japan."
+   },
+   {
+    "name": "Yamato Museum",
+    "lat": 34.2411,
+    "lon": 132.5558,
+    "ja": "呉市海事歴史科学館",
+    "wiki": "Yamato Museum",
+    "summary": "The Yamato Museum is the nickname of the Kure Maritime Museum in Kure, Hiroshima, Japan."
+   },
+   {
+    "name": "Tomonoura",
+    "lat": 34.3808,
+    "lon": 133.3801,
+    "ja": "鞆の浦",
+    "wiki": "Tomonoura",
+    "summary": "Tomonoura, formerly known as Tomonotsu, is a port in the Tomo ward of Fukuyama, Hiroshima Prefecture, Japan. It stands on the southern point of the Numakuma Peninsula, 14 kilometers south of Fukuyama Station, with a population of about 3,500 people as of 2017."
+   }
+  ]
+ },
+ "35": {
+  "capital": {
+   "lat": 34.178,
+   "lon": 131.4738,
+   "wiki": "Yamaguchi (city)",
+   "pop": 193761,
+   "popYear": 2021,
+   "note": "Called the \"Kyoto of the West\", with the five-storey pagoda at Rurikō-ji.",
+   "summary": "Yamaguchi is the capital city of Yamaguchi Prefecture, Japan."
+  },
+  "sights": [
+   {
+    "name": "Kintai-kyō",
+    "lat": 34.1676,
+    "lon": 132.1784,
+    "ja": "錦帯橋",
+    "wiki": "Kintai Bridge",
+    "summary": "Kintai Bridge is a historical wooden arch bridge in the city of Iwakuni in Yamaguchi Prefecture, Japan."
+   },
+   {
+    "name": "Akiyoshidai & Akiyoshi-dō",
+    "lat": 34.232,
+    "lon": 131.3027,
+    "ja": "秋吉台国定公園",
+    "wiki": "Akiyoshidai Quasi-National Park",
+    "summary": "Akiyoshidai Kokutei Kōen is a Quasi-National Park in Yamaguchi Prefecture, Japan. It was founded on 1 November 1955 and has an area of 45.02 km²."
+   },
+   {
+    "name": "Motonosumi Shrine",
+    "lat": 34.4199,
+    "lon": 131.0628,
+    "ja": "元乃隅神社"
+   },
+   {
+    "name": "Hagi",
+    "lat": 34.4081,
+    "lon": 131.3992,
+    "ja": "萩市",
+    "wiki": "Hagi, Yamaguchi",
+    "summary": "Hagi is a city located in Yamaguchi Prefecture, Japan. It is known for being the birthplace of Hagi ware, a type of Japanese pottery."
+   },
+   {
+    "name": "Rurikō-ji",
+    "lat": 34.1902,
+    "lon": 131.4729,
+    "ja": "瑠璃光寺",
+    "wiki": "Rurikō-ji",
+    "summary": "Rurikō-ji is a Buddhist temple located in the Kozan neighborhood of the city of Yamaguchi, Yamaguchi Prefecture, Japan. The temple belongs to the Sōtō school of Japanese Zen sect and its honzon is a statue of Yakushi Nyorai. The temple's full name is Honeizan Rurikōzen-ji."
+   },
+   {
+    "name": "Tsunoshima Bridge",
+    "lat": 34.3525,
+    "lon": 130.8869,
+    "ja": "角島大橋",
+    "wiki": "Tsunoshima Bridge",
+    "summary": "Tsunoshima Bridge is a bridge located in Yamaguchi Prefecture, Japan. The 1,780 m (5,840 ft) bridge connects the island of Tsunoshima to mainland Japan."
+   }
+  ]
+ },
+ "36": {
+  "capital": {
+   "lat": 34.0703,
+   "lon": 134.5549,
+   "wiki": "Tokushima (city)",
+   "pop": 254510,
+   "popYear": 2020,
+   "note": "Holds the Awa Odori dance festival every August.",
+   "summary": "Tokushima is the capital city of Tokushima Prefecture on Shikoku island in Japan."
+  },
+  "sights": [
+   {
+    "name": "Awa Odori",
+    "lat": 34.0703,
+    "lon": 134.545,
+    "ja": "阿波おどり",
+    "wiki": "Awa Dance Festival",
+    "summary": "The Awa Dance Festival is held from 12 to 15 August as part of the Obon festival in Tokushima Prefecture on Shikoku in Japan. Awa Odori is the largest dance festival in Japan, attracting over 540 thousand tourists every year."
+   },
+   {
+    "name": "Naruto whirlpools",
+    "lat": 34.237,
+    "lon": 134.65,
+    "ja": "鳴門の渦潮",
+    "wiki": "Naruto whirlpools",
+    "summary": "The Naruto whirlpools are tidal whirlpools in the Naruto Strait, a channel between Naruto in Tokushima and Awaji Island in Hyōgo, Japan. The strait between Naruto and Awaji island has a width of about 1.3 km (0.81 miles)."
+   },
+   {
+    "name": "Iya Valley",
+    "lat": 33.8753,
+    "lon": 133.8353,
+    "ja": "祖谷渓",
+    "wiki": "Iya Valley",
+    "summary": "The Iya Valley region in Tokushima Prefecture, Japan is a scenic area known for its mountain valleys, thatched roof farmhouses and historic Vine Bridges. Although access has improved in recent years, the Iya Valley and the inner parts of Shikoku have historically been remote and difficult to enter."
+   },
+   {
+    "name": "Ōtsuka Museum of Art",
+    "lat": 34.232,
+    "lon": 134.636,
+    "ja": "大塚国際美術館",
+    "wiki": "Ōtsuka Museum of Art",
+    "summary": "The Ōtsuka Museum of Art in Naruto, Tokushima Prefecture is an art museum founded in 1998 and is one of the largest exhibition spaces in Japan."
+   },
+   {
+    "name": "Ryōzen-ji",
+    "lat": 34.1598,
+    "lon": 134.5026,
+    "ja": "霊山寺",
+    "wiki": "Ryōzen-ji (Naruto)",
+    "summary": "Ryōzen-ji is a Shingon Buddhist temple in Naruto, Tokushima Prefecture, Japan best known as the first temple of the Shikoku pilgrimage. It is associated with the Kōyasan sect and dedicated to Shaka Nyorai."
+   },
+   {
+    "name": "Wakimachi",
+    "lat": 34.067,
+    "lon": 134.155,
+    "ja": "脇町 うだつの町並み",
+    "wiki": "Mima, Tokushima",
+    "wikiBroader": true
+   }
+  ]
+ },
+ "37": {
+  "capital": {
+   "lat": 34.3428,
+   "lon": 134.0466,
+   "wiki": "Takamatsu",
+   "pop": 417814,
+   "popYear": 2020,
+   "note": "Port on the Inland Sea, gateway to the art islands and the home of sanuki udon.",
+   "summary": "Takamatsu is the capital city of Kagawa Prefecture, Japan. It is the capital city of the prefecture."
+  },
+  "sights": [
+   {
+    "name": "Ritsurin Garden",
+    "lat": 34.3296,
+    "lon": 134.044,
+    "ja": "栗林公園",
+    "wiki": "Ritsurin Garden",
+    "summary": "Ritsurin Garden is a large, historic garden in Takamatsu, Japan. It was completed in 1745 as a private strolling garden and villa for the local feudal lords, and opened to the public in 1875. Ritsurin is one of the largest strolling gardens in Japan, and a major tourist attraction for Kagawa Prefecture."
+   },
+   {
+    "name": "Kotohira-gū",
+    "lat": 34.1842,
+    "lon": 133.8097,
+    "ja": "金刀比羅宮",
+    "wiki": "Kotohira-gū",
+    "summary": "Kotohira-gū is a Shinto shrine in the town of Kotohira in Kagawa Prefecture, Japan. Prior to the separation of Shinto and Buddhism in the Meiji era, its name was Konpira Daigongen. The shrine is believed to be a guardian of sailors and fishermen, though its faith also has aspects of mountain worship due to its location on the holy Mount Zōzu."
+   },
+   {
+    "name": "Naoshima",
+    "lat": 34.46,
+    "lon": 133.995,
+    "ja": "直島",
+    "wiki": "Naoshima",
+    "summary": "Naoshima is an island in Japan's Seto Inland Sea, part of Kagawa Prefecture. The island is best known for its many contemporary art installations and museums. The Town of Naoshima administers Naoshima and 26 smaller islands nearby."
+   },
+   {
+    "name": "Shōdoshima",
+    "lat": 34.4833,
+    "lon": 134.2333,
+    "ja": "小豆島",
+    "wiki": "Shōdoshima",
+    "summary": "Shōdoshima or Shōdo Island is an island located in the Inland Sea of Japan. The name means \"Island of Small Beans\". There are two towns on the island: Tonoshō and Shōdoshima, composing the district of Shōzu."
+   },
+   {
+    "name": "Zentsū-ji",
+    "lat": 34.2251,
+    "lon": 133.7741,
+    "ja": "善通寺",
+    "wiki": "Zentsū-ji",
+    "summary": "The Byōbuura Gogakusan Tanjō-in Zentsū-ji is a Buddhist temple of the Shingon sect in Zentsūji, Kagawa, Japan. It was established in 807 by Kūkai, founder of Shingon Buddhism, who was born where the temple now stands. The oldest structure, the Shakadō Hall, dates to around 1677."
+   },
+   {
+    "name": "Chichibugahama",
+    "lat": 34.218,
+    "lon": 133.62,
+    "ja": "父母ヶ浜",
+    "wiki": "Mitoyo, Kagawa",
+    "wikiBroader": true
+   }
+  ]
+ },
+ "38": {
+  "capital": {
+   "lat": 33.8392,
+   "lon": 132.7656,
+   "wiki": "Matsuyama",
+   "pop": 506743,
+   "popYear": 2021,
+   "note": "Castle town with the hot spring Dōgo Onsen, one of Japan's oldest.",
+   "summary": "Matsuyama is the capital city of Ehime Prefecture, on the island of Shikoku, in Japan and is also Shikoku's largest city."
+  },
+  "sights": [
+   {
+    "name": "Dōgo Onsen Honkan",
+    "lat": 33.8519,
+    "lon": 132.7864,
+    "ja": "道後温泉本館",
+    "wiki": "Dōgo Onsen",
+    "summary": "Dōgo Onsen is a hot spring in the city of Matsuyama, Ehime Prefecture on the island of Shikoku, Japan."
+   },
+   {
+    "name": "Matsuyama Castle",
+    "lat": 33.8455,
+    "lon": 132.7657,
+    "ja": "松山城",
+    "wiki": "Matsuyama Castle (Iyo)",
+    "summary": "Matsuyama Castle is a \"flatland-mountain\"-style Japanese castle that was built in 1603 on Mount Katsuyama, in the city of Matsuyama in Ehime Prefecture, Japan. The castle is one of twelve Japanese castles to still have its original tenshu. The castle has been protected as a National Historic Site since 1952."
+   },
+   {
+    "name": "Shimanami Kaidō",
+    "lat": 34.0667,
+    "lon": 133,
+    "ja": "しまなみ海道",
+    "wiki": "Nishiseto Expressway",
+    "summary": "The Nishiseto Expressway, often called the Shimanami Kaidō, is an expressway in Japan that connects Onomichi, Hiroshima and Imabari, Ehime, going through nine of the Geiyo Islands, including Ōshima, Ōmishima, and Innoshima."
+   },
+   {
+    "name": "Uchiko",
+    "lat": 33.5333,
+    "lon": 132.65,
+    "ja": "内子町",
+    "wiki": "Uchiko, Ehime",
+    "summary": "Uchiko is a town located in Kita District, Ehime Prefecture, Japan."
+   },
+   {
+    "name": "Ōzu Castle",
+    "lat": 33.507,
+    "lon": 132.543,
+    "ja": "大洲城",
+    "wiki": "Ōzu Castle",
+    "summary": "Ōzu Castle, also known as Jizōgatake Castle, is a castle located in Ōzu, Ehime Prefecture, Japan. The earliest recorded defensive structures date back to the beginning of the 14th century and were supposedly built by Utsunomiya Toyofusa."
+   },
+   {
+    "name": "Shikoku Karst",
+    "lat": 33.48,
+    "lon": 132.98,
+    "ja": "四国カルスト"
+   }
+  ]
+ },
+ "39": {
+  "capital": {
+   "lat": 33.5588,
+   "lon": 133.5312,
+   "wiki": "Kōchi, Kōchi",
+   "pop": 325535,
+   "popYear": 2021,
+   "note": "Former Tosa castle town, home of Sakamoto Ryōma and the Yosakoi dance.",
+   "summary": "Kōchi is the capital city of Kōchi Prefecture located on the island of Shikoku in Japan. With over 40% of the prefectural population, Kōchi is the main commercial and industrial centre and the \"primate city\" of the prefecture."
+  },
+  "sights": [
+   {
+    "name": "Kōchi Castle",
+    "lat": 33.56,
+    "lon": 133.531,
+    "ja": "高知城",
+    "wiki": "Kōchi Castle",
+    "summary": "Kōchi Castle is an Edo Period Japanese castle in the city of Kōchi, Kōchi Prefecture, Japan. It is located at Otakayama hill, at the center of Kōchi city, which in turn is located at the center of the Kōchi Plain, the most prosperous area of former Tosa Province on the island of Shikoku."
+   },
+   {
+    "name": "Katsurahama",
+    "lat": 33.4969,
+    "lon": 133.5736,
+    "ja": "桂浜",
+    "wiki": "Katsurahama"
+   },
+   {
+    "name": "Shimanto River",
+    "lat": 32.9338,
+    "lon": 132.9957,
+    "ja": "四万十川",
+    "wiki": "Shimanto River",
+    "summary": "The Shimanto River is a Class A river in western Kōchi Prefecture, Japan. 196 km (122 mi) in length, it has a watershed of 2,270 km2 (880 sq mi)."
+   },
+   {
+    "name": "Cape Ashizuri",
+    "lat": 32.7238,
+    "lon": 133.0203,
+    "ja": "足摺岬",
+    "wiki": "Cape Ashizuri",
+    "summary": "Cape Ashizuri is a headland at the southernmost tip of the Japanese island of Shikoku, in the city of Tosashimizu, Kōchi Prefecture. The promontory extends into the Pacific Ocean and is situated within Ashizuri-Uwakai National Park."
+   },
+   {
+    "name": "Yosakoi Festival",
+    "lat": 33.5589,
+    "lon": 133.5314,
+    "ja": "よさこい祭り",
+    "wiki": "Yosakoi",
+    "summary": "Yosakoi is a unique style of dance that originated in Japan and that is performed at festivals and events all over the country. The first yosakoi festival was held in 1954 in Kōchi, Japan, on the island of Shikoku. Yosakoi-style dancing has spread throughout much of Japan."
+   },
+   {
+    "name": "Hirome Market",
+    "lat": 33.5606,
+    "lon": 133.5358,
+    "ja": "ひろめ市場"
+   }
+  ]
+ },
+ "40": {
+  "capital": {
+   "lat": 33.5901,
+   "lon": 130.4017,
+   "wiki": "Fukuoka",
+   "pop": 1603043,
+   "popYear": 2020,
+   "note": "Kyūshū's largest city, famous for Hakata ramen and its yatai food stalls.",
+   "summary": "Fukuoka is a designated city in the Kyushu region of Japan and the capital city of Fukuoka Prefecture. The city is built along the shores of Hakata Bay, and has been a center of international commerce since ancient times. The area has long been considered the gateway to the country, as it is the nearest point among Japan's main islands to the Asian mainland."
+  },
+  "sights": [
+   {
+    "name": "Dazaifu Tenman-gū",
+    "lat": 33.521,
+    "lon": 130.535,
+    "ja": "太宰府天満宮",
+    "wiki": "Dazaifu Tenmangū",
+    "summary": "Dazaifu Tenman-gū is a Shinto shrine in Dazaifu, Fukuoka Prefecture, Japan. It is built over the grave of Sugawara no Michizane (845–903) and is one of the main shrines dedicated to Tenjin, the deified form of Michizane."
+   },
+   {
+    "name": "Hakata yatai",
+    "lat": 33.5914,
+    "lon": 130.4147,
+    "ja": "博多の屋台",
+    "wiki": "Yatai (food cart)",
+    "summary": "A yatai is a small, mobile food stall in Japan typically selling ramen or other food. The name literally means \"shop stand\"."
+   },
+   {
+    "name": "Yanagawa",
+    "lat": 33.1631,
+    "lon": 130.4058,
+    "ja": "柳川市",
+    "wiki": "Yanagawa, Fukuoka",
+    "summary": "Yanagawa is a city located in Fukuoka Prefecture, Japan."
+   },
+   {
+    "name": "Kushida Shrine",
+    "lat": 33.593,
+    "lon": 130.4105,
+    "ja": "櫛田神社",
+    "wiki": "Kushida Shrine",
+    "summary": "Kushida-jinja is a Shinto shrine located in Hakata-ku, Fukuoka, Japan. Dedicated to Amaterasu and Susanoo, it is said to have been founded in 757. The Hakata Gion Yamakasa festival is centred on the shrine."
+   },
+   {
+    "name": "Kawachi Fujien",
+    "lat": 33.8322,
+    "lon": 130.7922,
+    "ja": "河内藤園",
+    "wiki": "Kawachi Wisteria Garden",
+    "summary": "Kawachi Wisteria Garden is a private garden located in Kitakyushu founded by Higuchi Masao."
+   },
+   {
+    "name": "Mojikō Retro",
+    "lat": 33.945,
+    "lon": 130.9614,
+    "ja": "門司港レトロ",
+    "wiki": "Mojikō Station",
+    "summary": "Mojiko Station is a railway station at the northern terminus of the Kagoshima Main Line in the Moji ward of Kitakyushu, Fukuoka Prefecture, Japan, operated by the Kyushu Railway Company (JR Kyushu)."
+   }
+  ]
+ },
+ "41": {
+  "capital": {
+   "lat": 33.2635,
+   "lon": 130.3008,
+   "wiki": "Saga (city)",
+   "pop": 232359,
+   "popYear": 2021,
+   "note": "Quiet castle town that hosts Asia's largest hot-air balloon festival.",
+   "summary": "Saga is the capital city of Saga Prefecture, located on the island of Kyushu, Japan."
+  },
+  "sights": [
+   {
+    "name": "Yoshinogari Historical Park",
+    "lat": 33.3236,
+    "lon": 130.3907,
+    "ja": "吉野ヶ里遺跡",
+    "wiki": "Yoshinogari site",
+    "summary": "Yoshinogari is a large and complex Yayoi period archaeological site located in the town of Yoshinogari and city of Kanzaki in Saga Prefecture, Kyūshū, Japan. According to the Yayoi chronology established by pottery seriations in the 20th century, Yoshinogari dates back to between the 3rd century BC and the 3rd century AD."
+   },
+   {
+    "name": "Arita & Imari",
+    "lat": 33.2647,
+    "lon": 129.8808,
+    "ja": "有田・伊万里",
+    "wiki": "Imari, Saga",
+    "summary": "Imari is a city located in Saga Prefecture on the island of Kyushu, Japan. Imari is most notable because of Imari porcelain, which is the European collectors' name for Japanese porcelain wares made in the town of Arita, Saga Prefecture. The porcelain was exported from the port of Imari specifically for the European export trade."
+   },
+   {
+    "name": "Karatsu Castle",
+    "lat": 33.457,
+    "lon": 129.976,
+    "ja": "唐津城",
+    "wiki": "Karatsu Castle",
+    "summary": "Karatsu Castle is a Japanese castle located in Karatsu, Saga Prefecture, Japan. It is a hirayamajiro, a castle built on a plain rather than a hill or mountain. At the end of the Edo period, Karatsu castle was home to the Ogasawara clan, daimyō of Karatsu Domain."
+   },
+   {
+    "name": "Yūtoku Inari Shrine",
+    "lat": 33.0736,
+    "lon": 130.1083,
+    "ja": "祐徳稲荷神社",
+    "wiki": "Yūtoku Inari Shrine",
+    "summary": "Yūtoku Inari Shrine is a shrine located in Kashima City, Saga Prefecture. It is one of the most famous Inari shrines in Japan."
+   },
+   {
+    "name": "Takeo Onsen",
+    "lat": 33.1967,
+    "lon": 130.0235,
+    "ja": "武雄温泉",
+    "wiki": "Takeo, Saga",
+    "summary": "Takeo is a city located in Saga Prefecture on the island of Kyushu, Japan."
+   },
+   {
+    "name": "Saga Balloon Fiesta",
+    "lat": 33.2636,
+    "lon": 130.3008,
+    "ja": "佐賀インターナショナルバルーンフェスタ",
+    "wiki": "Saga International Balloon Fiesta",
+    "summary": "The Saga International Balloon Fiesta is held at the beginning of November every year in Saga Prefecture, Japan. In 2014 it took place between October 30 and November 3."
+   }
+  ]
+ },
+ "42": {
+  "capital": {
+   "lat": 32.7495,
+   "lon": 129.8796,
+   "wiki": "Nagasaki",
+   "pop": 404656,
+   "popYear": 2021,
+   "note": "Japan's window to the world for centuries; Dejima, Glover Garden and the Peace Park.",
+   "summary": "Nagasaki, officially Nagasaki City, is the capital and the largest city of Nagasaki Prefecture on the island of Kyushu in Japan."
+  },
+  "sights": [
+   {
+    "name": "Nagasaki Peace Park",
+    "lat": 32.776,
+    "lon": 129.864,
+    "ja": "平和公園",
+    "wiki": "Nagasaki Peace Park",
+    "summary": "Nagasaki Peace Park is a park located in Nagasaki, Japan, commemorating the atomic bombing of the city on August 9, 1945 during World War II. It is next to the Atomic Bomb Museum and near the Peace Memorial Hall."
+   },
+   {
+    "name": "Glover Garden",
+    "lat": 32.7336,
+    "lon": 129.8692,
+    "ja": "グラバー園",
+    "wiki": "Glover Garden",
+    "summary": "Glover Garden is a park in Nagasaki, Japan, built for Thomas Blake Glover, a Scottish merchant who contributed to the modernization of Japan in shipbuilding, coal mining, and other fields. In it stands the Glover Residence, the oldest Western-style house surviving in Japan and Nagasaki's foremost tourist attraction."
+   },
+   {
+    "name": "Dejima",
+    "lat": 32.7435,
+    "lon": 129.873,
+    "ja": "出島",
+    "wiki": "Dejima",
+    "summary": "Dejima or Deshima, in the 17th century also called Tsukishima, was an artificial island off Nagasaki, Japan, that served as a trading post for the Portuguese (1570–1639) and subsequently the Dutch (1641–1858)."
+   },
+   {
+    "name": "Ōura Church",
+    "lat": 32.7341,
+    "lon": 129.8702,
+    "ja": "大浦天主堂",
+    "wiki": "Oura Church",
+    "summary": "The Oura Church or Oura Cathedral, officially the Basilica of the Twenty-Six Holy Martyrs of Japan, is a Catholic minor basilica and co-cathedral in Nagasaki, Japan, built soon after the end of the Japanese government's Seclusion Policy in 1853. It is named after the 26 Japanese Martyrs."
+   },
+   {
+    "name": "Gunkanjima",
+    "lat": 32.6278,
+    "lon": 129.7383,
+    "ja": "端島",
+    "wiki": "Hashima Island",
+    "summary": "Hashima Island, commonly called Gunkanjima, is an abandoned island about 15 kilometres (8 nautical miles) from the centre of Nagasaki, Japan. It is one of 505 uninhabited islands in Nagasaki Prefecture. The island's most notable features are its abandoned concrete buildings, undisturbed except by nature, and the surrounding seawall."
+   },
+   {
+    "name": "Gotō Islands",
+    "lat": 32.7,
+    "lon": 128.8333,
+    "ja": "五島列島",
+    "wiki": "Gotō Islands",
+    "summary": "The Gotō Islands are Japanese islands in the Sea of Japan. They are part of Nagasaki Prefecture."
+   }
+  ]
+ },
+ "43": {
+  "capital": {
+   "lat": 32.803,
+   "lon": 130.7079,
+   "wiki": "Kumamoto",
+   "pop": 738385,
+   "popYear": 2021,
+   "note": "Below Kumamoto Castle, still being restored after the 2016 earthquakes.",
+   "summary": "Kumamoto is the capital city of Kumamoto Prefecture on the island of Kyushu, Japan."
+  },
+  "sights": [
+   {
+    "name": "Kumamoto Castle",
+    "lat": 32.8061,
+    "lon": 130.706,
+    "ja": "熊本城",
+    "wiki": "Kumamoto Castle",
+    "summary": "Kumamoto Castle is a hilltop Japanese castle located in Chūō-ku, Kumamoto, in Kumamoto Prefecture. It was a large and well-fortified castle. The castle keep is a concrete reconstruction built in 1960, but a number of ancillary wooden buildings remain of the original castle."
+   },
+   {
+    "name": "Mt. Aso",
+    "lat": 32.8844,
+    "lon": 131.1039,
+    "ja": "阿蘇山",
+    "wiki": "Mount Aso",
+    "summary": "Mount Aso or Aso Volcano is the second largest active volcano in Japan after Mount Fuji, and among the largest in the world. Common use relates often only to the somma volcano in the centre of Aso Caldera. It stands in Aso Kujū National Park in Kumamoto Prefecture, on the island of Kyushu."
+   },
+   {
+    "name": "Suizen-ji Jōju-en",
+    "lat": 32.7911,
+    "lon": 130.7346,
+    "ja": "水前寺成趣園",
+    "wiki": "Suizen-ji Jōju-en",
+    "summary": "Suizen-ji Jōju-en is a tsukiyama Japanese garden located within Suizen-ji Park in the eastern part of the city of Kumamoto, Kumamoto Prefecture, Japan. It was built during the Edo period by the Hosokawa clan, the daimyō of Kumamoto Domain. It is commonly known as \"Suizenji Park\"."
+   },
+   {
+    "name": "Kurokawa Onsen",
+    "lat": 33.08,
+    "lon": 131.14,
+    "ja": "黒川温泉",
+    "wiki": "Minamioguni, Kumamoto",
+    "wikiBroader": true
+   },
+   {
+    "name": "Amakusa",
+    "lat": 32.4586,
+    "lon": 130.1931,
+    "ja": "天草",
+    "wiki": "Amakusa, Kumamoto",
+    "summary": "Amakusa is a city located in Kumamoto Prefecture, Japan."
+   },
+   {
+    "name": "Tsūjun Bridge",
+    "lat": 32.6817,
+    "lon": 130.9939,
+    "ja": "通潤橋",
+    "wiki": "Tsūjun Bridge",
+    "summary": "Tsūjun Bridge is an aqueduct in Yamato, Kumamoto, Japan. It is an arch bridge completed in 1854 and is 84.0m long. The arch spans 27.3m."
+   }
+  ]
+ },
+ "44": {
+  "capital": {
+   "lat": 33.2396,
+   "lon": 131.6094,
+   "wiki": "Ōita (city)",
+   "pop": 477186,
+   "popYear": 2021,
+   "note": "Coastal city between the hot-spring towns of Beppu and Yufuin.",
+   "summary": "Ōita is the capital city of Ōita Prefecture, located on the island of Kyushu, Japan."
+  },
+  "sights": [
+   {
+    "name": "Beppu Hells",
+    "lat": 33.315,
+    "lon": 131.47,
+    "ja": "別府地獄めぐり",
+    "wiki": "Beppu",
+    "summary": "Beppu is a city in Ōita Prefecture on the island of Kyushu, Japan. Beppu is famous for its hot springs. In 2024, Beppu celebrated its centenary as a city."
+   },
+   {
+    "name": "Yufuin",
+    "lat": 33.2632,
+    "lon": 131.3563,
+    "ja": "由布院温泉",
+    "wiki": "Yufuin Onsen",
+    "summary": "Yufuin Onsen is an extensive hot spring system in the city of Yufu, Ōita Prefecture, Japan."
+   },
+   {
+    "name": "Usa Jingū",
+    "lat": 33.5261,
+    "lon": 131.3747,
+    "ja": "宇佐神宮",
+    "wiki": "Usa Jingū",
+    "summary": "Usa-jingū, also known as Usa Hachimangū, is a Shinto shrine in the city of Usa, Ōita in Japan. Emperor Ōjin, who was deified as Hachiman, the tutelary god of warriors, is said to be enshrined in all the sites dedicated to him. The first Hachiman shrine was at Usa, and was built in the early 8th century."
+   },
+   {
+    "name": "Usuki Stone Buddhas",
+    "lat": 33.1,
+    "lon": 131.77,
+    "ja": "臼杵石仏",
+    "wiki": "Usuki Stone Buddhas",
+    "summary": "The Usuki Stone Buddhas is a group of 61 religious statues in four groups carved in bas-relief into a tuff cliff in the city of Usuki, Ōita Prefecture on the island of Kyushu, Japan. The site was designated a National Special Historic Site of Japan in 1952."
+   },
+   {
+    "name": "Fuki-ji",
+    "lat": 33.5377,
+    "lon": 131.5288,
+    "ja": "富貴寺",
+    "wiki": "Fuki-ji",
+    "summary": "Fuki-ji is Buddhist temple located in the city of Bungotakada, Ōita Prefecture Japan. it is a temple of the Tendai sect, and its honzon is a statue of Amida Nyorai. Claimed to have been founded in 718 AD, the temple was also called \"Amida-ji\". The precincts of the temple were designated a National Historic Site in 2013."
+   },
+   {
+    "name": "Kokonoe Yume Bridge",
+    "lat": 33.1615,
+    "lon": 131.2525,
+    "ja": "九重“夢”大吊橋",
+    "wiki": "Kokonoe, Ōita",
+    "wikiBroader": true
+   }
+  ]
+ },
+ "45": {
+  "capital": {
+   "lat": 31.9077,
+   "lon": 131.4202,
+   "wiki": "Miyazaki (city)",
+   "pop": 397476,
+   "popYear": 2021,
+   "note": "Sunny Pacific city with palm-lined avenues, a long-time honeymoon destination.",
+   "summary": "Miyazaki is the capital city of Miyazaki Prefecture on the island of Kyushu in Japan."
+  },
+  "sights": [
+   {
+    "name": "Takachiho Gorge",
+    "lat": 32.702,
+    "lon": 131.302,
+    "ja": "高千穂峡",
+    "wiki": "Takachiho, Miyazaki",
+    "summary": "Takachiho is a town in Nishiusuki District, Miyazaki Prefecture, Japan."
+   },
+   {
+    "name": "Amano-Iwato Shrine",
+    "lat": 32.7344,
+    "lon": 131.3506,
+    "ja": "天岩戸神社",
+    "wiki": "Amanoiwato Shrine",
+    "summary": "Amanoiwato-jinja is a Shinto shrine located in Takachiho, Miyazaki Prefecture, Japan."
+   },
+   {
+    "name": "Aoshima",
+    "lat": 31.805,
+    "lon": 131.4757,
+    "ja": "青島",
+    "wiki": "Aoshima, Miyazaki",
+    "summary": "Aoshima is an island located in Miyazaki, Miyazaki Prefecture, Japan. The island has a surface area of 4.4 hectares (10.9 acres) and a height of 6 metres (20 feet). The island is part of the Aoshima Shrine."
+   },
+   {
+    "name": "Udo Jingū",
+    "lat": 31.6503,
+    "lon": 131.4667,
+    "ja": "鵜戸神宮",
+    "wiki": "Udo Jingū",
+    "summary": "Udo-jingū is a Shinto shrine in Nichinan, Miyazaki prefecture, Japan, south of Aoshima. It is the mythical birthplace of Emperor Jimmu's father Ugayafukiaezu. According to shrine legends, it is the place where the sea goddess Toyotamahime, the mother of said Ugayafukiaezu, built a birth-hut from the feathers of a cormorant."
+   },
+   {
+    "name": "Saitobaru Burial Mounds",
+    "lat": 32.12,
+    "lon": 131.39,
+    "ja": "西都原古墳群",
+    "wiki": "Saitobaru Kofun Cluster",
+    "summary": "Saitobaru Kofun Cluster is a group of three hundred thirty three kofuns or tumuli in Saito city, Miyazaki Prefecture, Japan. This is one of the largest kofun groups in Japan, and the largest group in Kyushu situated on a 70-meter hill composed of diluvium. It is located within the Saitobaru-Sugiyasukyō Prefectural Natural Park."
+   },
+   {
+    "name": "Obi",
+    "lat": 31.6292,
+    "lon": 131.3503,
+    "ja": "飫肥",
+    "wiki": "Obi Castle",
+    "summary": "Obi Castle is a Japanese castle originally completed in 1588. It was the center of the old Obi Domain, now a part of Miyazaki Prefecture."
+   }
+  ]
+ },
+ "46": {
+  "capital": {
+   "lat": 31.5968,
+   "lon": 130.5571,
+   "wiki": "Kagoshima",
+   "pop": 593754,
+   "popYear": 2021,
+   "note": "Faces the active volcano Sakurajima across the bay; ash falls on the city some days.",
+   "summary": "Kagoshima, is the capital city of Kagoshima Prefecture, Japan."
+  },
+  "sights": [
+   {
+    "name": "Sakurajima",
+    "lat": 31.585,
+    "lon": 130.657,
+    "ja": "桜島",
+    "wiki": "Sakurajima",
+    "summary": "Sakurajima is an active stratovolcano, formerly an island and now a peninsula, in Kagoshima Prefecture in Kyushu, Japan. It is the most active volcano in Japan."
+   },
+   {
+    "name": "Sengan-en",
+    "lat": 31.6183,
+    "lon": 130.5794,
+    "ja": "仙巌園",
+    "wiki": "Sengan-en",
+    "summary": "Sengan-en is a Japanese garden attached to a former Shimazu clan residence in Kagoshima, Kagoshima Prefecture, Japan. Designated a Place of Scenic Beauty, together with the adjacent Shōko Shūseikan it forms part of the UNESCO World Heritage Site Sites of Japan’s Meiji Industrial Revolution: Iron and Steel, Shipbuilding and Coal Mining."
+   },
+   {
+    "name": "Yakushima",
+    "lat": 30.39,
+    "lon": 130.6511,
+    "ja": "屋久島",
+    "wiki": "Yakushima",
+    "summary": "Yakushima is one of the Ōsumi Islands in Kagoshima Prefecture, Japan. It is accessible by hydrofoil ferry, car ferry, or by air to Yakushima Airport."
+   },
+   {
+    "name": "Chiran",
+    "lat": 31.3674,
+    "lon": 130.4437,
+    "ja": "知覧",
+    "wiki": "Chiran, Kagoshima",
+    "summary": "Chiran was a town located in Kawanabe District, Kagoshima Prefecture, Japan. Chiran is famous for producing Japanese tea."
+   },
+   {
+    "name": "Ibusuki",
+    "lat": 31.2528,
+    "lon": 130.6331,
+    "ja": "指宿市",
+    "wiki": "Ibusuki",
+    "summary": "Ibusuki is a city located in Kagoshima Prefecture, Japan."
+   },
+   {
+    "name": "Amami Ōshima",
+    "lat": 28.3783,
+    "lon": 129.4944,
+    "ja": "奄美大島",
+    "wiki": "Amami Ōshima",
+    "summary": "Amami Ōshima, also known as Amami, is the largest island in the Amami archipelago between Kyūshū and Okinawa. It is one of the Satsunan Islands, all of which belong to Kagoshima Prefecture, Japan."
+   }
+  ]
+ },
+ "47": {
+  "capital": {
+   "lat": 26.2122,
+   "lon": 127.6792,
+   "wiki": "Naha",
+   "pop": 316048,
+   "popYear": 2021,
+   "note": "Home of Shuri Castle, seat of the Ryūkyū kings, and of Kokusai-dōri.",
+   "summary": "Naha is the capital city of Okinawa Prefecture, the southernmost prefecture of Japan."
+  },
+  "sights": [
+   {
+    "name": "Shuri Castle",
+    "lat": 26.217,
+    "lon": 127.7195,
+    "ja": "首里城",
+    "wiki": "Shuri Castle",
+    "summary": "Shuri Castle is a Ryukyuan gusuku castle in the historic Shuri district of Naha, the capital of Okinawa Prefecture, Japan. Between 1429 and 1879, it was the palace of the Ryukyu Kingdom, before becoming largely neglected. In 1945, during the Battle of Okinawa, it was almost completely destroyed."
+   },
+   {
+    "name": "Churaumi Aquarium",
+    "lat": 26.6944,
+    "lon": 127.8779,
+    "ja": "沖縄美ら海水族館",
+    "wiki": "Okinawa Churaumi Aquarium",
+    "summary": "The Okinawa Churaumi Aquarium, formerly known as the Okinawa Ocean Expo Aquarium, is a public aquarium located within the Ocean Expo Park in Okinawa, Japan. The aquarium's Kuroshio sea tank was the largest aquarium tank in the world until it was surpassed by the Georgia Aquarium in 2005."
+   },
+   {
+    "name": "Kerama Islands",
+    "lat": 26.2,
+    "lon": 127.33,
+    "ja": "慶良間諸島",
+    "wiki": "Kerama Islands",
+    "summary": "The Kerama Islands are a subtropical island group 32 kilometres (20 mi) southwest of Okinawa Island in Japan."
+   },
+   {
+    "name": "Ishigaki & Iriomote",
+    "lat": 24.3406,
+    "lon": 124.1556,
+    "ja": "石垣島・西表島",
+    "wiki": "Ishigaki, Okinawa",
+    "summary": "Ishigaki is a city in Okinawa Prefecture, Japan. It includes Ishigaki island and the Senkaku Islands territory. The city is the political, cultural, and economic center of the Yaeyama Islands."
+   },
+   {
+    "name": "Peace Memorial Park",
+    "lat": 26.0964,
+    "lon": 127.7254,
+    "ja": "平和祈念公園",
+    "wiki": "Okinawa Prefectural Peace Memorial Museum",
+    "summary": "Okinawa Prefectural Peace Memorial Museum is a museum in Itoman, Okinawa. It was established on June 11, 1975. The Cornerstone of Peace, a monument similar to the Vietnam Veterans Memorial, is located here."
+   },
+   {
+    "name": "Taketomi",
+    "lat": 24.2867,
+    "lon": 123.8817,
+    "ja": "竹富町",
+    "wiki": "Taketomi, Okinawa",
+    "summary": "Taketomi is a town located in Yaeyama District, Okinawa Prefecture, Japan."
+   }
+  ]
+ },
+ "01": {
+  "capital": {
+   "lat": 43.0619,
+   "lon": 141.3544,
+   "wiki": "Sapporo",
+   "pop": 1959313,
+   "popYear": 2020,
+   "note": "Laid out on a grid from 1869 as the base for settling Hokkaidō; home of the Snow Festival and Sapporo beer.",
+   "summary": "Sapporo is a designated city in Hokkaido, Japan. Located in the southwest of Hokkaido, it lies within the alluvial fan of the Toyohira River, a tributary of the Ishikari River. Sapporo is the capital of Hokkaido Prefecture and Ishikari Subprefecture."
+  },
+  "sights": [
+   {
+    "name": "Sapporo Snow Festival",
+    "lat": 43.0605,
+    "lon": 141.35,
+    "ja": "さっぽろ雪まつり",
+    "wiki": "Sapporo Snow Festival",
+    "summary": "The Sapporo Snow Festival is a festival held annually in Sapporo, Japan, over seven days in February. Odori Park, Susukino, and Tsudome are the main sites of the festival."
+   },
+   {
+    "name": "Shiretoko National Park",
+    "lat": 44.1,
+    "lon": 145.1833,
+    "ja": "知床国立公園",
+    "wiki": "Shiretoko National Park",
+    "summary": "Shiretoko National Park covers most of the Shiretoko Peninsula at the northeastern tip of the island of Hokkaido, Japan. The word \"Shiretoko\" is derived from an Ainu word \"sir etok\", meaning \"the place where the earth protrudes\"."
+   },
+   {
+    "name": "Hakodate",
+    "lat": 41.7686,
+    "lon": 140.7289,
+    "ja": "函館市",
+    "wiki": "Hakodate",
+    "summary": "Hakodate is a city and port located in Oshima Subprefecture, Hokkaido, Japan. It is the capital city of Oshima Subprefecture. The city is the third largest in Hokkaido after Sapporo and Asahikawa."
+   },
+   {
+    "name": "Otaru Canal",
+    "lat": 43.1997,
+    "lon": 141.0027,
+    "ja": "小樽運河",
+    "wiki": "Otaru",
+    "wikiBroader": true
+   },
+   {
+    "name": "Furano & Biei",
+    "lat": 43.35,
+    "lon": 142.3833,
+    "ja": "富良野・美瑛",
+    "wiki": "Furano, Hokkaido",
+    "summary": "Furano is a city in the prefecture of Hokkaido, Japan, located in the southern reaches of Kamikawa Subprefecture, under whose jurisdiction it resides."
+   },
+   {
+    "name": "Upopoy National Ainu Museum",
+    "lat": 42.5613,
+    "lon": 141.3669,
+    "ja": "国立アイヌ民族博物館",
+    "wiki": "National Ainu Museum",
+    "summary": "The National Ainu Museum is a museum located in Shiraoi, Hokkaidō, Japan. It is situated within the grounds of Upopoy, a park complex that serves as a \"symbolic space for ethnic harmony\"."
+   }
+  ]
+ },
+ "02": {
+  "capital": {
+   "lat": 40.8228,
+   "lon": 140.7469,
+   "wiki": "Aomori",
+   "pop": 425962,
+   "popYear": 2021,
+   "note": "Ferry port at the head of Mutsu Bay, known for the Nebuta festival and its scallops and apples.",
+   "summary": "Aomori, officially Aomori City, is the capital city of Aomori Prefecture, in the Tōhoku region of Japan. Aomori is one of Japan's 62 core cities and the core of the Aomori metropolitan area."
+  },
+  "sights": [
+   {
+    "name": "Hirosaki Castle",
+    "lat": 40.6069,
+    "lon": 140.4644,
+    "ja": "弘前城",
+    "wiki": "Hirosaki Castle",
+    "summary": "Hirosaki Castle is a hirayama-style Japanese castle constructed in 1611. It was the seat of the Tsugaru clan, a 47,000 koku tozama daimyō clan which ruled over Hirosaki Domain, Mutsu Province, in what is now central Hirosaki, Aomori Prefecture, Japan. It was also referred to as Takaoka Castle."
+   },
+   {
+    "name": "Aomori Nebuta Matsuri",
+    "lat": 40.8223,
+    "lon": 140.7474,
+    "ja": "青森ねぶた",
+    "wiki": "Aomori Nebuta Matsuri",
+    "summary": "The Aomori Nebuta Matsuri is a Japanese summer festival that takes place in Aomori, Aomori Prefecture, Japan in early August. The festival attracts the most tourists of any of the country's nebuta festivals, and is counted among the three largest festivals in the Tōhoku region."
+   },
+   {
+    "name": "Oirase Gorge & Lake Towada",
+    "lat": 40.536,
+    "lon": 140.957,
+    "ja": "奥入瀬渓流・十和田湖",
+    "wiki": "Oirase River",
+    "summary": "The Oirase River is a river located in eastern Aomori Prefecture, in the Tōhoku region of northern Japan."
+   },
+   {
+    "name": "Sannai-Maruyama Site",
+    "lat": 40.8103,
+    "lon": 140.6975,
+    "ja": "三内丸山遺跡",
+    "wiki": "Sannai-Maruyama Site",
+    "summary": "The Sannai-Maruyama Site is an archaeological site and museum located in the Maruyama and Yasuda neighborhoods to the southwest of central Aomori City in Aomori Prefecture in northern Japan, containing the ruins of a very large Jōmon period settlement."
+   },
+   {
+    "name": "Shirakami-Sanchi",
+    "lat": 40.47,
+    "lon": 140.13,
+    "ja": "白神山地",
+    "wiki": "Shirakami-Sanchi",
+    "summary": "The Shirakami Mountains (White God Mountains) are a UNESCO World Heritage Site wilderness area in the Tōhoku region of northern Honshū, Japan. This mountainous area includes the last virgin forest of Japanese beech which once covered most of northern Japan. The area straddles both Akita and Aomori Prefectures, with three-fourths of it in Aomori Prefecture."
+   },
+   {
+    "name": "Osorezan",
+    "lat": 41.327,
+    "lon": 141.088,
+    "ja": "恐山",
+    "wiki": "Mount Osore",
+    "summary": "Mount Osore is the name of a Buddhist temple and folk religion pilgrimage destination in the center of remote Shimokita Peninsula of Aomori Prefecture, in the northern Tōhoku region of northern Japan. The temple is located in the caldera of an active volcano and is believed in Japanese mythology to be one of the gates to the underworld."
+   }
+  ]
+ },
+ "03": {
+  "capital": {
+   "lat": 39.7021,
+   "lon": 141.1545,
+   "wiki": "Morioka",
+   "pop": 290553,
+   "popYear": 2021,
+   "note": "Castle town ringed by mountains, famous for wanko soba and Nanbu ironware.",
+   "summary": "Morioka is the capital city of Iwate Prefecture located in the Tōhoku region of northern Japan."
+  },
+  "sights": [
+   {
+    "name": "Chūson-ji Konjikidō",
+    "lat": 38.9985,
+    "lon": 141.0997,
+    "ja": "中尊寺金色堂",
+    "wiki": "Chūson-ji",
+    "summary": "Chūson-ji is a Buddhist temple in the town of Hiraizumi in southern Iwate Prefecture, Japan. It is the head temple of the Tendai sect in Tōhoku region of northern Honshu. The temple claims it was founded in 850 by Ennin, the third chief abbot of the sect."
+   },
+   {
+    "name": "Mōtsū-ji",
+    "lat": 38.9878,
+    "lon": 141.108,
+    "ja": "毛越寺",
+    "wiki": "Mōtsū-ji",
+    "summary": "Mōtsū-ji is a Buddhist temple of the Tendai sect in the town of Hiraizumi in southern Iwate Prefecture, Japan, and also refers to the historic area surrounding it containing the ruins of two older temples, Enryū-ji and Kashō-ji in a Jōdo (Pure Land) garden."
+   },
+   {
+    "name": "Geibikei Gorge",
+    "lat": 38.99,
+    "lon": 141.2511,
+    "ja": "猊鼻渓",
+    "wiki": "Geibikei",
+    "summary": "Geibikei is a ravine on the Satetsu River in the city of Ichinoseki, Iwate Prefecture, Japan. It has been designated a National Place of Scenic Beauty and Natural Monument since 1923. In 1927 it was also selected as one of the 100 Landscapes of Japan."
+   },
+   {
+    "name": "Tōno",
+    "lat": 39.3279,
+    "lon": 141.5334,
+    "ja": "遠野市",
+    "wiki": "Tōno, Iwate",
+    "summary": "Tōno is a city in Iwate Prefecture, Japan. Tōno is known as \"The City of Folklore\" for its rural nature, its preservation of traditional culture and especially for the collection of folktales, Tōno Monogatari, written by Kunio Yanagita in 1910."
+   },
+   {
+    "name": "Jōdogahama",
+    "lat": 39.651,
+    "lon": 141.98,
+    "ja": "浄土ヶ浜",
+    "wiki": "Jōdogahama",
+    "summary": "Jōdogahama is a series of rock formations along the coast of Miyako Bay in the city of Miyako, Iwate Prefecture, in the Tōhoku region of northern Japan. The area is part of the Sanriku Fukkō National Park, and is a nationally designated Place of Scenic Beauty."
+   },
+   {
+    "name": "Ryūsendō Cave",
+    "lat": 39.864,
+    "lon": 141.798,
+    "ja": "龍泉洞",
+    "wiki": "Ryūsendō",
+    "summary": "Ryusendo Cave is one of Japan's three largest limestone caverns. It is located in the town of Iwaizumi, Iwate Prefecture, in the Tōhoku region of northern Japan."
+   }
+  ]
+ },
+ "04": {
+  "capital": {
+   "lat": 38.2682,
+   "lon": 140.8694,
+   "wiki": "Sendai",
+   "pop": 1061177,
+   "popYear": 2020,
+   "note": "The \"City of Trees\", founded by the warlord Date Masamune and the largest city in Tōhoku.",
+   "summary": "Sendai is the capital city of Miyagi Prefecture and the largest city in the Tōhoku region."
+  },
+  "sights": [
+   {
+    "name": "Matsushima Bay",
+    "lat": 38.37,
+    "lon": 141.064,
+    "ja": "松島",
+    "wiki": "Matsushima",
+    "summary": "Matsushima is a group of islands in Miyagi Prefecture, Japan. There are some 260 tiny islands (shima) covered in pines (matsu) – hence the name – and it is considered to be one of the Three Views of Japan."
+   },
+   {
+    "name": "Zuihōden",
+    "lat": 38.2508,
+    "lon": 140.8657,
+    "ja": "瑞鳳殿",
+    "wiki": "Zuihōden",
+    "summary": "Zuihōden in Sendai, Miyagi Prefecture, Japan is the mausoleum complex of Date Masamune and his heirs, daimyō of the Sendai Domain."
+   },
+   {
+    "name": "Sendai Castle ruins",
+    "lat": 38.2525,
+    "lon": 140.8562,
+    "ja": "仙台城",
+    "wiki": "Aoba Castle",
+    "summary": "Aoba Castle is a Japanese castle located in Sendai, Miyagi Prefecture. Throughout the Edo period, Aoba Castle was home to the Date clan, daimyō of Sendai Domain. The castle was also known as Sendai-jō or as Gojō-rō."
+   },
+   {
+    "name": "Sendai Tanabata Matsuri",
+    "lat": 38.2682,
+    "lon": 140.8694,
+    "ja": "仙台七夕まつり",
+    "wiki": "Sendai",
+    "wikiBroader": true
+   },
+   {
+    "name": "Zaō Fox Village",
+    "lat": 38.0408,
+    "lon": 140.5303,
+    "ja": "宮城蔵王キツネ村",
+    "wiki": "Miyagi Zao Fox Village",
+    "summary": "Miyagi Zao Fox Village, also known as Kitsune Mura, is a tourist attraction and sanctuary for foxes in Shiroishi, Miyagi, Japan where visitors can feed and interact with foxes."
+   },
+   {
+    "name": "Naruko Gorge",
+    "lat": 38.742,
+    "lon": 140.679,
+    "ja": "鳴子峡",
+    "wiki": "Naruko, Miyagi",
+    "summary": "Naruko was a town located in Tamatsukuri District, Miyagi Prefecture, Japan."
+   }
+  ]
+ },
+ "05": {
+  "capital": {
+   "lat": 39.7199,
+   "lon": 140.1026,
+   "wiki": "Akita (city)",
+   "pop": 302984,
+   "popYear": 2021,
+   "note": "Former castle town of the Satake clan, host of the Kantō lantern-pole festival.",
+   "summary": "Akita is the capital and most populous city of Akita Prefecture, Japan, and has been designated a core city since 1 April 1997."
+  },
+  "sights": [
+   {
+    "name": "Kakunodate",
+    "lat": 39.5993,
+    "lon": 140.5615,
+    "ja": "角館町",
+    "wiki": "Kakunodate, Akita",
+    "summary": "Kakunodate was a town located in Senboku District, Akita Prefecture, Japan."
+   },
+   {
+    "name": "Lake Tazawa",
+    "lat": 39.725,
+    "lon": 140.6614,
+    "ja": "田沢湖",
+    "wiki": "Lake Tazawa",
+    "summary": "Lake Tazawa is a caldera lake in the city of Semboku, Akita Prefecture, northern Japan. It is the deepest lake in Japan at 423 metres (1,388 ft). The area is a popular vacation area and several hot spring resorts can be found in the hills above the lake."
+   },
+   {
+    "name": "Nyūtō Onsen",
+    "lat": 39.803,
+    "lon": 140.79,
+    "ja": "乳頭温泉郷",
+    "wiki": "Nyūtō Onsen",
+    "summary": "Nyūtō Onsen is a rural hot spring resort in Towada-Hachimantai National Park, Semboku City, Akita Prefecture, Japan and consists of Japanese-style hot spring spas scattered around the base of Mount Nyūtō."
+   },
+   {
+    "name": "Oga Peninsula",
+    "lat": 39.94,
+    "lon": 139.79,
+    "ja": "男鹿半島",
+    "wiki": "Oga Peninsula",
+    "summary": "The Oga Peninsula is a rugged peninsula which projects west into the Sea of Japan from the coast of Akita in northern Honshū, the main island of Japan. Politically it coincides with the city of Oga."
+   },
+   {
+    "name": "Akita Kantō Matsuri",
+    "lat": 39.7185,
+    "lon": 140.1132,
+    "ja": "秋田竿燈まつり",
+    "wiki": "Akita Kantō",
+    "summary": "The Akita Kantō is a Japanese festival celebrated from 3–7 August in Akita City, Akita Prefecture in hope for a good harvest."
+   },
+   {
+    "name": "Dakigaeri Gorge",
+    "lat": 39.73,
+    "lon": 140.66,
+    "ja": "田沢湖抱返り県立自然公園",
+    "wiki": "Tazawako Dakigaeri Prefectural Natural Park",
+    "summary": "Tazawako Dakigaeri Prefectural Natural Park is a Prefectural Natural Park in Akita Prefecture, Japan. Established in 1960, the park lies within the municipality of Semboku, and takes its name from Lake Tazawa and Dakigaeri Gorge."
+   }
+  ]
+ },
+ "06": {
+  "capital": {
+   "lat": 38.2554,
+   "lon": 140.3396,
+   "wiki": "Yamagata (city)",
+   "pop": 247234,
+   "popYear": 2021,
+   "note": "Basin city under the Zaō mountains, centre of Japan's cherry and imoni stew country.",
+   "summary": "Yamagata is the capital city of Yamagata Prefecture located in the Tōhoku region of northern Japan."
+  },
+  "sights": [
+   {
+    "name": "Yamadera (Risshaku-ji)",
+    "lat": 38.3125,
+    "lon": 140.4375,
+    "ja": "山寺（立石寺）",
+    "wiki": "Yama-dera",
+    "summary": "You may also be looking for the voice actor Kōichi Yamadera."
+   },
+   {
+    "name": "Zaō Onsen",
+    "lat": 38.1687,
+    "lon": 140.3974,
+    "ja": "蔵王温泉",
+    "wiki": "Zaō Onsen",
+    "summary": "Zaō Onsen is a famous hot spring area on Mount Zaō in the northern part of Honshū, the main island of Japan."
+   },
+   {
+    "name": "Ginzan Onsen",
+    "lat": 38.5708,
+    "lon": 140.4658,
+    "ja": "銀山温泉",
+    "wiki": "Ginzan Onsen",
+    "summary": "Ginzan Onsen is an onsen (hot spring) area in Obanazawa, Yamagata Prefecture, Japan. Its name means \"silver mine hot spring\". Ginzan Onsen's economy grew due to silver mining and production and eventually transitioned to tourism when it opened dozens of hot spring resorts and ryokan along the central river that runs through the town."
+   },
+   {
+    "name": "Dewa Sanzan",
+    "lat": 38.7003,
+    "lon": 140.0003,
+    "ja": "出羽三山",
+    "wiki": "Three Mountains of Dewa",
+    "summary": "The Three Mountains of Dewa refer to the three sacred mountains of Mount Haguro, Mount Gassan and Mount Yudono, which are clustered together in the ancient province of Dewa (modern-day Yamagata Prefecture)."
+   },
+   {
+    "name": "Mogami River boat ride",
+    "lat": 38.735,
+    "lon": 140.142,
+    "ja": "最上川舟下り",
+    "wiki": "Mogami River",
+    "summary": "The Mogami River is a Class A river in Yamagata Prefecture, Japan."
+   },
+   {
+    "name": "Yonezawa",
+    "lat": 37.9222,
+    "lon": 140.1168,
+    "ja": "米沢市",
+    "wiki": "Yonezawa, Yamagata",
+    "summary": "Yonezawa is a city in Yamagata Prefecture, Japan. Yonezawa is most famous for its local delicacies (apples, Yonezawa beef, and carp) and for being a castle town that was once home to the Uesugi clan, including the daimyō Uesugi Yozan."
+   }
+  ]
+ },
+ "07": {
+  "capital": {
+   "lat": 37.7608,
+   "lon": 140.4747,
+   "wiki": "Fukushima (city)",
+   "pop": 284282,
+   "popYear": 2021,
+   "note": "Basin city famous for its peaches and the blossoms of Hanamiyama.",
+   "summary": "Fukushima is the capital city of Fukushima Prefecture, Japan. It is located in the northern part of the Nakadōri or central region of the prefecture."
+  },
+  "sights": [
+   {
+    "name": "Tsuruga Castle",
+    "lat": 37.4878,
+    "lon": 139.9297,
+    "ja": "鶴ヶ城",
+    "wiki": "Aizuwakamatsu Castle",
+    "summary": "Tsuruga Castle, also known as Aizuwakamatsu Castle is a Japanese castle in northern Japan, at the center of the city of Aizuwakamatsu, in Fukushima Prefecture."
+   },
+   {
+    "name": "Ōuchi-juku",
+    "lat": 37.3336,
+    "lon": 139.8608,
+    "ja": "大内宿",
+    "wiki": "Ōuchi-juku",
+    "summary": "Ōuchi-juku was a small post station in Japan's Edo period and part of the Aizu Nishi Kaidō. It is now located in the town of Shimogō in Minamiaizu District, Fukushima Prefecture, and is famous for the numerous traditional thatched buildings from the Edo Period that line its main street."
+   },
+   {
+    "name": "Goshikinuma",
+    "lat": 37.6532,
+    "lon": 140.0867,
+    "ja": "五色沼",
+    "wiki": "Goshiki-numa",
+    "summary": "Goshiki-numa, is a cluster of five volcanic lakes situated at the foot of Mount Bandai in the center of the lake district of the Bandai Highland, Kitashiobara, Fukushima, Japan."
+   },
+   {
+    "name": "Sazaedō",
+    "lat": 37.502,
+    "lon": 139.946,
+    "ja": "さざえ堂",
+    "wiki": "Aizuwakamatsu",
+    "wikiBroader": true
+   },
+   {
+    "name": "Hanamiyama Park",
+    "lat": 37.757,
+    "lon": 140.495,
+    "ja": "花見山公園",
+    "wiki": "Fukushima (city)",
+    "wikiBroader": true
+   },
+   {
+    "name": "Lake Inawashiro",
+    "lat": 37.4747,
+    "lon": 140.0936,
+    "ja": "猪苗代湖",
+    "wiki": "Lake Inawashiro",
+    "summary": "Lake Inawashiro is the fourth-largest lake in Japan, located in central Fukushima Prefecture, south of Mount Bandai. It is also known as the 'Heavenly Mirror Lake'. The lake is located within the borders of Bandai-Asahi National Park."
+   }
+  ]
+ },
+ "08": {
+  "capital": {
+   "lat": 36.3658,
+   "lon": 140.4712,
+   "wiki": "Mito, Ibaraki",
+   "pop": 270445,
+   "popYear": 2021,
+   "note": "Home of Kairakuen, one of Japan's three great landscape gardens, and of nattō.",
+   "summary": "Mito is the capital city of Ibaraki Prefecture, in the northern Kantō region of Japan. The percentage of the population aged over 65 was 27.1%."
+  },
+  "sights": [
+   {
+    "name": "Kairakuen",
+    "lat": 36.3731,
+    "lon": 140.4561,
+    "ja": "偕楽園",
+    "wiki": "Kairaku-en",
+    "summary": "Kairaku-en is a Japanese garden located in Mito, Ibaraki Prefecture, Japan. Along with Kenroku-en and Koraku-en, it is considered one of the Three Great Gardens of Japan."
+   },
+   {
+    "name": "Hitachi Seaside Park",
+    "lat": 36.4006,
+    "lon": 140.5914,
+    "ja": "国営ひたち海浜公園",
+    "wiki": "Hitachi Seaside Park",
+    "summary": "Hitachi Seaside Park is a public park in Hitachinaka, Ibaraki, Japan."
+   },
+   {
+    "name": "Fukuroda Falls",
+    "lat": 36.765,
+    "lon": 140.408,
+    "ja": "袋田の滝",
+    "wiki": "Fukuroda Falls",
+    "summary": "Fukuroda Falls is a waterfall located in the town of Daigo, Ibaraki Prefecture Japan. It is a nationally designated Place of Scenic Beauty. and is one of \"Japan’s Top 100 Waterfalls\", per a listing published by the Japanese Ministry of the Environment in 1990."
+   },
+   {
+    "name": "Ushiku Daibutsu",
+    "lat": 35.9825,
+    "lon": 140.2203,
+    "ja": "牛久大仏",
+    "wiki": "Ushiku Daibutsu",
+    "summary": "Ushiku Daibutsu is a statue located in Ushiku, Ibaraki Prefecture, Japan. Completed in 1993, it stands a total of 120 metres (390 ft) tall, including the 10 m (33 ft) base and 10 m lotus platform. It held the record for the tallest statue from 1993 to 2008 and as of 2023, it is the fifth-tallest statue in the world."
+   },
+   {
+    "name": "Mt. Tsukuba",
+    "lat": 36.225,
+    "lon": 140.107,
+    "ja": "筑波山",
+    "wiki": "Mount Tsukuba",
+    "summary": "Mount Tsukuba is an 877 m (2,877 ft) mountain located at the northern-end of Tsukuba, Japan. It is one of the most famous mountains in Japan, particularly well known for its double peaks, Nyotai-san 877 m (2,877 ft) and Nantai-san 871 m (2,858 ft)."
+   },
+   {
+    "name": "Kashima Jingū",
+    "lat": 35.969,
+    "lon": 140.631,
+    "ja": "鹿島神宮",
+    "wiki": "Kashima Shrine",
+    "summary": "Kashima Shrine is a Shinto shrine located in Kashima, Ibaraki in the northern Kantō region of Japan. It is dedicated to Takemikazuchi-no-Ōkami, one of the patron deities of martial arts. Various dōjō of kenjutsu and kendō often display a hanging scroll emblazoned with the name \"Takemikazuchi-no-Ōkami\"."
+   }
+  ]
+ },
+ "09": {
+  "capital": {
+   "lat": 36.5551,
+   "lon": 139.8826,
+   "wiki": "Utsunomiya",
+   "pop": 518197,
+   "popYear": 2021,
+   "note": "Gateway to Nikkō and known across Japan as the gyōza capital.",
+   "summary": "Utsunomiya is the capital and largest city of Tochigi Prefecture in the northern Kantō region of Japan. Utsunomiya is famous for its gyoza (pan fried dumplings). There are more than two hundred gyoza restaurants in Utsunomiya."
+  },
+  "sights": [
+   {
+    "name": "Nikkō Tōshō-gū",
+    "lat": 36.7581,
+    "lon": 139.599,
+    "ja": "日光東照宮",
+    "wiki": "Nikkō Tōshō-gū",
+    "summary": "Nikkō Tōshō-gū is a Tōshō-gū Shinto shrine located in Nikkō, Tochigi Prefecture, Japan."
+   },
+   {
+    "name": "Kegon Falls & Lake Chūzenji",
+    "lat": 36.7381,
+    "lon": 139.5025,
+    "ja": "華厳滝・中禅寺湖",
+    "wiki": "Kegon Falls",
+    "summary": "Kegon Falls is located at Lake Chūzenji (source of the Oshiri River) in Nikkō National Park near the city of Nikkō, Tochigi Prefecture, Japan. The falls were formed when the Daiya River was rerouted by lava flows."
+   },
+   {
+    "name": "Ashikaga Flower Park",
+    "lat": 36.315,
+    "lon": 139.52,
+    "ja": "あしかがフラワーパーク",
+    "wiki": "Ashikaga, Tochigi",
+    "wikiBroader": true
+   },
+   {
+    "name": "Ashikaga Gakkō",
+    "lat": 36.338,
+    "lon": 139.452,
+    "ja": "足利学校",
+    "wiki": "Ashikaga Gakkō",
+    "summary": "Ashikaga Gakkō is Japan's oldest standing academic building. It is located in the city of Ashikaga, Tochigi Prefecture, about 70 kilometres north of Tokyo. It was designated a National Historic Site of Japan in 1928."
+   },
+   {
+    "name": "Mashiko",
+    "lat": 36.4673,
+    "lon": 140.0934,
+    "ja": "益子町",
+    "wiki": "Mashiko, Tochigi",
+    "summary": "Mashiko is a town located in Tochigi Prefecture, Japan. Mashiko is known for its pottery, called Mashiko ware."
+   },
+   {
+    "name": "Nasu Highlands",
+    "lat": 37.07,
+    "lon": 139.99,
+    "ja": "那須高原",
+    "wiki": "Nasu, Tochigi",
+    "summary": "Nasu is a town located in Tochigi Prefecture, Japan."
+   }
+  ]
+ }
+}
