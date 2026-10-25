@@ -3,6 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Todōfuken Atlas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='10' fill='%23cc4a2c'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Hiragino Mincho ProN,Yu Mincho,Noto Serif JP,serif' font-weight='700' font-size='40' fill='%23fff'%3E%E9%83%BD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
@@ -565,7 +566,7 @@ function norm(s) {
   if (/[぀-ゟ一-鿿]/.test(s)) return s.replace(/[\s・]/g, '');
   s = s.normalize('NFD').replace(/[̀-ͯ]/g, '');   // drop macrons
   s = s.replace(/[^a-z]/g, '').replace(/(prefecture|pref)$/, '');
-  return s.replace(/ou/g, 'o').replace(/oo/g, 'o').replace(/uu/g, 'u');
+  return s.replace(/oh/g, 'o').replace(/ou/g, 'o').replace(/oo/g, 'o').replace(/uu/g, 'u');   // passport romaji writes ō as "oh" (Ohsaka, Kohchi)
 }
 const NAMES = new Map();
 PREFS.forEach(p => {
@@ -1394,6 +1395,7 @@ let timer = 0;
 
 function startQuiz(opts = {}) {
   const ids = opts.pool ? [...opts.pool] : scopeIds(setup.scope);   // practice rounds play only the misses
+  if (!ids.length) return;                                           // never a round with no questions
   Q = {
     type: setup.type, answer: setup.answer, scopeKey: setup.scope,
     scope: new Set(ids), pool: opts.pool ? shuffle(opts.pool) : shuffle(ids), practice: !!opts.pool,
@@ -1418,6 +1420,9 @@ function nextQuestion() {
   announce(Q.type === 'find' ? `Find ${byId[Q.current].en}.` : `Question ${Q.idx + 1} of ${Q.pool.length}. Which prefecture is circled on the map?`);
   if (Q.type === 'name' && Q.answer === 'type') $('#answer') && $('#answer').focus();
 }
+/* the next question comes after a pause to read the feedback, but only in the same round: quitting, restarting or
+   changing the game in that pause must not advance (or crash) a round that has gone */
+function nextAfter(ms) { const round = Q; setTimeout(() => { if (Q === round && round.phase === 'running') nextQuestion(); }, ms); }
 function suggestFix(text, id, accept) {
   feedback(text, 'bad');
   const f = $('#feedback'); if (!f) return;
@@ -1444,7 +1449,7 @@ function findClick(id) {
     if (first) Q.firstTry++;
     feedback(first ? `Yes, that's ${target.en}.` : `Got it: ${target.en}.`, 'ok');
     Q.locked = true; paint(); updateProgress();
-    setTimeout(nextQuestion, 550);
+    nextAfter(550);
     return;
   }
   Q.tries++;
@@ -1454,7 +1459,7 @@ function findClick(id) {
     Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true;
     feedback(`That's ${clicked.en}. ${target.en} is the one circled.`, 'bad');
     paint(); updateProgress();
-    setTimeout(nextQuestion, 1900);
+    nextAfter(1900);
   } else {
     feedback(`That's ${clicked.en}. Try again (${3 - Q.tries} ${3 - Q.tries === 1 ? 'try' : 'tries'} left).`, 'bad');
   }
@@ -1477,7 +1482,7 @@ function nameAnswer(id) {
     });
   } else { const inp = $('#answer'); if (inp) inp.disabled = true; }
   paint(); updateProgress();
-  setTimeout(nextQuestion, id === Q.current ? 700 : 1700);
+  nextAfter(id === Q.current ? 700 : 1700);
 }
 function allInput(val, submitted) {
   const id = matchName(val);
@@ -1677,7 +1682,7 @@ function renderQuizPanel() {
   if (Q.phase === 'running') {
     panel.innerHTML = quizRunHTML();
     twoStep($('#quit'), 'Quit? Press again', () => { clearInterval(timer); Q = null; renderQuiz(); paint(); previewScope(); }, () => Object.keys(Q.status).length > 0);
-    if (Q.type === 'find') $('#skip').onclick = () => { if (Q.locked) return; Q.tries = 2; const t = byId[Q.current]; Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true; feedback(`${t.en} is the one circled.`, 'bad'); paint(); updateProgress(); setTimeout(nextQuestion, 1700); };
+    if (Q.type === 'find') $('#skip').onclick = () => { if (Q.locked) return; Q.tries = 2; const t = byId[Q.current]; Q.status[Q.current] = 'missed'; Q.misses.push(Q.current); Q.reveal = Q.current; Q.locked = true; feedback(`${t.en} is the one circled.`, 'bad'); paint(); updateProgress(); nextAfter(1700); };
     if (Q.type === 'name') {
       if (Q.answer === 'choice') panel.querySelectorAll('#answers button').forEach(b => b.onclick = () => nameAnswer(b.dataset.id));
       else {
@@ -1742,6 +1747,12 @@ $('#mode-explore').onclick = () => setMode('explore');
 $('#mode-quiz').onclick = () => setMode('quiz');
 
 /* ================= boot ================= */
+// saved settings come from older versions too: anything this version does not know falls back to its default
+if (!TABS.some(([k]) => k === tab)) tab = 'overview';
+if (!['off', 'romaji', 'kanji'].includes(names)) names = 'off';
+if (!QTYPES[setup.type]) setup.type = 'find';
+if (setup.scope !== 'all' && !REGION[setup.scope]) setup.scope = 'all';
+if (!['choice', 'type'].includes(setup.answer)) setup.answer = 'choice';
 setLabelText();
 setView(BASE);
 if (sel) gPrefs.appendChild(prefEl[sel]);

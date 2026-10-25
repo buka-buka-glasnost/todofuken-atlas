@@ -7,7 +7,7 @@ A single-page web app for learning Japan's 47 prefectures (都道府県).
   - *Find it*: a prefecture is named, click it on the map (3 tries).
   - *Name it*: a prefecture is highlighted, pick from 4 or type the name.
   - *Name them all*: type every prefecture you can against the clock.
-  Answers accept romaji with or without long vowels (Kyoto / Kyōto / Kyouto), with or without -ken/-fu, kanji (京都府 / 京都) and kana. Best scores are kept in localStorage.
+  Answers accept romaji with or without long vowels (Kyoto / Kyōto / Kyouto, and passport-style Kyohto or Ohsaka), with or without -ken/-fu, kanji (京都府 / 京都) and kana. Best scores are kept in localStorage.
 
 No framework and no runtime dependencies: plain HTML, CSS and JavaScript, with the map drawn as inline SVG.
 
