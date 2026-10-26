@@ -430,7 +430,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .panel { overflow: visible; }
   .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
   #map { aspect-ratio: 1 / .8; height: auto; max-height: 50vh; }
-  .callout, .callout.docked { position: relative; grid-row: 3; left: auto; right: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none; }
+  .callout, .callout.docked { position: relative; grid-row: 3; left: auto; right: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none;
+    overflow: visible; overscroll-behavior: auto; }   /* part of the page here: a swipe on the card scrolls the page (inner scrolling is for the floating desktop card) */
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .map-tools { flex-wrap: wrap; }
   .pick { flex: 1 1 100%; min-width: 0; max-width: none; order: 0; }   /* the list on its own row, names and zoom under it, then the regions */
