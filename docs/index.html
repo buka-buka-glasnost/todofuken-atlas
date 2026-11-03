@@ -4,14 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Learn Japan's 47 prefectures with map quizzes and a clickable explorer.">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-</head>
-<body>
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#e8edf0">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1118">
 <title>Todōfuken Atlas</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='3' y='3' width='58' height='58' rx='10' fill='%23cc4a2c'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Hiragino Mincho ProN,Yu Mincho,Noto Serif JP,serif' font-weight='700' font-size='40' fill='%23fff'%3E%E9%83%BD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
 <style>
 /* Layout: Explore is a full-width map whose selected prefecture speaks through an anchored callout card, with the reading in a drawer;
    Quiz keeps the map beside a docked panel. On phones the card sits under the map and the drawer becomes a bottom sheet. */
@@ -75,12 +77,18 @@
 
 [hidden] { display: none !important; }   /* the legend and tool groups set display, which would otherwise beat the attribute */
 html, body { height: 100%; }
+/* phones: no grey/blue flash on tap (every control has its own :active press), no font inflation in landscape */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* controls fire on the first tap and never double-tap-zoom the page (››› through places); a long press does not select their labels.
+   Content text (notes, summaries, links) stays selectable. */
+button, select, summary, label, a, [role="button"] { touch-action: manipulation; }
+button, summary, .qtype { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6; }
 button, select, input { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--ai); outline-offset: 2px; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
-.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding-inline: 16px; padding-block: 12px 16px; box-sizing: border-box; }
+.app { height: 100%; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; padding-inline: max(16px, env(safe-area-inset-left, 0px)) max(16px, env(safe-area-inset-right, 0px)); padding-block: 12px 16px; box-sizing: border-box; }   /* a phone on its side keeps the notch out of the content */
 
 /* ---------- top bar ---------- */
 .bar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
@@ -426,10 +434,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .layout { grid-template-columns: minmax(0, 1fr); }
   .layout:not(.explore):not(.quiz-live) .panel { order: -1; }    /* setup and results lead; Start stays above the fold */
   .layout.quiz-live .mapwrap { position: sticky; top: 0; z-index: 5; }   /* during play the map stays on screen above the answers */
-  .layout.quiz-live #map { aspect-ratio: auto; height: 42vh; max-height: none; }
+  .layout.quiz-live #map { aspect-ratio: auto; height: 42vh; height: 42svh; max-height: none; }   /* svh: the URL bar sliding away does not resize the map mid-question */
   .panel { overflow: visible; }
   .mapwrap { aspect-ratio: auto; max-height: none; grid-template-rows: auto minmax(0, 1fr) auto; }
-  #map { aspect-ratio: 1 / .8; height: auto; max-height: 50vh; }
+  #map { aspect-ratio: 1 / .8; height: auto; max-height: 50vh; max-height: 50svh; }
   .callout, .callout.docked { position: relative; grid-row: 3; left: auto; right: auto; top: auto; bottom: auto; width: auto; transform: none !important; border-radius: 0; border-width: 1px 0 0; box-shadow: none;
     overflow: visible; overscroll-behavior: auto; }   /* part of the page here: a swipe on the card scrolls the page (inner scrolling is for the floating desktop card) */
   .co-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -440,7 +448,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .legend { order: 2; flex: 1 1 100%; }   /* the regions get their own row, so more than one chip shows */
   .scale { display: none; }
   .tool-label { padding-left: 8px; }
-  .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; overflow: auto; overscroll-behavior: contain; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px));
+  .layout.explore .panel { position: fixed; top: auto; left: 0; right: 0; width: auto; max-height: 85vh; max-height: 85dvh; padding-bottom: env(safe-area-inset-bottom, 0px); overflow: auto; overscroll-behavior: contain; border-radius: 16px 16px 0 0; transform: translateY(calc(100% + 24px));
     transition: transform 240ms var(--ease-drawer), visibility 0s 240ms; }
   .layout.explore.drawer-open .panel { transform: none; transition: transform 360ms var(--ease-drawer); }
   .layout.explore .scrim { display: block; position: fixed; inset: 0; z-index: 5; background: rgb(15 23 42 / .32); opacity: 0; pointer-events: none; transition: opacity 240ms ease; }
@@ -456,7 +464,18 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 }
 /* touch: every control is a comfortable thumb target */
 @media (pointer: coarse) {
-  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick, .modes button, #drawer-close { min-height: 44px; }
+  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick, .modes button, #drawer-close,
+  .onmap, .record button, .seg button, .tabs button, .field select { min-height: 44px; }
+  /* iOS zooms into any field under 16px and stays zoomed */
+  input, select, .pick { font-size: 16px; }
+  /* the capital link is inline text in the facts: a larger invisible hit area, the same layout */
+  .placelink { position: relative; }
+  .placelink::after { content: ""; position: absolute; inset: -12px -10px; }
+  /* landmark dots (shown for the chosen prefecture) get a 40px target; capitals, always on, stay at 28px when zoomed out
+     so they do not swallow taps meant for small prefectures, and grow to 40px once the map is zoomed in */
+  #map .place.sight .hit, #map.deep .place .hit { r: calc(var(--u) * 20); }
+  #map .place.capital .hit { r: calc(var(--u) * 14); }
+  #map.deep .place.capital .hit { r: calc(var(--u) * 20); }
 }
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {

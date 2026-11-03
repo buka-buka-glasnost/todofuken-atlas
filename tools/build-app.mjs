@@ -16,16 +16,19 @@ console.log('wrote dist/todofuken-atlas.html', (out.length / 1024).toFixed(0) + 
 // GitHub Pages serves docs/index.html: the same page with a fuller head (description, safe areas on phones)
 const head = /^<!doctype html>\r?\n<html lang="en">\r?\n<meta charset="utf-8">\r?\n<meta name="viewport"[^\n]*\n/;
 if (!head.test(out)) throw new Error('src/app.html no longer starts with the expected doctype/charset/viewport lines');
+// the template's own head lines (title, theme colours, icon, fonts) belong in <head>: browsers ignore theme-color in <body>
+let rest = out.replace(head, ''), headLines = '';
+for (let m; (m = rest.match(/^<(?:title|meta|link)\b[^\n]*\r?\n/)); rest = rest.slice(m[0].length)) headLines += m[0];
 const page = `<!doctype html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Learn Japan's 47 prefectures with map quizzes and a clickable explorer.">
-<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+${headLines}<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
-${out.replace(head, '')}
+${rest}
 </body>
 </html>
 `;
