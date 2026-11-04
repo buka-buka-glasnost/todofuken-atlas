@@ -201,7 +201,11 @@ button, select, input { font: inherit; color: inherit; }
 #map .place { pointer-events: auto; cursor: pointer; }
 #map .place.sight { display: none; }
 #map .place.sight.on, #map.deep .place.sight { display: inline; }
-#map .place .hit { r: calc(var(--u) * 12); fill: transparent; }
+/* zoomed out, a capital's ◎ is only a symbol: clicks go to the prefecture under it (at the whole-Japan view the ◎ would
+   otherwise cover most of Tōkyō, Kanagawa, Ōsaka or Kagawa). It becomes clickable once its prefecture is chosen or the map is zoomed in. */
+#map .place.capital { pointer-events: none; }
+#map .place.capital.on, #map.near .place.capital { pointer-events: auto; }
+#map .place .phit { r: calc(var(--u) * 12); fill: transparent; }
 #map .place .m { r: calc(var(--u) * 4.5); fill: var(--ai); stroke: var(--surface); stroke-width: 1.5px; vector-effect: non-scaling-stroke; transition: fill 150ms ease; }
 #map .place.capital .m { r: calc(var(--u) * 5.5); fill: var(--surface); stroke: var(--ink); }
 #map .place.capital .dot { r: calc(var(--u) * 2.2); fill: var(--ink); transition: fill 150ms ease; }
@@ -248,6 +252,8 @@ button, select, input { font: inherit; color: inherit; }
 
 /* region row: the second line of the tool strip; each chip zooms to its region and lists it in the callout */
 .legend { flex-basis: 100%; min-width: 0; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+/* with a mouse there is no swipe: when the chips do not fit, a thin scrollbar shows there are more (the wheel scrolls them too) */
+@media (hover: hover) and (pointer: fine) { .legend { scrollbar-width: thin; scrollbar-color: var(--rule) transparent; padding-bottom: 2px; } }
 .legend button { flex: none; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px 3px 7px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: border-color 150ms ease, background-color 150ms ease, transform 160ms var(--ease-out); }
 .legend button[aria-pressed="true"] { border-color: var(--ai); background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .swatch { flex: none; width: 12px; height: 12px; border-radius: 4px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / .12); }
@@ -468,9 +474,9 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .placelink::after { content: ""; position: absolute; inset: -12px -10px; }
   /* landmark dots (shown for the chosen prefecture) get a 40px target; capitals, always on, stay at 28px when zoomed out
      so they do not swallow taps meant for small prefectures, and grow to 40px once the map is zoomed in */
-  #map .place.sight .hit, #map.deep .place .hit { r: calc(var(--u) * 20); }
-  #map .place.capital .hit { r: calc(var(--u) * 14); }
-  #map.deep .place.capital .hit { r: calc(var(--u) * 20); }
+  #map .place.sight .phit, #map.deep .place .phit { r: calc(var(--u) * 20); }
+  #map .place.capital .phit { r: calc(var(--u) * 14); }
+  #map.deep .place.capital .phit { r: calc(var(--u) * 20); }
 }
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
@@ -504,9 +510,9 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
           <button type="button" id="names-kanji" aria-pressed="false" lang="ja">漢字</button>
         </div>
         <div class="tool-group" role="group" aria-label="Zoom">
-          <button type="button" id="zoom-in" aria-label="Zoom in"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" /></svg></button>
-          <button type="button" id="zoom-out" aria-label="Zoom out"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" /></svg></button>
-          <button type="button" id="zoom-reset">Reset</button>
+          <button type="button" id="zoom-in" aria-label="Zoom in" title="Zoom in (+)"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3.5v9M3.5 8h9" /></svg></button>
+          <button type="button" id="zoom-out" aria-label="Zoom out" title="Zoom out (−)"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M3.5 8h9" /></svg></button>
+          <button type="button" id="zoom-reset" title="Show all of Japan">Reset</button>
         </div>
         <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
         <div class="legend" id="legend" role="group" aria-label="Regions"></div>
@@ -2111,7 +2117,7 @@ const placeById = {}, placeEl = {};
 ['sight', 'capital'].forEach(kind => PLACES.filter(pl => pl.kind === kind).forEach(pl => {   // capitals drawn last, on top
   placeById[pl.id] = pl;
   const g = mk('g', { class: 'place ' + kind, 'data-place': pl.id, transform: `translate(${pl.xy[0]} ${pl.xy[1]})` }, gPlaces);
-  mk('circle', { class: 'hit' }, g);
+  mk('circle', { class: 'phit' }, g);   // not .hit: that class gives prefectures a 14px stroke edge, which would widen markers
   mk('circle', { class: 'm' }, g);
   if (kind === 'capital') mk('circle', { class: 'dot' }, g);
   placeEl[pl.id] = g;
@@ -2153,6 +2159,7 @@ function setView(v, how) {
   ring.setAttribute('r', (22 / k).toFixed(2));
   gPlaces.style.setProperty('--u', (1 / k).toFixed(4) + 'px');   // one screen pixel in map units: markers keep their size at any zoom
   svg.classList.toggle('deep', view.w < BASE.w / 6);             // zoomed well in: every landmark shows
+  svg.classList.toggle('near', view.w < BASE.w / 3);             // zoomed in enough that every capital can take clicks
   // scale bar: pick a round distance that fits ~120px
   const pxPerKm = SHAPES.km200 / 200 * k;
   const km = [10, 20, 50, 100, 200, 500].reverse().find(d => d * pxPerKm <= 120) || 10;
@@ -2272,6 +2279,7 @@ svg.addEventListener('pointermove', e => {
     setView({ ...drag.view, x: drag.view.x - dx / k, y: drag.view.y - dy / k }, 'soft');
   }
 });
+let lastClick = null;
 function pointerEnd(e) {
   if (!pointers.has(e.pointerId)) return;
   pointers.delete(e.pointerId);
@@ -2282,7 +2290,17 @@ function pointerEnd(e) {
     return;
   }
   if (pointers.size === 0) {
-    if (drag && !drag.moved && e.type === 'pointerup') drag.place ? openPlace(drag.place.dataset.place) : onMapClick(drag.target ? drag.target.dataset.id : null);
+    if (drag && !drag.moved && e.type === 'pointerup') {
+      // a double click (or double tap) zooms in where it lands, as on any map; its second click selects nothing,
+      // so it never deselects the prefecture or opens whatever slid under the cursor while the first click framed it
+      const now = performance.now(), last = lastClick;
+      if (last && now - last.t < 400 && Math.hypot(e.clientX - last.x, e.clientY - last.y) < 10) {
+        lastClick = null; stopAnim(); animateTo(zoomedView(toSvg(e.clientX, e.clientY), 2), 300);
+      } else {
+        lastClick = { t: now, x: e.clientX, y: e.clientY };
+        drag.place ? openPlace(drag.place.dataset.place) : onMapClick(drag.target ? drag.target.dataset.id : null);
+      }
+    }
     else if (outOfBounds()) animateTo(view, 300);                       // pulled past an edge: ease back inside
     else if (drag && drag.moved && !reduceMotion && e.type === 'pointerup') {
       const tr = drag.trail, a = tr[0], b = tr[tr.length - 1];
@@ -2307,6 +2325,12 @@ svg.addEventListener('wheel', e => {
 }, { passive: false });
 $('#zoom-in').onclick = () => zoomCenter(1.6);
 $('#zoom-out').onclick = () => zoomCenter(1 / 1.6);
+// + and − zoom the map from the keyboard; Ctrl/⌘ with them stays the browser's own zoom, and typing in a field is never taken
+document.addEventListener('keydown', e => {
+  if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input, select, textarea')) return;
+  if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomCenter(1.6); }
+  else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomCenter(1 / 1.6); }
+});
 $('#zoom-reset').onclick = () => { if (mode === 'explore') { exploreRegion = null; cardView = 'pref'; renderLegend(); paint(); renderCallout(); } resetView(); };
 new ResizeObserver(() => setView(view)).observe(svg);
 
@@ -2447,6 +2471,14 @@ function renderNames() {
   if (n !== 'off') setLabelText();
   renderNames(); paint();
 });
+// a vertical wheel over the overflowing chip row scrolls it sideways; at either end the page keeps the wheel
+$('#legend').addEventListener('wheel', e => {
+  const el = e.currentTarget, max = el.scrollWidth - el.clientWidth;
+  if (max <= 0 || Math.abs(e.deltaX) >= Math.abs(e.deltaY)) return;
+  const next = Math.min(max, Math.max(0, el.scrollLeft + e.deltaY));
+  if (next === el.scrollLeft) return;
+  e.preventDefault(); el.scrollLeft = next;
+}, { passive: false });
 function renderLegend() {
   const el = $('#legend');
   el.hidden = mode !== 'explore';
@@ -2527,7 +2559,7 @@ function renderPick() {
     REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === sel ? ' selected' : ''}>${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('');
 }
 $('#pick').onchange = e => { if (e.target.value) selectPref(e.target.value, { zoom: true }); };
-const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>`;
+const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card" title="Close (Esc)"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>`;
 function renderCallout() {
   callout.hidden = mode !== 'explore' || (dismissed && !sel && !exploreRegion);   // a closed card stays closed until something is picked
   if (callout.hidden) return positionCallout();
@@ -2549,8 +2581,8 @@ function renderCallout() {
       ${pl.summary ? `<p class="co-summary">${esc(pl.summary)}</p><p class="co-credit">From Wikipedia, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>` : ''}
       ${cap && pl.pop ? `<dl class="co-facts"><div><dt>City population</dt><dd>${fmt(pl.pop)}<small>${pl.popYear ? `in ${pl.popYear}` : ''}</small></dd></div></dl>` : ''}
       <div class="co-foot">
-        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous place: ${esc(placeName(prev))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
-        <button type="button" class="btn small co-step" id="co-next" aria-label="Next place: ${esc(placeName(next))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous place: ${esc(placeName(prev))}" title="Previous: ${esc(placeName(prev))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-next" aria-label="Next place: ${esc(placeName(next))}" title="Next: ${esc(placeName(next))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
         ${pl.wiki ? `<a class="btn ghost small co-wiki" href="https://en.wikipedia.org/wiki/${encodeURIComponent(pl.wiki.replace(/ /g, '_'))}" target="_blank" rel="noopener">${pl.wikiBroader ? `Wikipedia: ${esc(pl.wiki.replace(/,.*| (.*)/, ''))}` : 'Wikipedia'}<svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5h6v6M12.5 3.5 4 12" /></svg><span class="sr-only"> (opens in a new tab)</span></a>` : ''}
         <button type="button" class="btn primary small" id="co-back">Back to ${esc(p.en)}</button>
       </div>`;
@@ -2582,8 +2614,8 @@ function renderCallout() {
         <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
       </dl>
       <div class="co-foot">
-        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
-        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}" title="Previous: ${esc(prev.en)} ${esc(prev.ja)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
+        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}" title="Next: ${esc(next.en)} ${esc(next.ja)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
         <button type="button" class="btn primary small" id="co-more" aria-controls="panel" aria-expanded="${drawerOpen}">${drawerOpen ? 'Close details' : 'Read more'}</button>
       </div>`;
     $('#co-prev').onclick = () => selectPref(prev.id, { zoom: true });
