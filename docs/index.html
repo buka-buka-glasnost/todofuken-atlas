@@ -226,6 +226,8 @@ button, select, input { font: inherit; color: inherit; }
 @keyframes flag-in { from { opacity: 0; } }
 
 #map .pref.dim { opacity: .28; pointer-events: none; }
+#map .pref-edge { cursor: pointer; }
+#map .pref-edge.dim { pointer-events: none; }
 #map .pref.st-found .shape { fill: var(--ok-fill); }
 #map .pref.st-late .shape { fill: var(--late-fill); }
 #map .pref.st-missed .shape { fill: url(#hatch-missed); }
@@ -477,11 +479,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   /* the capital link is inline text in the facts: a larger invisible hit area, the same layout */
   .placelink { position: relative; }
   .placelink::after { content: ""; position: absolute; inset: -12px -10px; }
-  /* landmark dots (shown for the chosen prefecture) get a 40px target; capitals, always on, stay at 28px when zoomed out
-     so they do not swallow taps meant for small prefectures, and grow to 40px once the map is zoomed in */
-  #map .place.sight .phit, #map.deep .place .phit { r: calc(var(--u) * 20); }
-  #map .place.capital .phit { r: calc(var(--u) * 14); }
-  #map.deep .place.capital .phit { r: calc(var(--u) * 20); }
+  /* markers get a 40px target (a capital only takes taps once its prefecture is chosen or the map is zoomed in) */
+  #map .place .phit { r: calc(var(--u) * 20); }
 }
 /* reduced motion: drop movement, keep the colour and opacity changes that carry meaning */
 @media (prefers-reduced-motion: reduce) {
@@ -2098,23 +2097,26 @@ function placeFlag(id) {
   flagGroup.getBoundingClientRect();   // restart the fade for each new prefecture
   flagGroup.classList.add('in');
 }
+/* wider click edges for the smallest prefectures and for inset islands, drawn beneath all the land: they catch clicks in the
+   sea around a prefecture but never over a neighbour's land (drawn on top, Kanagawa's edge used to take clicks aimed at Tōkyō) */
+const gEdges = mk('g', { class: 'edges' }, svg);
 const gPrefs = mk('g', { class: 'prefs' }, svg);
 const ring = mk('circle', { class: 'ring', r: 30, cx: -999, cy: -999 }, svg);
 const focusRing = mk('path', { class: 'focus-ring', d: '' }, svg);
 const gLabels = mk('g', { class: 'labels' }, svg);
-const prefEl = {}, labelEl = {};
+const prefEl = {}, labelEl = {}, edgeEl = {};
 PREFS.forEach(p => {
   const s = SHAPES.shapes[p.id];
   const g = mk('g', { class: 'pref', 'data-id': p.id, 'data-r': p.slug }, gPrefs);
   mk('path', { class: 'shape', d: (s.d || '') + (s.di || '') }, g);
-  if (s.di) mk('path', { class: 'hit', d: s.di }, g);
-  if (p.area < 2600) mk('path', { class: 'hit', d: (s.d || '') + (s.di || '') }, g);   // Tōkyō, Ōsaka, Kanagawa, Kagawa, Saga, Okinawa
+  const edge = s.di || p.area < 2600 ? edgeEl[p.id] = mk('g', { class: 'pref-edge', 'data-id': p.id }, gEdges) : null;
+  if (s.di) mk('path', { class: 'hit', d: s.di }, edge);
+  if (p.area < 2600) mk('path', { class: 'hit', d: (s.d || '') + (s.di || '') }, edge);   // Tōkyō, Ōsaka, Kanagawa, Kagawa, Saga, Okinawa
   g.setAttribute('tabindex', '-1'); g.setAttribute('role', 'button');
   prefEl[p.id] = g;
   const t = mk('text', { class: 'lab', x: s.l[0], y: s.l[1] }, gLabels);
   labelEl[p.id] = t;
 });
-PREFS.filter(p => p.area < 2600).forEach(p => gPrefs.appendChild(prefEl[p.id]));   // small ones drawn last so their tap edge wins
 /* places: ◎ for each prefectural capital, as Japanese maps mark them, and a dot for each landmark.
    Capitals always show; landmarks show for the chosen prefecture, or everywhere once the map is zoomed well in. */
 const gPlaces = mk('g', { class: 'places' }, svg);
@@ -2257,7 +2259,7 @@ svg.addEventListener('pointerdown', e => {
   stopAnim();                                            // catching a gliding map stops it where it is
   if (pointers.size === 1) {
     const place = e.target.closest('.place');
-    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: place ? null : e.target.closest('.pref'), place, trail: [] };
+    drag = { x: e.clientX, y: e.clientY, view: { ...view }, moved: false, target: place ? null : e.target.closest('.pref, .pref-edge'), place, trail: [] };
   } else if (pointers.size === 2) {
     if (drag) drag.moved = true;
     const [a, b] = [...pointers.values()];
@@ -2332,7 +2334,7 @@ $('#zoom-in').onclick = () => zoomCenter(1.6);
 $('#zoom-out').onclick = () => zoomCenter(1 / 1.6);
 // + and − zoom the map from the keyboard; Ctrl/⌘ with them stays the browser's own zoom, and typing in a field is never taken
 document.addEventListener('keydown', e => {
-  if (e.ctrlKey || e.metaKey || e.altKey || e.target.closest('input, select, textarea')) return;
+  if (e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input, select, textarea'))) return;
   if (e.key === '+' || e.key === '=') { e.preventDefault(); zoomCenter(1.6); }
   else if (e.key === '-' || e.key === '_') { e.preventDefault(); zoomCenter(1 / 1.6); }
 });
@@ -2349,7 +2351,7 @@ function tipAllowed(id) {
 function hover(e) {
   if (e.pointerType === 'touch') return;
   const pl = e.target.closest && e.target.closest('.place');
-  const g = !pl && e.target.closest && e.target.closest('.pref');
+  const g = !pl && e.target.closest && e.target.closest('.pref, .pref-edge');
   if (pl) { const q = placeById[pl.dataset.place], ja = placeJa(q); tip.innerHTML = `<b>${esc(placeName(q))}</b>${ja ? `<span lang="ja">${esc(ja)}</span>` : ''}`; }
   else if (!g || !tipAllowed(g.dataset.id)) return hideTip();
   else { const p = byId[g.dataset.id]; tip.innerHTML = `<b>${esc(p.en)}</b><span lang="ja">${esc(p.ja)}</span>`; }
@@ -2392,6 +2394,7 @@ function paint() {
       if (Q.flash === p.id) cls.push('flash');
     }
     prefEl[p.id].setAttribute('class', cls.join(' '));
+    if (edgeEl[p.id]) edgeEl[p.id].classList.toggle('dim', cls.includes('dim'));   // a dimmed prefecture's edge takes no clicks either
     const named = !quiz || !Q || Q.phase === 'done' || Q.status[p.id];
     prefEl[p.id].setAttribute('aria-label', named ? `${p.en} ${p.ja}` : 'Unnamed prefecture');
     prefEl[p.id].toggleAttribute('aria-current', !quiz && p.id === sel);
