@@ -260,13 +260,13 @@ A cool, desaturated paper-and-sea palette, with one indigo and one vermilion doi
 **Character:** A heavy brush-like Mincho for the Japanese that is being learned, set against a clean Japanese gothic for everything operational. The serif is reserved for kanji, the wordmark, panel headings and the score; it never sets UI copy.
 
 ### Hierarchy
-- **Display** (800, 48px, 1.05, +0.04em): the prefecture or region kanji in the callout card (46px in the reading drawer, 40px in the quiz prompt, 34px on phones).
-- **Score** (800, 54px, 1, tabular): the quiz result number, with its denominator at 22px muted.
+- **Display** (800, 48px, 1.05, +0.04em): the prefecture or region kanji in the callout card, the reading drawer and the quiz prompt, on every screen size; region names of five characters or more (九州・沖縄) drop to 40px, place names to 34px from five characters and 26px from eight.
+- **Score** (800, 54px, 1, tabular): the quiz result number, with its denominator at 24px muted.
 - **Wordmark** (800, 26px, 1, +0.06em): 都道府県 in the top bar.
 - **Headline** (800, 24px, 1.25, balanced wrap): headings in the reading drawer and quiz panel. Section headings inside tabs drop to the body face at 15px/700.
-- **Title** (700, 18px, 1.3): the romaji name under the kanji (21px in the drawer), with kana beside it at 13–14px/400 muted.
+- **Title** (700, 18px, 1.3): the romaji name under the kanji, in the card and the drawer, with kana beside it at 400 muted (13px in the card, 15px in the drawer).
 - **Figure** (700, 17px, 1.25, tabular): fact values (capital, population, area, density), 18px in the drawer, each with a 12px muted rank line beneath.
-- **Body** (400, 15px, 1.6): running text; taglines at 14–16px.
+- **Body** (400, 15px, 1.6): running text; the tagline is 15px in the card and 17px in the drawer.
 - **Control** (500, 13px): tool toggles, region chips, selects, small buttons. Buttons proper inherit 15px.
 - **Label** (500, 12px, sentence case, muted): term labels over fact figures, form field labels, the tool-strip group label. Labels name a value directly beneath them; they are never placed above a heading. No tracked uppercase anywhere: the kanji carries the character, the labels stay quiet.
 
@@ -281,7 +281,7 @@ A single full-height grid: a top bar (wordmark left, Explore/Quiz toggle right) 
 
 - **Explore:** the map frame takes the full width. Its first row is the tool strip (prefecture picker, Names Off/ABC/漢字, zoom, scale bar) with the region chips as a second, horizontally scrolling line (with a mouse, a thin scrollbar appears when they overflow and the wheel scrolls them sideways); its second row is the map. The callout card (336px) is positioned in map space beside the selected prefecture with a 48px gap, preferring the open-sea east side and flipping west when it will not fit; it docks to the bottom-right (16px inset, over open Pacific) when there is no selection box. The reading drawer (up to 440px) slides over the right edge.
 - **Quiz:** the map frame plus a 320–420px panel column, 16px gap. The setup panel ends with the learner's record, so the column is never half empty.
-- **Phones (≤860px):** everything stacks; the tool strip runs in three rows (the picker; names and zoom; the region chips, scrolling sideways); the map is capped at 52vh with a 1 : 0.86 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow) that scrolls with the page, never on its own, so a swipe on the card scrolls the page; the drawer becomes a bottom sheet (max 85vh, 16px top corners, a grabber, a dimming scrim that closes it, and swipe-down to dismiss: a flick faster than 0.11px/ms or a drag past a quarter of its height); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
+- **Phones (≤860px):** everything stacks; the tool strip runs in three rows (the picker; names and zoom; the region chips, scrolling sideways); the map is capped at 50svh with a 1 : 0.8 aspect; the callout becomes an in-flow strip docked under the map (top hairline, no radius, no shadow) that scrolls with the page, never on its own, so a swipe on the card scrolls the page; the drawer becomes a bottom sheet (max 85dvh, 16px top corners, a grabber, a dimming scrim that closes it, and swipe-down to dismiss: a flick faster than 0.11px/ms or a drag past a quarter of its height); in a live quiz the panel moves above the map. At ≤420px panel padding tightens to 16px and the English subtitle of the wordmark hides.
 - **Touch:** under `pointer: coarse` every control is at least 44px tall (map tools, chips, card buttons, drawer tabs, Show on map, record cells, Answer by, pickers); the capital link keeps its inline layout with an invisible larger hit area. Markers take a 40px target (a capital only takes taps once its prefecture is chosen or the map is zoomed in, so it never swallows taps meant for a small prefecture). Fields and pickers are 16px so iOS never zooms into them. No tap highlight, `touch-action: manipulation` on controls (no double-tap zoom), control labels are not selectable on long press, content text is. The phone map uses `svh` and the sheet `dvh` plus the home-indicator inset; the page sides clear a landscape notch; `theme-color` matches the ground in each theme.
 - **Rhythm:** 6 / 8 / 12 / 16 / 24px. Card internals use 10–14px gaps; fact grids are always two columns.
 
@@ -315,9 +315,9 @@ Calm, paper-faced, and they give way slightly when pressed.
 - **Hover / Active:** on fine pointers the border darkens to `border-edge`; on press the button scales to 0.97 over 160ms with the out-curve. Focus is a 2px indigo outline, 2px offset.
 
 ### Chips
-- **Region chips:** pill, paper face, 12px text with a 12px region swatch; pressed state is indigo text on `ai-soft` with an indigo border. Selecting one zooms the map to the region and lists its prefectures in the callout.
+- **Region chips:** pill, paper face, 13px text with a 12px region swatch; pressed state is indigo text on `ai-soft` with an indigo border. Selecting one zooms the map to the region and lists its prefectures in the callout.
 - **Callout list chips:** pill, 13px, English name with muted kanji after it.
-- **Drawer chips:** static pills for region and suffix (県/府/都/道), 12px.
+- **Drawer chips:** static pills for region and suffix (県/府/都/道), 13px.
 
 ### Segmented toggles
 - **Mode toggle:** a pill track on paper with an indigo thumb that slides 250ms (in-out curve) between Explore and Quiz. The thumb is an indigo copy of both labels clipped to one half, so the text turns white exactly where the indigo arrives.
@@ -332,7 +332,7 @@ The selected prefecture speaks from where it lies.
 - **Facts:** a two-column definition grid (Capital, Population, Area, Density), sentence-case labels over bold tabular figures, a muted "#n of 47" rank beneath each, separated from the head by a hairline.
 - **Foot:** previous/next icon buttons and the primary Read more, behind a hairline.
 - **Leader:** a 1.25px ink line from card to prefecture ending in a 3.5px paper dot with an ink ring. It follows the prefecture through pan and zoom; the card swaps sides near an edge.
-- **Phone:** docked strip under the map, kanji at 34px.
+- **Phone:** docked strip under the map, kanji at the same 48px.
 
 ### Place card
 The same card, speaking from a capital or landmark instead of the whole prefecture: clicking a marker (or a capital link, or "Show on map" in the drawer's Sights tab) chooses its prefecture too, so the flag stays on. Head: the Japanese name in Mincho (34px from five characters, 26px and allowed two lines from eight), the English name, and a muted line with the map symbol, "Prefectural capital" or "Landmark", and the prefecture. Body: the place's note (15px, 500), then a two-or-three-sentence summary from the place's English Wikipedia article (14px, at most about 360 characters, with Japanese script, pronunciations and romanisations removed) and a 12px muted credit line, "From Wikipedia, CC BY-SA 4.0"; capitals add the city population with its year. When the only article is about the town around a landmark, the card links it as "Wikipedia: <town>" and shows no summary, so it never describes the wrong place. Foot: previous/next through that prefecture's capital and landmarks, a ghost Wikipedia link, and the primary "Back to <prefecture>". The ×, Escape and Back all return to the prefecture card. The leader line ends on the marker itself; the map pans, never zooms, to keep the place beside its card.

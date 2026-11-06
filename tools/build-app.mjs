@@ -1,4 +1,5 @@
-// Inlines the map geometry and prefecture data into the app template -> dist/todofuken-atlas.html
+// Inlines the prefecture data, map geometry, flags and places into the app template -> dist/todofuken-atlas.html,
+// and writes docs/index.html (the same page with a fuller head) for GitHub Pages
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

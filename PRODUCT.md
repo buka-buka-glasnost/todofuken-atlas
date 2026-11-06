@@ -20,7 +20,7 @@ A bilingual atlas built for learners of Japanese: every prefecture is shown with
 
 ## Operating Context
 
-- Two modes: Explore (choose a prefecture on the map or from a list and read about it) and Quiz (Find it, Name it, Name them all; for all Japan or one region; best scores kept in the browser).
+- Two modes: Explore (choose a prefecture on the map or from a list and read about it; the chosen prefecture shows its flag, and its capital and six landmarks open cards of their own) and Quiz (Find it, Name it, Name them all; for all Japan or one region; practice rounds of the misses; best scores kept in the browser and shown as a record table).
 - Published as a static site on GitHub Pages from `docs/index.html`, built from `src/` by `tools/build-app.mjs`.
 
 ## Capabilities and Constraints
@@ -28,14 +28,16 @@ A bilingual atlas built for learners of Japanese: every prefecture is shown with
 - Must stay hostable on GitHub Pages as a static site.
 - English and Japanese stay side by side throughout: kanji, kana and romaji for names, with answer matching that accepts all three.
 - Current build is plain HTML/CSS/JS with no runtime dependencies, inlined into one page. This was not confirmed as a binding constraint; changing it is an open decision.
-- Phone layouts exist today; how much weight phones should carry relative to desktop is not yet decided.
+- Phone and desktop layouts both exist and were both reviewed for ease of use in November 2026 (touch targets, scrolling, zoom, keyboard); how much weight each should carry when they conflict is not decided.
 - Map data: GSI Global Map Japan via `jpn-atlas` (BSD-3-Clause), pre-projected in `src/shapes.json`; Okinawa and Amami shown in an inset, Ogasawara omitted.
 
 ## Evidence on Hand
 
 - Content for all 47 prefectures in `src/prefectures.js` (tagline, capital, population 2025 census preliminary and 2020, area, age shares, climate, season, history, sights, food, omiyage).
-- Data sources listed in `README.md` (Statistics Bureau of Japan, GSI, JMA).
-- A screenshot at `docs/screenshot.png`.
+- Places in `src/places.json`: locations, Japanese names, Wikipedia links and summaries for the 47 capitals and 282 sights (Wikidata and Wikipedia), with capital populations.
+- The 47 prefectural flags in `src/flags/` (Wikimedia Commons; Kagawa and Hiroshima redrawn from the prefectures' specifications).
+- Data sources listed in `README.md` (Statistics Bureau of Japan, GSI, JMA, Wikidata, Wikipedia, Wikimedia Commons).
+- A screenshot at `docs/screenshot.png` (an older version of the layout, from before the drawer, flags and places).
 - No user testimonials, usage numbers or reviews exist; none should be invented.
 
 ## Product Principles
