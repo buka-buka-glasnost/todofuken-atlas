@@ -2567,7 +2567,7 @@ function renderCallout() {
         : `<h2 class="co-name co-place-title">${esc(name)}</h2><div class="co-top">${CLOSE}</div>`}
         <div class="co-region"><span class="pmark ${pl.kind}" aria-hidden="true"></span>${cap ? 'Prefectural capital' : 'Landmark'} · ${esc(p.en)} <span lang="ja">${esc(p.ja)}</span></div></div>
       <p class="co-note">${esc(note)}</p>
-      ${pl.summary ? `<p class="co-summary">${esc(pl.summary)}</p><p class="co-credit">From Wikipedia, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>` : ''}
+      ${pl.summary ? `<p class="co-summary">${esc(pl.summary)}</p><p class="co-credit">From Wikipedia, ${extLink('https://creativecommons.org/licenses/by-sa/4.0/', 'CC BY-SA 4.0')}</p>` : ''}
       ${cap && pl.pop ? `<dl class="co-facts"><div><dt>City population</dt><dd>${fmt(pl.pop)}<small>${pl.popYear ? `in ${pl.popYear}` : ''}</small></dd></div></dl>` : ''}
       <div class="co-foot">
         ${stepButton('prev', `Previous place: ${esc(placeName(prev))}`, `Previous: ${esc(placeName(prev))}`)}

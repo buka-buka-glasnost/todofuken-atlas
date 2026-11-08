@@ -321,8 +321,8 @@ Calm, paper-faced, and they give way slightly when pressed.
 
 ### Segmented toggles
 - **Mode toggle:** a pill track on paper with an indigo thumb that slides 250ms (in-out curve) between Explore and Quiz. The thumb is an indigo copy of both labels clipped to one half, so the text turns white exactly where the indigo arrives.
-- **Segment presses:** segments inside clipped groups (tools, timer, tabs) darken on press instead of scaling; the press lands instantly and the release fades over 150ms.
-- **Tool groups:** 8px-rounded segments with rule dividers; the pressed segment is indigo-on-`ai-soft`, 700. Icons are drawn 16px stroke SVGs (1.75 stroke, round caps).
+- **Segment presses:** segments inside clipped groups (map tools, Answer by, drawer tabs) and the record's cells darken on press instead of scaling; the press lands instantly and the release fades over 150ms.
+- **Tool groups:** 8px-rounded segments with rule dividers; the pressed segment is indigo-on-`ai-soft`, 700, the same as in the quiz's Answer by toggle. Icons are drawn 16px stroke SVGs (1.75 stroke, round caps); the arrow on links that leave the app is 14px.
 
 ### Callout card (signature)
 The selected prefecture speaks from where it lies.
@@ -377,7 +377,8 @@ Two curves: `cubic-bezier(0.23, 1, 0.32, 1)` for responses (press, enter, drawer
 - **Do** separate surfaces with a 1px `rule` hairline and a tonal step; reserve shadow for cards floating over the map.
 - **Do** use tabular numerals and an "#n of 47" rank for every comparable figure.
 - **Do** mark quiz misses with the hatch as well as the colour, so state never depends on hue alone.
-- **Do** draw icons as 16px stroke SVGs (1.75 stroke, round caps) and give touch targets 44px under coarse pointers.
+- **Do** draw icons as 16px stroke SVGs (1.75 stroke, round caps) through `icon()` in app.html, and give touch targets 44px under coarse pointers.
+- **Do** send every link that leaves the app through `extLink()`, so it opens in a new tab and tells screen readers so.
 - **Do** define every new colour in both light and dark token sets.
 
 ### Don't:
