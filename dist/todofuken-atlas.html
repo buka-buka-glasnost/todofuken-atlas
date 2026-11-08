@@ -44,7 +44,7 @@
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);    /* the phone bottom sheet, iOS-like */
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
+  :root {
     --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #7a8ca6;
     --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
     --shu: #ff7b5a; --halo: #121a24;
@@ -56,18 +56,6 @@
     --sep: #0b1118;
     color-scheme: dark;
   }
-}
-:root[data-theme="dark"] {
-  --bg: #0b1118; --surface: #121a24; --sea: #0f1824; --grat: #1d2b3b; --land: #283345; --edge: #7a8ca6;
-  --ink: #e6ebf1; --muted: #9aa6b5; --rule: #243142; --ai: #8fb1f0; --ai-soft: #1b2a44; --ai-ink: #0b1118;
-  --shu: #ff7b5a; --halo: #121a24;
-  --ok: #62cc90; --bad: #ff7567; --ok-fill: #2d6946; --late-fill: #76622a; --bad-fill: #b04e43;
-  --hover: brightness(1.25);
-  --shadow-float: 0 12px 32px rgb(0 0 0 / .55); --shadow-drawer: 0 18px 48px rgb(0 0 0 / .6);
-  --r-hokkaido: #3f8f87; --r-tohoku: #7f9a43; --r-kanto: #b8923a; --r-chubu: #7568b5;
-  --r-kansai: #b0587a; --r-chugoku: #bb7443; --r-shikoku: #4a9660; --r-kyushu: #b15f55;
-  --sep: #0b1118;
-  color-scheme: dark;
 }
 
 [hidden] { display: none !important; }   /* the legend and tool groups set display, which would otherwise beat the attribute */
@@ -142,22 +130,22 @@ button, select, input { font: inherit; color: inherit; }
 .items li.has-map { grid-template-columns: minmax(0, 1fr) auto; column-gap: 12px; }
 .items li.has-map > :not(.onmap) { grid-column: 1; }
 .items li.has-map .onmap { grid-column: 2; grid-row: 1 / span 2; align-self: center; gap: 6px; color: var(--ai); }
-.co-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
+.co-name, .pf-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .co-name .kana { margin-left: 8px; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-top { grid-row: 1; grid-column: 2; align-self: start; display: flex; align-items: center; gap: 4px; margin: -8px -10px 0 0; }   /* the close button, tucked into the corner */
 .co-region { grid-column: 1 / -1; display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 13px; color: var(--muted); }   /* its own line, so a long region never squeezes the kanji */
 .co-close { min-width: 34px; padding-inline: 8px; }
 .co-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; margin: 0; padding-top: 12px; border-top: 1px solid var(--rule); }
-.co-facts dt { font-size: 12px; color: var(--muted); font-weight: 500; }   /* labels name the figure under them, in sentence case */
+.co-facts dt, .facts dt, .field label, .field .lbl { font-size: 12px; color: var(--muted); font-weight: 500; }   /* labels name the figure under them, in sentence case */
 .co-facts dd { margin: 1px 0 0; font-size: 17px; font-weight: 700; line-height: 1.25; font-variant-numeric: tabular-nums; }
-.co-facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
+.co-facts dd small, .facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .co-foot { display: flex; align-items: center; gap: 6px; padding-top: 10px; border-top: 1px solid var(--rule); }
 .co-foot .btn.primary { margin-left: auto; }
 .co-step { min-width: 34px; padding-inline: 8px; }
 .ico { display: block; fill: none; stroke: currentColor; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
 .tool-group button .ico { margin: 0 auto; }
 .co-sub { margin: 0; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.co-list { display: flex; flex-wrap: wrap; gap: 6px; }
+.co-list, .misslist { display: flex; flex-wrap: wrap; gap: 6px; }
 .co-list button { border: 1px solid var(--rule); background: var(--surface); border-radius: 999px; padding: 3px 10px; font-size: 13px; cursor: pointer; transition: border-color 150ms ease, transform 160ms var(--ease-out); }
 .co-list button span { margin-left: 5px; color: var(--muted); }
 .co-tag { margin: 0; font-size: 15px; line-height: 1.45; }
@@ -193,7 +181,6 @@ button, select, input { font: inherit; color: inherit; }
 #map.m-explore .pref[data-r="shikoku"] .shape { fill: var(--r-shikoku); }
 #map.m-explore .pref[data-r="kyushu"] .shape { fill: var(--r-kyushu); }
 #map .pref.fade { opacity: .35; }
-#map.m-explore .pref.sel .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
 /* places: indigo dots for landmarks (something to click), ◎ in ink for capitals; the open one turns vermilion, like any chosen thing.
    Sizes are in screen pixels: --u is one pixel in map units, set on every view change */
 #map .places { pointer-events: none; }
@@ -229,7 +216,7 @@ button, select, input { font: inherit; color: inherit; }
 #map.gaveup .pref.st-missed { opacity: .55; }   /* after giving up, what you did find stands out */
 #map .hatch-bg { fill: var(--bad-fill); }
 #map .hatch-line { stroke: var(--bad); stroke-width: 1.2px; vector-effect: non-scaling-stroke; }
-#map .pref.target .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
+#map.m-explore .pref.sel .shape, #map .pref.target .shape { fill: var(--shu); stroke: color-mix(in srgb, var(--shu) 55%, var(--ink)); stroke-width: 1.2px; }
 #map .pref.flash .shape { animation: flash .6s ease-out; }
 @keyframes flash { 0%, 40% { fill: var(--bad); } 100% { fill: var(--land); } }
 
@@ -249,7 +236,7 @@ button, select, input { font: inherit; color: inherit; }
 .tool-group { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .tool-group button { border: 0; background: none; padding: 5px 10px; cursor: pointer; font-size: 13px; line-height: 1.4; min-width: 34px; }
 .tool-group button + button { border-left: 1px solid var(--rule); }
-.tool-group button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
+.tool-group button[aria-pressed="true"], .seg button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .tool-label { align-self: center; padding: 0 4px 0 10px; font-size: 12px; color: var(--muted); }
 
 /* region row: the second line of the tool strip; each chip zooms to its region and lists it in the callout */
@@ -284,7 +271,6 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .nav select { width: 100%; min-width: 0; padding: 6px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 .pf-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 12px; align-items: start; }
 .pf-kanji { font-family: var(--f-display); font-weight: 800; font-size: 48px; line-height: 1.05; margin: 0; letter-spacing: .04em; }
-.pf-name { grid-column: 1; font-size: 18px; font-weight: 700; line-height: 1.3; }
 .pf-name .kana { font-size: 15px; font-weight: 400; color: var(--muted); margin-left: 8px; }
 .seal { grid-row: 1 / span 2; grid-column: 2; border: 2px solid var(--shu); color: color-mix(in srgb, var(--shu) 85%, var(--ink)); border-radius: 6px; padding: 6px 7px 4px; text-align: center; font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; transform: rotate(-3deg); }
 .seal small { display: block; font-size: 11px; letter-spacing: .1em; }
@@ -294,9 +280,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .tagline { margin: 0; font-size: 17px; line-height: 1.55; }
 .facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 16px; margin: 0; padding: 14px 0; border-block: 1px solid var(--rule); }
 .facts > div { min-width: 0; }
-.facts dt { font-size: 12px; color: var(--muted); font-weight: 500; }
 .facts dd { margin: 2px 0 0; font-size: 18px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.3; }
-.facts dd small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
 .facts .wide { grid-column: 1 / -1; }
 .down { color: var(--bad); } .up { color: var(--ok); }
 .ages { display: grid; gap: 6px; }
@@ -333,12 +317,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .qtype b { font-size: 15px; }
 .qtype span { font-size: 13px; color: var(--muted); }
 .field { display: grid; gap: 6px; }
-.field label, .field .lbl { font-size: 12px; color: var(--muted); font-weight: 500; }
 .field select { padding: 8px 10px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); }
 .seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; width: fit-content; }
 .seg button { border: 0; background: none; padding: 6px 14px; cursor: pointer; }
 .seg button + button { border-left: 1px solid var(--rule); }
-.seg button[aria-pressed="true"] { background: var(--ai-soft); color: var(--ai); font-weight: 700; }
 .best { font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
 
 .status { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 12px; align-items: center; }
@@ -372,7 +354,6 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .hanko { width: 76px; height: 76px; border: 3px solid var(--shu); border-radius: 50%; color: var(--shu); display: grid; place-items: center; text-align: center; font-family: var(--f-display); font-weight: 800; font-size: 18px; line-height: 1.05; transform: rotate(-8deg); animation: stamp 320ms var(--ease-out) 150ms backwards; }
 /* a perfect score is rare, so the hanko gets a moment: it is pressed onto the page */
 @keyframes stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.35); } }
-.misslist { display: flex; flex-wrap: wrap; gap: 6px; }
 .missgroups { display: grid; gap: 10px; }
 .missgroup { display: grid; gap: 6px; }
 .missgroup > span { font-size: 13px; color: var(--muted); font-weight: 700; font-variant-numeric: tabular-nums; }
@@ -400,7 +381,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 }
 /* segments sit inside a clipped group, so they darken on press instead of scaling; the press lands at once, the release fades */
 .tool-group button, .seg button, .tabs button { transition: background-color 150ms ease; }
-.tool-group button:active, .seg button:active, .tabs button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
+.tool-group button:active, .seg button:active, .tabs button:active, .record button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
 .legend-q { display: flex; flex-wrap: wrap; gap: 4px 14px; font-size: 13px; color: var(--muted); }
 .legend-q i.missed { /* taste-skill-ignore: the map's miss hatch drawn small, not a decorative gradient */ background: repeating-linear-gradient(45deg, var(--bad) 0 1.5px, var(--bad-fill) 1.5px 4px) !important; }
 /* the record: a ruled ledger, figures right-aligned; the chosen game's column and scope's row are picked out in indigo */
@@ -426,7 +407,6 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 .record tr.cur td.on button { background: var(--ai-soft); color: var(--ai); }
 .record .none { color: var(--muted); font-weight: 400; }
 .record .zen { display: inline-grid; place-items: center; width: 17px; height: 17px; border: 1.5px solid var(--shu); border-radius: 50%; color: var(--shu); font-family: var(--f-display); font-size: 10px; font-weight: 800; line-height: 1; transform: rotate(-8deg); }
-.record button:active { background: color-mix(in srgb, var(--ai-soft) 65%, var(--rule)); transition-duration: 0ms; }
 @media (hover: hover) and (pointer: fine) { .record button:hover { background: var(--ai-soft); } }
 .legend-q i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; border: 1px solid var(--edge); }
 
@@ -2446,13 +2426,15 @@ svg.addEventListener('focusout', () => focusRing.setAttribute('d', ''));
 
 /* ---- screen reader announcements and focus that survives panel re-renders ---- */
 function announce(text) { const a = $('#announce'); a.textContent = ''; setTimeout(() => { a.textContent = text; }, 50); }   // clear first so a repeated message is read again
-function rememberFocus() {
+function rememberFocus(root = panel) {
   const a = document.activeElement;
-  if (!a || a === panel || !panel.contains(a)) return () => {};
+  if (!a || a === root || !root.contains(a)) return () => {};
   const key = a.id ? '#' + a.id : a.dataset.tab ? `[data-tab="${a.dataset.tab}"]` : a.dataset.answer ? `[data-answer="${a.dataset.answer}"]`
+    : a.dataset.pick ? `[data-pick="${a.dataset.pick}"]`
     : a.dataset.scope ? `[data-scope="${CSS.escape(a.dataset.scope)}"]${a.dataset.type ? `[data-type="${a.dataset.type}"]` : ':not([data-type])'}`
     : a.name ? `[name="${a.name}"][value="${a.value}"]` : null;
-  return () => { const t = key && panel.querySelector(key); (t || panel).focus({ preventScroll: true }); };
+  // a control that is gone leaves focus on the drawer itself rather than dropping it to the page; the card has no such fallback
+  return () => { const t = (key && root.querySelector(key)) || (root === panel && panel); if (t) t.focus({ preventScroll: true }); };
 }
 
 function onMapClick(id) {
@@ -2538,6 +2520,11 @@ function frameSelection(id, force) {
 }
 const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
 
+/* the line icons and new-tab links that the card and drawer templates share */
+const ICONS = { prev: 'M10 3.5 5.5 8l4.5 4.5', next: 'M6 3.5 10.5 8 6 12.5', close: 'M4 4l8 8M12 4l-8 8', out: 'M6.5 3.5h6v6M12.5 3.5 4 12' };
+const icon = (name, size = 16) => `<svg class="ico" width="${size}" height="${size}" viewBox="0 0 16 16" aria-hidden="true"><path d="${ICONS[name]}" /></svg>`;
+const extLink = (href, html, cls) => `<a${cls ? ` class="${cls}"` : ''} href="${href}" target="_blank" rel="noopener">${html}<span class="sr-only"> (opens in a new tab)</span></a>`;
+
 function itemList(rows, withJa) {
   return `<ul class="items">${rows.map(r => `<li><div><span class="nm">${esc(r[0])}</span>${withJa ? `<span class="jp" lang="ja">${esc(r[1])}</span>` : ''}</div><span class="ds">${esc(withJa ? r[2] : r[1])}</span></li>`).join('')}</ul>`;
 }
@@ -2549,7 +2536,7 @@ function tabBody(p) {
   const forecast = `https://www.jma.go.jp/bosai/forecast/#area_type=offices&area_code=${jmaCode(p.id)}&lang=en`;
   return `<h2>Climate &amp; weather</h2><p>${esc(p.climate)}</p>
     <p><b>When to go:</b> ${esc(p.season)}</p>
-    <a class="forecast" href="${forecast}" target="_blank" rel="noopener">Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency<svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5h6v6M12.5 3.5 4 12" /></svg><span class="sr-only"> (opens in a new tab)</span></a>`;
+    ${extLink(forecast, `Today's forecast for ${esc(p.cap.replace(/ \(.*\)/, ''))} · Japan Meteorological Agency${icon('out', 14)}`, 'forecast')}`;
 }
 /* ---- callout card ---- */
 const callout = $('#callout'), leaderLine = $('#leader-line'), leaderDot = $('#leader-dot');
@@ -2562,13 +2549,12 @@ function renderPick() {
     REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === sel ? ' selected' : ''}>${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('');
 }
 $('#pick').onchange = e => { if (e.target.value) selectPref(e.target.value, { zoom: true }); };
-const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card" title="Close (Esc)"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>`;
+const stepButton = (dir, label, title) => `<button type="button" class="btn small co-step" id="co-${dir}" aria-label="${label}" title="${title}">${icon(dir)}</button>`;
+const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card" title="Close (Esc)">${icon('close')}</button>`;
 function renderCallout() {
   callout.hidden = mode !== 'explore' || (dismissed && !sel && !exploreRegion);   // a closed card stays closed until something is picked
   if (callout.hidden) return positionCallout();
-  const restore = (() => { const a = document.activeElement; if (!a || !callout.contains(a)) return () => {};
-    const key = a.id ? '#' + a.id : a.dataset.pick ? `[data-pick="${a.dataset.pick}"]` : null;
-    return () => { const t = key && callout.querySelector(key); if (t) t.focus({ preventScroll: true }); }; })();
+  const restore = rememberFocus(callout);
   if (cardView === 'place' && placeOn) {
     const pl = placeById[placeOn], p = byId[pl.pref], cap = pl.kind === 'capital';
     const name = placeName(pl), ja = placeJa(pl), note = cap ? pl.note : p.sights[pl.i][1];
@@ -2584,9 +2570,9 @@ function renderCallout() {
       ${pl.summary ? `<p class="co-summary">${esc(pl.summary)}</p><p class="co-credit">From Wikipedia, <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a></p>` : ''}
       ${cap && pl.pop ? `<dl class="co-facts"><div><dt>City population</dt><dd>${fmt(pl.pop)}<small>${pl.popYear ? `in ${pl.popYear}` : ''}</small></dd></div></dl>` : ''}
       <div class="co-foot">
-        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous place: ${esc(placeName(prev))}" title="Previous: ${esc(placeName(prev))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
-        <button type="button" class="btn small co-step" id="co-next" aria-label="Next place: ${esc(placeName(next))}" title="Next: ${esc(placeName(next))}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
-        ${pl.wiki ? `<a class="btn ghost small co-wiki" href="https://en.wikipedia.org/wiki/${encodeURIComponent(pl.wiki.replace(/ /g, '_'))}" target="_blank" rel="noopener">${pl.wikiBroader ? `Wikipedia: ${esc(pl.wiki.replace(/,.*| (.*)/, ''))}` : 'Wikipedia'}<svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M6.5 3.5h6v6M12.5 3.5 4 12" /></svg><span class="sr-only"> (opens in a new tab)</span></a>` : ''}
+        ${stepButton('prev', `Previous place: ${esc(placeName(prev))}`, `Previous: ${esc(placeName(prev))}`)}
+        ${stepButton('next', `Next place: ${esc(placeName(next))}`, `Next: ${esc(placeName(next))}`)}
+        ${pl.wiki ? extLink(`https://en.wikipedia.org/wiki/${encodeURIComponent(pl.wiki.replace(/ /g, '_'))}`, `${pl.wikiBroader ? `Wikipedia: ${esc(pl.wiki.replace(/,.*| (.*)/, ''))}` : 'Wikipedia'}${icon('out', 14)}`, 'btn ghost small co-wiki') : ''}
         <button type="button" class="btn primary small" id="co-back">Back to ${esc(p.en)}</button>
       </div>`;
     $('#co-prev').onclick = () => openPlace(prev.id);
@@ -2617,8 +2603,8 @@ function renderCallout() {
         <div><dt>Density</dt><dd>${fmt(p.density)}/km²<small>#${p.densityRank} of 47</small></dd></div>
       </dl>
       <div class="co-foot">
-        <button type="button" class="btn small co-step" id="co-prev" aria-label="Previous: ${esc(prev.en)}" title="Previous: ${esc(prev.en)} ${esc(prev.ja)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M10 3.5 5.5 8l4.5 4.5" /></svg></button>
-        <button type="button" class="btn small co-step" id="co-next" aria-label="Next: ${esc(next.en)}" title="Next: ${esc(next.en)} ${esc(next.ja)}"><svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 3.5 10.5 8 6 12.5" /></svg></button>
+        ${stepButton('prev', `Previous: ${esc(prev.en)}`, `Previous: ${esc(prev.en)} ${esc(prev.ja)}`)}
+        ${stepButton('next', `Next: ${esc(next.en)}`, `Next: ${esc(next.en)} ${esc(next.ja)}`)}
         <button type="button" class="btn primary small" id="co-more" aria-controls="panel" aria-expanded="${drawerOpen}">${drawerOpen ? 'Close details' : 'Read more'}</button>
       </div>`;
     $('#co-prev').onclick = () => selectPref(prev.id, { zoom: true });
@@ -2828,7 +2814,7 @@ function renderExplore(inkFrom) {
       <div class="tabs" role="tablist" aria-label="Topics">${TABS.map(([k, l]) => `<button type="button" role="tab" id="tab-${k}" data-tab="${k}" aria-controls="tabpanel" aria-selected="${tab === k}" tabindex="${tab === k ? 0 : -1}">${l}</button>`).join('')}<span class="tab-ink" aria-hidden="true"></span></div>
     </div>
     <div class="tabpanel" role="tabpanel" id="tabpanel" aria-labelledby="tab-${tab}">${tabBody(p)}</div>
-    <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.${FLAGS[p.id] ? ` Flag: <a href="${esc(FLAGS[p.id].url)}" target="_blank" rel="noopener">${esc(FLAGS[p.id].source)}<span class="sr-only"> (opens in a new tab)</span></a>.` : ''}</p>
+    <p class="note">Population: 2025 Census preliminary counts (Statistics Bureau of Japan, May 2026). Ages: population estimates for 1 Oct 2024. Area: GSI. Boundaries: GSI Global Map Japan.${FLAGS[p.id] ? ` Flag: ${extLink(esc(FLAGS[p.id].url), esc(FLAGS[p.id].source))}.` : ''}</p>
     <p class="note">This atlas is not affiliated with or endorsed by any prefecture.</p>
   </div>`;
   $('#drawer-close').onclick = () => setDrawer(false, true);
@@ -3131,20 +3117,21 @@ function renderQuiz() {
   renderQuizPanel();
   restore();
 }
+const saveSetup = () => { store.set('setup', setup); renderQuiz(); };
 function renderQuizPanel() {
   if (mode !== 'quiz') return;
   $('#layout').classList.toggle('quiz-live', !!(Q && Q.phase === 'running'));
   if (!Q) {
     panel.innerHTML = quizSetupHTML();
-    panel.querySelectorAll('input[name="qtype"]').forEach(r => r.onchange = () => { setup.type = r.value; store.set('setup', setup); renderQuiz(); });
-    $('#scope').onchange = e => { setup.scope = e.target.value; store.set('setup', setup); renderQuiz(); previewScope(); };
-    panel.querySelectorAll('[data-answer]').forEach(b => b.onclick = () => { setup.answer = b.dataset.answer; store.set('setup', setup); renderQuiz(); });
+    panel.querySelectorAll('input[name="qtype"]').forEach(r => r.onchange = () => { setup.type = r.value; saveSetup(); });
+    $('#scope').onchange = e => { setup.scope = e.target.value; saveSetup(); previewScope(); };
+    panel.querySelectorAll('[data-answer]').forEach(b => b.onclick = () => { setup.answer = b.dataset.answer; saveSetup(); });
     $('#start').onclick = () => startQuiz();
     $('.record').ontoggle = e => { recordOpen = e.target.open; };
     panel.querySelectorAll('.record [data-scope]').forEach(b => b.onclick = () => {   // a cell picks that game in that scope
       const scope = b.dataset.scope, moved = scope !== setup.scope;
       setup.scope = scope; if (b.dataset.type) setup.type = b.dataset.type;
-      store.set('setup', setup); renderQuiz(); if (moved) previewScope();
+      saveSetup(); if (moved) previewScope();
     });
     return;
   }

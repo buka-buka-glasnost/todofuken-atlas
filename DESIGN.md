@@ -210,7 +210,7 @@ The density is a field atlas's: compact controls, tabular figures, small sentenc
 - Two inks only: indigo for controls, vermilion for selection and seals.
 - Kanji in Shippori Mincho B1 is the biggest type on any screen; UI is Zen Kaku Gothic New.
 - Hairline borders and tonal paper, not shadows, separate surfaces.
-- Light and dark themes are full token sets, switched by `prefers-color-scheme` or `data-theme`.
+- Light and dark themes are full token sets, switched by the system setting (`prefers-color-scheme`).
 
 ## Colors
 
