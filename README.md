@@ -12,7 +12,7 @@ A single-page web app for learning Japan's 47 prefectures (都道府県).
 
 No framework and no runtime dependencies: plain HTML, CSS and JavaScript, with the map drawn as inline SVG and all data inlined into the page. The only thing loaded from elsewhere is the two typefaces (Shippori Mincho B1 and Zen Kaku Gothic New, from Google Fonts).
 
-Phones get their own layout: the card docks under the map, the reading panel is a bottom sheet you can swipe away, and every control is at least 44px tall.
+Phones get their own layout: the card docks under the map with its buttons kept on screen, the reading panel is a bottom sheet you can swipe away (its topic tabs stay at the top as you read), the quiz map stays in view while you answer, and every control is at least 44px tall.
 
 ## Controls
 
