@@ -485,7 +485,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   </header>
   <main class="layout explore" id="layout">
     <section class="mapwrap" id="mapwrap" aria-label="Map">
-      <svg id="map" class="m-explore" role="group" aria-label="Map of Japan's 47 prefectures. Use the arrow keys to move between prefectures and Enter to choose one." preserveAspectRatio="xMidYMid meet"></svg>
+      <!-- the tool strip comes first in the source so Tab goes tools, map, card, drawer, as they appear on screen -->
       <div class="map-tools">
         <select class="pick" id="pick" aria-label="Find a prefecture"></select>
         <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
@@ -502,6 +502,7 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
         <div class="scale" aria-hidden="true"><span id="scale-label">200 km</span><div class="scale-bar" id="scale-bar"></div></div>
         <div class="legend" id="legend" role="group" aria-label="Regions"></div>
       </div>
+      <svg id="map" class="m-explore" role="group" aria-label="Map of Japan's 47 prefectures. Use the arrow keys to move between prefectures and Enter to choose one." preserveAspectRatio="xMidYMid meet"></svg>
       <span class="cull-hint" id="cull-hint" hidden></span>
       <svg class="leader" id="leader" aria-hidden="true"><line id="leader-line" /><circle id="leader-dot" r="3.5" /></svg>
       <article class="callout" id="callout" aria-label="Selected prefecture"></article>
@@ -1079,6 +1080,7 @@ function selectPref(id, opts = {}) {
   gPrefs.appendChild(prefEl[id]);              // draw selected border on top (moving it drops focus, so restore it)
   if (hadFocus) prefEl[id].focus({ preventScroll: true });
   paint(); renderExplore();
+  if (drawerOpen) topicFromTop();   // reading a topic and stepping on: the next prefecture opens at the start of that topic
   const p = byId[id];
   announce(`${p.en} ${p.ja}, ${p.region}. Capital: ${p.cap}.`);
   frameSelection(id, !!opts.zoom);

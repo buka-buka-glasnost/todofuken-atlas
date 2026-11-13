@@ -26,6 +26,8 @@ Phones get their own layout: the card docks under the map with its buttons kept 
 
 A capital's ◎ becomes clickable once its prefecture is chosen or the map is zoomed in; zoomed out, a click goes to the prefecture under it.
 
+`Tab` moves in screen order: the tool strip, the map, the card, then the reading panel, so after choosing a prefecture with `Enter` one `Tab` reaches its card.
+
 ## Project layout
 
 ```
