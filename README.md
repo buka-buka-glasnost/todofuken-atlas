@@ -21,7 +21,7 @@ Phones get their own layout: the card docks under the map with its buttons kept 
 | Pan | drag | drag | |
 | Zoom | wheel, double-click, + / − buttons | pinch, double-tap | `+` / `−` |
 | Choose a prefecture | click | tap | arrow keys move between prefectures, `Enter` chooses |
-| Close a card or the reading panel | × | ×, swipe the sheet down | `Esc` |
+| Close a card or the reading panel | ×, or click a chosen prefecture again | ×, swipe the sheet down, tap above it | `Esc` |
 | Answer *Name it* (multiple choice) | click | tap | `1`–`4` |
 
 A capital's ◎ becomes clickable once its prefecture is chosen or the map is zoomed in; zoomed out, a click goes to the prefecture under it.
