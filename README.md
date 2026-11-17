@@ -57,10 +57,13 @@ npm i jpn-atlas mapshaper d3-geo polylabel
 npx mapshaper node_modules/jpn-atlas/build/polbnda_jpn.shp \
   -each 'pref=adm_code.substr(0,2)' -dissolve pref -filter-islands min-area=4km2 \
   -simplify 6% keep-shapes -o format=geojson prefs.json
-node tools/build-map.mjs prefs.json src/shapes.json
+npx mapshaper node_modules/jpn-atlas/build/polbnda_jpn.shp \
+  -each 'pref=adm_code.substr(0,2)' -dissolve pref -filter-islands min-area=4km2 \
+  -explode -simplify interval=600m keep-shapes -o format=geojson islands.json
+node tools/build-map.mjs prefs.json src/shapes.json islands.json
 ```
 
-The map uses a conformal conic projection centred on 136°E. Okinawa and the Amami islands are moved into an inset; Tokyo's far-south islands (Ogasawara) are left out of the main map. `build-map.mjs` also writes the projection settings into `src/shapes.json`, so places stay aligned with a regenerated map.
+The map uses a conformal conic projection centred on 136°E. Okinawa and the Amami islands are moved into an inset; Tokyo's far-south islands (Ogasawara) and the southern Tokara islands are left out. The 6% simplification deletes many small islands, so the second pass simplifies each island on its own and `build-map.mjs` adds back every island of 4 km² or more that the first pass lost (the Kerama Islands, Naoshima, Ōge at Naruto, Hateruma and about a hundred more). `build-map.mjs` also writes the projection settings into `src/shapes.json`, so places stay aligned with a regenerated map.
 
 ## Editing content
 

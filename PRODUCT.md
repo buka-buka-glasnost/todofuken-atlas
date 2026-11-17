@@ -29,7 +29,7 @@ A bilingual atlas built for learners of Japanese: every prefecture is shown with
 - English and Japanese stay side by side throughout: kanji, kana and romaji for names, with answer matching that accepts all three.
 - Current build is plain HTML/CSS/JS with no runtime dependencies, inlined into one page. This was not confirmed as a binding constraint; changing it is an open decision.
 - Phone and desktop layouts both exist and were both reviewed for ease of use in November 2026 (touch targets, scrolling, zoom, keyboard, and the flow from map to card to reading panel); how much weight each should carry when they conflict is not decided.
-- Map data: GSI Global Map Japan via `jpn-atlas` (BSD-3-Clause), pre-projected in `src/shapes.json`; Okinawa and Amami shown in an inset, Ogasawara omitted.
+- Map data: GSI Global Map Japan via `jpn-atlas` (BSD-3-Clause), pre-projected in `src/shapes.json`; Okinawa and Amami shown in an inset, Ogasawara and the southern Tokara islands omitted; islands of 4 km² or more are drawn.
 
 ## Evidence on Hand
 

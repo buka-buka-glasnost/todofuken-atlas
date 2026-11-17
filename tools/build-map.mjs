@@ -1,19 +1,39 @@
 import fs from 'fs';
-import { geoConicConformal, geoPath, geoBounds, geoArea, geoGraticule, geoDistance } from 'd3-geo';
+import { geoConicConformal, geoPath, geoBounds, geoArea, geoGraticule, geoDistance, geoContains } from 'd3-geo';
 import polylabel from 'polylabel';
 
+// node build-map.mjs prefs.json out.json [islands.json]
+// islands.json (optional): the same islands, simplified one by one, so the small ones
+// the main 6% simplification deletes (Kerama, Naoshima, Ōge at Naruto...) are still drawn
 const g = JSON.parse(fs.readFileSync(process.argv[2], 'utf8'));
+const polysOf = f => (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates)
+  .map(p => geoArea({ type: 'Polygon', coordinates: p }) > 2 * Math.PI ? p.map(r => r.slice().reverse()) : p);
+const extra = {};
+if (process.argv[4]) {
+  const isl = JSON.parse(fs.readFileSync(process.argv[4], 'utf8'));
+  const have = {};
+  const inner = p => polylabel(p, 0.001);                 // a point surely inside, even for a concave outline
+  for (const f of g.features) have[f.properties.pref] = polysOf(f).map(p => ({ poly: { type: 'Polygon', coordinates: p }, pt: inner(p) }));
+  for (const f of isl.features) {
+    const code = f.properties.pref;
+    for (const p of polysOf(f)) {
+      const poly = { type: 'Polygon', coordinates: p }, pt = inner(p);
+      const drawn = (have[code] || []).some(q => geoContains(q.poly, pt) || geoContains(poly, q.pt));
+      if (!drawn) (extra[code] = extra[code] || []).push(p);
+    }
+  }
+}
 const feats = g.features.filter(f => f.properties.pref !== 'UN');
 const main = [], inset = [];
 for (const f of feats) {
   const code = f.properties.pref;
-  const polys = f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates;
+  const polys = polysOf(f).concat(extra[code] || []);
   const m = [], i = [];
-  for (let p of polys) {
-    if (geoArea({type:'Polygon',coordinates:p}) > 2*Math.PI) p = p.map(r => r.slice().reverse());
+  for (const p of polys) {
     const lats = p[0].map(c => c[1]);
     const maxLat = Math.max(...lats);
     if (code === '13' && maxLat < 32) continue;           // drop Ogasawara etc.
+    if (code === '46' && maxLat < 29.6 && maxLat > 28.9) continue;  // southern Tokara islands: would only stretch the inset
     if (code === '47' || (code === '46' && maxLat < 29.6)) i.push(p); else m.push(p);
   }
   if (m.length) main.push({ code, geom: { type: 'MultiPolygon', coordinates: m } });
