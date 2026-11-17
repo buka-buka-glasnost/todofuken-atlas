@@ -36,8 +36,8 @@
    },
    {
     "name": "Oze National Park",
-    "lat": 36.9272,
-    "lon": 139.3161,
+    "lat": 36.9333,
+    "lon": 139.2333,
     "ja": "尾瀬国立公園",
     "wiki": "Oze National Park",
     "summary": "Oze National Park, is an area consisting of open greenland in Fukushima, Tochigi, Gunma and Niigata Prefectures in Japan."
@@ -366,8 +366,8 @@
  },
  "16": {
   "capital": {
-   "lat": 36.5514,
-   "lon": 137.2986,
+   "lat": 36.6959,
+   "lon": 137.2137,
    "wiki": "Toyama (city)",
    "pop": 413028,
    "popYear": 2021,
@@ -1312,8 +1312,8 @@
    },
    {
     "name": "Mizuki Shigeru Road",
-    "lat": 35.544,
-    "lon": 133.233,
+    "lat": 35.5428,
+    "lon": 133.2368,
     "ja": "水木しげるロード"
    },
    {
@@ -1477,8 +1477,8 @@
    },
    {
     "name": "Itsukushima Shrine",
-    "lat": 34.2756,
-    "lon": 132.3078,
+    "lat": 34.2958,
+    "lon": 132.3201,
     "ja": "厳島神社",
     "wiki": "Itsukushima Shrine",
     "summary": "Itsukushima Shrine is a Shinto shrine on the island of Itsukushima (popularly known as Miyajima), best known for its \"floating\" torii. It is in the city of Hatsukaichi, in Hiroshima Prefecture in Japan, accessible from the mainland by ferry at Miyajimaguchi Station."
@@ -1801,8 +1801,8 @@
    },
    {
     "name": "Yosakoi Festival",
-    "lat": 33.5589,
-    "lon": 133.5314,
+    "lat": 33.5602,
+    "lon": 133.5396,
     "ja": "よさこい祭り",
     "wiki": "Yosakoi",
     "summary": "Yosakoi is a unique style of dance that originated in Japan and that is performed at festivals and events all over the country. The first yosakoi festival was held in 1954 in Kōchi, Japan, on the island of Shikoku. Yosakoi-style dancing has spread throughout much of Japan."
@@ -1836,8 +1836,8 @@
    },
    {
     "name": "Hakata yatai",
-    "lat": 33.5914,
-    "lon": 130.4147,
+    "lat": 33.5936,
+    "lon": 130.4053,
     "ja": "博多の屋台",
     "wiki": "Yatai (food cart)",
     "summary": "A yatai is a small, mobile food stall in Japan typically selling ramen or other food. The name literally means \"shop stand\"."
@@ -1929,8 +1929,8 @@
    },
    {
     "name": "Saga Balloon Fiesta",
-    "lat": 33.2636,
-    "lon": 130.3008,
+    "lat": 33.2578,
+    "lon": 130.249,
     "ja": "佐賀インターナショナルバルーンフェスタ",
     "wiki": "Saga International Balloon Fiesta",
     "summary": "The Saga International Balloon Fiesta is held at the beginning of November every year in Saga Prefecture, Japan. In 2014 it took place between October 30 and November 3."
@@ -2210,8 +2210,8 @@
    },
    {
     "name": "Yakushima",
-    "lat": 30.39,
-    "lon": 130.6511,
+    "lat": 30.3439,
+    "lon": 130.5239,
     "ja": "屋久島",
     "wiki": "Yakushima",
     "summary": "Yakushima is one of the Ōsumi Islands in Kagoshima Prefecture, Japan. It is accessible by hydrofoil ferry, car ferry, or by air to Yakushima Airport."
@@ -2385,8 +2385,8 @@
    },
    {
     "name": "Aomori Nebuta Matsuri",
-    "lat": 40.8223,
-    "lon": 140.7474,
+    "lat": 40.8296,
+    "lon": 140.7359,
     "ja": "青森ねぶた",
     "wiki": "Aomori Nebuta Matsuri",
     "summary": "The Aomori Nebuta Matsuri is a Japanese summer festival that takes place in Aomori, Aomori Prefecture, Japan in early August. The festival attracts the most tourists of any of the country's nebuta festivals, and is counted among the three largest festivals in the Tōhoku region."
@@ -2523,8 +2523,8 @@
    },
    {
     "name": "Sendai Tanabata Matsuri",
-    "lat": 38.2682,
-    "lon": 140.8694,
+    "lat": 38.2608,
+    "lon": 140.8723,
     "ja": "仙台七夕まつり",
     "wiki": "Sendai",
     "wikiBroader": true
@@ -2637,8 +2637,8 @@
    },
    {
     "name": "Ginzan Onsen",
-    "lat": 38.5708,
-    "lon": 140.4658,
+    "lat": 38.5697,
+    "lon": 140.5311,
     "ja": "銀山温泉",
     "wiki": "Ginzan Onsen",
     "summary": "Ginzan Onsen is an onsen (hot spring) area in Obanazawa, Yamagata Prefecture, Japan. Its name means \"silver mine hot spring\". Ginzan Onsen's economy grew due to silver mining and production and eventually transitioned to tourism when it opened dozens of hot spring resorts and ryokan along the central river that runs through the town."
