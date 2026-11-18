@@ -236,7 +236,20 @@ button, select, input { font: inherit; color: inherit; }
 @keyframes pop { 0% { fill: var(--ok); } 100% { fill: var(--ink); } }
 
 /* tools live in their own strip so they never sit on the Okinawa inset */
-.pick { min-width: 0; max-width: 240px; padding: 5px 8px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); font-size: 13px; }
+/* search: prefectures, capitals and landmarks by any spelling; empty, it lists the 47 by region */
+.search { position: relative; flex: 0 1 260px; min-width: 0; }
+.search > .ico { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search input { box-sizing: border-box; width: 100%; padding: 5px 8px 5px 30px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); color: inherit; font: inherit; font-size: 13px; line-height: 1.4; }
+.search input::placeholder { color: var(--muted); }
+.search-list { position: absolute; z-index: 8; top: calc(100% + 6px); left: 0; width: max(100%, 320px); max-width: calc(100vw - 32px); max-height: min(380px, 60vh); overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 6px; list-style: none; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
+.search-list [role="option"] { display: grid; grid-template-columns: 12px minmax(0, 1fr); align-items: center; gap: 1px 10px; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
+.search-list [role="option"][aria-selected="true"] { background: var(--ai-soft); }
+.search-list .sr-nm { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; font-weight: 600; }
+.search-list .sr-nm [lang="ja"] { margin-left: 6px; font-weight: 400; color: var(--muted); }
+.search-list .sr-sub { grid-column: 2; font-size: 12px; color: var(--muted); }
+.search-list .swatch { width: 11px; height: 11px; border-radius: 3px; }
+.search-list .sr-group { padding: 8px 10px 3px; font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); }
+.search-list .sr-none { padding: 10px; font-size: 13px; color: var(--muted); }
 .map-tools { grid-row: 1; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 8px 10px; background: var(--surface); border-bottom: 1px solid var(--rule); }
 .tool-group { display: inline-flex; background: var(--surface); border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; }
 .tool-group button { border: 0; background: none; padding: 5px 10px; cursor: pointer; font-size: 13px; line-height: 1.4; min-width: 34px; }
@@ -436,7 +449,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
   .mapwrap, .layout.explore { overflow: clip; }
   .co-foot { position: sticky; bottom: 0; z-index: 1; margin: 0 -18px -14px; padding: 10px 18px max(14px, env(safe-area-inset-bottom, 0px)); background: var(--surface); }
   .map-tools { flex-wrap: wrap; }
-  .pick { flex: 1 1 100%; min-width: 0; max-width: none; order: 0; }   /* the list on its own row, names and zoom under it, then the regions */
+  .search { flex: 1 1 100%; order: 0; }   /* the search on its own row, names and zoom under it, then the regions */
+  .search-list { width: 100%; max-height: min(380px, 45svh); }
   #names-group { order: 1; flex: none; }
   .map-tools > .tool-group[aria-label="Zoom"] { order: 1; flex: none; }
   .legend { order: 2; flex: 1 1 100%; }   /* the regions get their own row, so more than one chip shows */
@@ -458,10 +472,10 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
 }
 /* touch: every control is a comfortable thumb target */
 @media (pointer: coarse) {
-  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .pick, .modes button, #drawer-close,
+  .tool-group button, .legend button, .co-list button, .callout .btn, .misslist button, .search input, .search-list [role="option"], .modes button, #drawer-close,
   .onmap, .record button, .seg button, .tabs button, .field select { min-height: 44px; }
   /* iOS zooms into any field under 16px and stays zoomed */
-  input, select, .pick { font-size: 16px; }
+  input, select, .search input { font-size: 16px; }
   /* the capital link is inline text in the facts: a larger invisible hit area, the same layout */
   .placelink { position: relative; }
   .placelink::after { content: ""; position: absolute; inset: -12px -10px; }
@@ -492,7 +506,12 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
     <section class="mapwrap" id="mapwrap" aria-label="Map">
       <!-- the tool strip comes first in the source so Tab goes tools, map, card, drawer, as they appear on screen -->
       <div class="map-tools">
-        <select class="pick" id="pick" aria-label="Find a prefecture"></select>
+        <div class="search" id="search">
+          <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" /><path d="M10.4 10.4 13.5 13.5" /></svg>
+          <input id="q" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="q-list" aria-label="Search prefectures, capitals and landmarks"
+            placeholder="Search prefectures and places" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" title="Search (/)">
+          <ul id="q-list" class="search-list" role="listbox" aria-label="Results" hidden></ul>
+        </div>
         <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
           <span class="tool-label">Names</span>
           <button type="button" id="names-off" aria-pressed="true">Off</button>
@@ -2514,7 +2533,7 @@ function frameBox(id) {                                  // the mainland outline
   const t = mk('path', { d: sh.d, visibility: 'hidden' }, svg), bb = t.getBBox(); t.remove();
   return (mainlandBox[id] = bb.width ? [bb.x, bb.y, bb.width, bb.height] : sh.b);
 }
-function frameSelection(id, force) {
+function frameSelection(id, force, at) {             // at: a place to centre on instead of the prefecture (from search)
   const b = frameBox(id), r = svg.getBoundingClientRect(), m = svg.getScreenCTM();
   if (!m || !r.width) return;
   const card = narrow.matches ? 0 : callout.offsetWidth + 64;
@@ -2525,10 +2544,11 @@ function frameSelection(id, force) {
   if (!force && size >= 110 && inView) return;
   const fitW = Math.min(r.width, r.height * BASE.w / BASE.h);                       // the dimension that sets the scale under "meet"
   let w = size < 110 ? fitW * Math.max(b[2], b[3]) / 180 : view.w;                 // small: zoom so it is ~180px; large: just pan
+  if (at) w = Math.min(fitW * Math.max(b[2], b[3]) / 180, BASE.w / 2.5);          // a place: its prefecture's zoom, never wider than a few hundred km
   if (drawer) w = Math.max(w, fitW * b[2] / Math.max(r.width - drawer - card - 32, 60));   // beside the drawer: zoom out until it fits west of the card
   w = Math.min(Math.max(w, BASE.w / 16), BASE.w);
   const h = w * BASE.h / BASE.w, k = fitW / w;
-  const cx = b[0] + b[2] / 2 + (card + drawer) / 2 / k, cy = b[1] + b[3] / 2;       // shift west so the card (and drawer) fit east
+  const cx = (at ? at[0] : b[0] + b[2] / 2) + (card + drawer) / 2 / k, cy = at ? at[1] : b[1] + b[3] / 2;   // shift west so the card (and drawer) fit east
   animateTo({ x: cx - w / 2, y: cy - h / 2, w });
 }
 const TABS = [['overview', 'Overview'], ['history', 'History'], ['sights', 'Sights'], ['food', 'Food'], ['omiyage', 'Omiyage']];
@@ -2555,13 +2575,89 @@ function tabBody(p) {
 const callout = $('#callout'), leaderLine = $('#leader-line'), leaderDot = $('#leader-dot');
 const narrow = window.matchMedia('(max-width: 860px)');
 const stepPrefs = () => { const i = PREFS.indexOf(byId[sel]); return [PREFS[(i + 46) % 47], PREFS[(i + 1) % 47]]; };
-function renderPick() {
-  const pick = $('#pick');
-  pick.hidden = mode !== 'explore';
-  pick.innerHTML = (sel ? '' : '<option value="" selected>Find a prefecture…</option>') +
-    REGIONS.map(r => `<optgroup label="${esc(r.key)}">${PREFS.filter(q => q.region === r.key).map(q => `<option value="${q.id}"${q.id === sel ? ' selected' : ''}>${esc(q.en)} ${esc(q.ja)}</option>`).join('')}</optgroup>`).join('');
+/* ---- search: every prefecture, capital and landmark, by romaji (long vowels optional), kanji or kana ---- */
+const SEARCH = [];
+{
+  const words = s => String(s).split(/[\s\-–()（）・/,]+/).map(norm).filter(Boolean);
+  const prefKeys = {};
+  for (const [k, id] of NAMES) (prefKeys[id] = prefKeys[id] || []).push(k);
+  PREFS.forEach(p => SEARCH.push({ kind: 'pref', id: p.id, pref: p, name: p.en, ja: p.ja, sub: `Prefecture · ${p.region}`, keys: prefKeys[p.id], words: words(p.en) }));
+  PREFS.forEach(p => {
+    const ja = p.capJa.replace(/[（(].*$/, '');
+    SEARCH.push({ kind: 'capital', id: PLACES.find(q => q.pref === p.id && q.kind === 'capital')?.id, pref: p, name: p.cap, ja: p.capJa, sub: `Capital of ${p.en}`,
+      keys: [norm(p.cap), norm(ja), norm(ja.replace(/[市区]$/, '')), ...words(p.cap)], words: words(p.cap) });
+    p.sights.forEach(([nm], i) => {
+      const pl = placeById[`${p.id}-${i}`];
+      SEARCH.push({ kind: 'sight', id: pl ? pl.id : null, pref: p, name: nm, ja: pl?.ja || '', sub: `Landmark · ${p.en}`, keys: [norm(nm), ...(pl?.ja ? [norm(pl.ja)] : [])], words: words(nm) });
+    });
+  });
 }
-$('#pick').onchange = e => { if (e.target.value) selectPref(e.target.value, { zoom: true }); };
+const KIND_ORDER = { pref: 0, capital: 1, sight: 2 };
+function searchFor(text) {
+  const q = norm(text);
+  if (!q) return [];
+  const short = /^[a-z]{1,2}$/.test(q);            // one or two letters: only names that start with them
+  const hits = [];
+  for (const e of SEARCH) {
+    let s = 9;
+    for (const k of e.keys) s = Math.min(s, k === q ? 0 : k.startsWith(q) ? 1 : 9);
+    // inside a name only for the name itself and its kanji, not the "-to/-ken" forms ("tokyoto" holds "kyoto")
+    if (s > 1 && !short && (norm(e.name).includes(q) || (e.ja && norm(e.ja).includes(q)))) s = 3;
+    if (s > 1) for (const w of e.words) if (w.startsWith(q)) s = Math.min(s, 2);
+    if (s < 9) hits.push([s, e]);
+  }
+  hits.sort((a, b) => a[0] - b[0] || KIND_ORDER[a[1].kind] - KIND_ORDER[b[1].kind] || a[1].name.length - b[1].name.length);
+  if (!hits.length) { const id = nearName(text); if (id) return [SEARCH.find(e => e.kind === 'pref' && e.id === id)]; }   // a near miss: Hokaido, Kagosima
+  return hits.slice(0, 10).map(h => h[1]);
+}
+const qInput = $('#q'), qList = $('#q-list');
+let qShown = [], qActive = -1;
+function renderSearchList() {
+  const text = qInput.value;
+  qShown = text.trim() ? searchFor(text) : SEARCH.filter(e => e.kind === 'pref');
+  const option = (e, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === qActive}">${e.kind === 'pref' ? `<span class="swatch" style="background:var(--r-${e.pref.slug})"></span>` : `<span class="pmark ${e.kind}" aria-hidden="true"></span>`}<span class="sr-nm">${esc(e.name)}${e.ja ? `<span lang="ja">${esc(e.ja)}</span>` : ''}</span><span class="sr-sub">${esc(e.sub)}</span></li>`;
+  qList.innerHTML = !qShown.length ? `<li class="sr-none" role="presentation">Nothing found for “${esc(text.trim())}”</li>`
+    : text.trim() ? qShown.map(option).join('')
+    : REGIONS.map(r => `<li class="sr-group" role="presentation">${esc(r.key)} <span lang="ja">${esc(r.ja)}</span></li>` + qShown.map((e, i) => e.pref.region === r.key ? option(e, i) : '').join('')).join('');
+  if (qActive >= 0) { qInput.setAttribute('aria-activedescendant', 'q-opt-' + qActive); $('#q-opt-' + qActive)?.scrollIntoView({ block: 'nearest' }); }
+  else qInput.removeAttribute('aria-activedescendant');
+}
+function openSearch() { qList.hidden = false; qInput.setAttribute('aria-expanded', 'true'); renderSearchList(); }
+function closeSearch() { qList.hidden = true; qActive = -1; qInput.setAttribute('aria-expanded', 'false'); qInput.removeAttribute('aria-activedescendant'); }
+function chooseResult(e) {
+  if (!e) return;
+  qInput.value = ''; closeSearch();
+  if (e.kind === 'pref') { selectPref(e.id, { zoom: true }); $('#co-more')?.focus({ preventScroll: true }); return; }
+  if (e.id) { openPlace(e.id, true); frameSelection(e.pref.id, true, placeById[e.id].xy); return; }
+  // a landmark with no marker (Ogasawara is beyond the map): its prefecture, open at Sights
+  tab = 'sights'; store.set('tab', tab); selectPref(e.pref.id, { zoom: true }); setDrawer(true, true);
+}
+qInput.addEventListener('input', () => { qActive = qInput.value.trim() ? 0 : -1; openSearch(); });
+qInput.addEventListener('focus', () => { qActive = -1; openSearch(); });
+qInput.addEventListener('blur', () => closeSearch());
+qInput.addEventListener('keydown', e => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    if (qList.hidden) return openSearch();
+    const n = qShown.length; if (!n) return;
+    qActive = e.key === 'ArrowDown' ? (qActive + 1) % n : (qActive <= 0 ? n : qActive) - 1;
+    renderSearchList();
+  } else if (e.key === 'Enter') {
+    e.preventDefault();
+    if (!qList.hidden && qInput.value.trim()) chooseResult(qShown[Math.max(qActive, 0)]);
+    else if (qActive >= 0) chooseResult(qShown[qActive]);
+  } else if (e.key === 'Escape') {
+    if (qInput.value || !qList.hidden) { e.stopPropagation(); if (qList.hidden) qInput.value = ''; closeSearch(); }
+  }
+});
+qList.addEventListener('mousedown', e => e.preventDefault());   // keep focus in the field while a result is clicked
+qList.addEventListener('click', e => { const li = e.target.closest('[role="option"]'); if (li) chooseResult(qShown[+li.dataset.i]); });
+// "/" goes to the search from anywhere outside a field, as on most sites
+document.addEventListener('keydown', e => {
+  if (e.key !== '/' || mode !== 'explore' || e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input, select, textarea'))) return;
+  e.preventDefault(); qInput.focus();
+});
+function renderPick() { $('#search').hidden = mode !== 'explore'; if (mode !== 'explore') closeSearch(); }
 const stepButton = (dir, label, title) => `<button type="button" class="btn small co-step" id="co-${dir}" aria-label="${label}" title="${title}">${icon(dir)}</button>`;
 const CLOSE = `<button type="button" class="btn ghost small co-close" id="co-close" aria-label="Close card" title="Close (Esc)">${icon('close')}</button>`;
 function renderCallout() {

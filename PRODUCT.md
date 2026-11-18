@@ -20,7 +20,7 @@ A bilingual atlas built for learners of Japanese: every prefecture is shown with
 
 ## Operating Context
 
-- Two modes: Explore (choose a prefecture on the map or from a list and read about it; the chosen prefecture shows its flag, and its capital and six landmarks open cards of their own) and Quiz (Find it, Name it, Name them all; for all Japan or one region; practice rounds of the misses; best scores kept in the browser and shown as a record table).
+- Two modes: Explore (choose a prefecture on the map or find a prefecture, capital or landmark by searching in English, romaji, kanji or kana, and read about it; the chosen prefecture shows its flag, and its capital and six landmarks open cards of their own) and Quiz (Find it, Name it, Name them all; for all Japan or one region; practice rounds of the misses; best scores kept in the browser and shown as a record table).
 - Published as a static site on GitHub Pages from `docs/index.html`, built from `src/` by `tools/build-app.mjs`.
 
 ## Capabilities and Constraints
