@@ -239,8 +239,16 @@ button, select, input { font: inherit; color: inherit; }
 /* search: prefectures, capitals and landmarks by any spelling; empty, it lists the 47 by region */
 .search { position: relative; flex: 0 1 260px; min-width: 0; }
 .search > .ico { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
-.search input { box-sizing: border-box; width: 100%; padding: 5px 8px 5px 30px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); color: inherit; font: inherit; font-size: 13px; line-height: 1.4; }
+.search input { box-sizing: border-box; width: 100%; padding: 5px 30px 5px 30px; border: 1px solid var(--rule); border-radius: 8px; background: var(--surface); color: inherit; font: inherit; font-size: 13px; line-height: 1.4; }
 .search input::placeholder { color: var(--muted); }
+.search input:focus { outline: none; border-color: var(--ai); }
+/* the "/" shortcut shows while the field is idle (mouse and keyboard only); the clear button once there is text */
+.search-key { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); min-width: 18px; padding: 0 5px; border: 1px solid var(--rule); border-radius: 4px; font: 600 11px/16px var(--f-body); text-align: center; color: var(--muted); pointer-events: none; }
+.search:focus-within .search-key, .search.has-text .search-key { display: none; }
+.search-clear { display: none; position: absolute; right: 2px; top: 50%; transform: translateY(-50%); width: 28px; height: 28px; place-items: center; padding: 0; border: 0; border-radius: 6px; background: none; color: var(--muted); cursor: pointer; }
+.search.has-text .search-clear { display: grid; }
+.search-list .swatch.wide { width: 11px; height: 11px; border-radius: 50%; }
+@media (pointer: coarse) { .search-key { display: none; } .search-clear { width: 40px; height: 40px; right: 2px; } .search input { padding-right: 44px; } }
 .search-list { position: absolute; z-index: 8; top: calc(100% + 6px); left: 0; width: max(100%, 320px); max-width: calc(100vw - 32px); max-height: min(380px, 60vh); overflow-y: auto; overscroll-behavior: contain; margin: 0; padding: 6px; list-style: none; background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); box-shadow: var(--shadow-float); }
 .search-list [role="option"] { display: grid; grid-template-columns: 12px minmax(0, 1fr); align-items: center; gap: 1px 10px; padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 .search-list [role="option"][aria-selected="true"] { background: var(--ai-soft); }
@@ -510,6 +518,8 @@ h2 { font-family: var(--f-display); font-size: 24px; font-weight: 800; margin: 0
           <svg class="ico" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" /><path d="M10.4 10.4 13.5 13.5" /></svg>
           <input id="q" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="q-list" aria-label="Search prefectures, capitals and landmarks"
             placeholder="Search prefectures and places" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="go" title="Search (/)">
+          <kbd class="search-key" aria-hidden="true">/</kbd>
+          <button type="button" class="search-clear" id="q-clear" aria-label="Clear search" title="Clear"><svg class="ico" width="14" height="14" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" /></svg></button>
           <ul id="q-list" class="search-list" role="listbox" aria-label="Results" hidden></ul>
         </div>
         <div class="tool-group" id="names-group" role="group" aria-label="Names on map">
@@ -2578,32 +2588,50 @@ const stepPrefs = () => { const i = PREFS.indexOf(byId[sel]); return [PREFS[(i +
 /* ---- search: every prefecture, capital and landmark, by romaji (long vowels optional), kanji or kana ---- */
 const SEARCH = [];
 {
-  const words = s => String(s).split(/[\s\-–()（）・/,]+/).map(norm).filter(Boolean);
+  const words = s => String(s).split(/[\s\-–()（）・/,&]+/).map(norm).filter(Boolean).map(w => w === 'mont' ? 'mt' : w);   // norm() makes "mount" "mont"
+  // what a learner might type for a kind of place the name only says in Japanese: Sensō-ji, Kiyomizu-dera, Byōdō-in, Meiji Jingū
+  const kinds = ws => [...(ws.some(w => ['ji', 'dera', 'in', 'tera'].includes(w)) ? ['temple'] : []),
+    ...(ws.some(w => ['jingu', 'jinja', 'taisha', 'gu', 'shrine'].includes(w)) ? ['shrine'] : []),
+    ...(ws.includes('onsen') ? ['hot', 'spring', 'springs'] : [])];
   const prefKeys = {};
   for (const [k, id] of NAMES) (prefKeys[id] = prefKeys[id] || []).push(k);
-  PREFS.forEach(p => SEARCH.push({ kind: 'pref', id: p.id, pref: p, name: p.en, ja: p.ja, sub: `Prefecture · ${p.region}`, keys: prefKeys[p.id], words: words(p.en) }));
+  const add = e => SEARCH.push({ ...e, full: norm(e.name), fullJa: e.ja ? norm(e.ja) : '' });
+  REGIONS.forEach(r => add({ kind: 'region', id: r.key, region: r, name: r.key, ja: r.ja, sub: `Region · ${PREFS.filter(p => p.region === r.key).length} prefectures`,
+    keys: [norm(r.key), norm(r.ja)], words: words(r.key), ctx: [] }));
+  PREFS.forEach(p => add({ kind: 'pref', id: p.id, pref: p, name: p.en, ja: p.ja, sub: `Prefecture · ${p.region}`, keys: prefKeys[p.id], words: words(p.en), ctx: words(p.region) }));
   PREFS.forEach(p => {
-    const ja = p.capJa.replace(/[（(].*$/, '');
-    SEARCH.push({ kind: 'capital', id: PLACES.find(q => q.pref === p.id && q.kind === 'capital')?.id, pref: p, name: p.cap, ja: p.capJa, sub: `Capital of ${p.en}`,
-      keys: [norm(p.cap), norm(ja), norm(ja.replace(/[市区]$/, '')), ...words(p.cap)], words: words(p.cap) });
+    const ja = p.capJa.replace(/[（(].*$/, ''), ctx = [...prefKeys[p.id], ...words(p.region)];   // "nagano castle": a landmark can be narrowed by its prefecture
+    add({ kind: 'capital', id: PLACES.find(q => q.pref === p.id && q.kind === 'capital')?.id, pref: p, name: p.cap, ja: p.capJa, sub: `Capital of ${p.en}`,
+      keys: [norm(p.cap), norm(ja), norm(ja.replace(/[市区]$/, '')), ...words(p.cap)], words: [...words(p.cap), 'capital'], ctx });
     p.sights.forEach(([nm], i) => {
       const pl = placeById[`${p.id}-${i}`];
-      SEARCH.push({ kind: 'sight', id: pl ? pl.id : null, pref: p, name: nm, ja: pl?.ja || '', sub: `Landmark · ${p.en}`, keys: [norm(nm), ...(pl?.ja ? [norm(pl.ja)] : [])], words: words(nm) });
+      add({ kind: 'sight', id: pl ? pl.id : null, pref: p, name: nm, ja: pl?.ja || '', sub: `Landmark · ${p.en}`, keys: [norm(nm), ...(pl?.ja ? [norm(pl.ja)] : [])], words: [...words(nm), ...kinds(words(nm))], ctx });
     });
   });
 }
-const KIND_ORDER = { pref: 0, capital: 1, sight: 2 };
+const KIND_ORDER = { pref: 0, region: 1, capital: 2, sight: 3 };
 function searchFor(text) {
   const q = norm(text);
   if (!q) return [];
-  const short = /^[a-z]{1,2}$/.test(q);            // one or two letters: only names that start with them
+  const short = /^[a-z]{1,3}$/.test(q);            // up to three letters: only names and words that start with them ("kan" is not Gunkanjima)
+  const qWords = text.split(/[\s,]+/).map(norm).filter(Boolean).map(w => w === 'mont' ? 'mt' : w);
   const hits = [];
   for (const e of SEARCH) {
     let s = 9;
     for (const k of e.keys) s = Math.min(s, k === q ? 0 : k.startsWith(q) ? 1 : 9);
     // inside a name only for the name itself and its kanji, not the "-to/-ken" forms ("tokyoto" holds "kyoto")
-    if (s > 1 && !short && (norm(e.name).includes(q) || (e.ja && norm(e.ja).includes(q)))) s = 3;
-    if (s > 1) for (const w of e.words) if (w.startsWith(q)) s = Math.min(s, 2);
+    if (s > 1 && !short && (e.full.includes(q) || (e.fullJa && e.fullJa.includes(q)))) s = 3;
+    if (s > 1) for (const w of e.words) if (w.startsWith(q)) s = Math.min(s, w === q ? 1 : 2);   // a whole word ("fuji" in Mt. Fuji) beats part of one (Fujien)
+    // several words, in any order: each must start a word of the name (or sit inside it), or name the prefecture or region
+    if (s > 3 && qWords.length > 1) {
+      let own = true, all = true;
+      for (const w of qWords) {
+        if (e.words.some(x => x.startsWith(w)) || (w.length > 2 && e.full.includes(w))) continue;
+        if (e.ctx.some(x => x.startsWith(w))) { own = false; continue; }
+        all = false; break;
+      }
+      if (all) s = own ? 3 : 4;
+    }
     if (s < 9) hits.push([s, e]);
   }
   hits.sort((a, b) => a[0] - b[0] || KIND_ORDER[a[1].kind] - KIND_ORDER[b[1].kind] || a[1].name.length - b[1].name.length);
@@ -2615,8 +2643,9 @@ let qShown = [], qActive = -1;
 function renderSearchList() {
   const text = qInput.value;
   qShown = text.trim() ? searchFor(text) : SEARCH.filter(e => e.kind === 'pref');
-  const option = (e, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === qActive}">${e.kind === 'pref' ? `<span class="swatch" style="background:var(--r-${e.pref.slug})"></span>` : `<span class="pmark ${e.kind}" aria-hidden="true"></span>`}<span class="sr-nm">${esc(e.name)}${e.ja ? `<span lang="ja">${esc(e.ja)}</span>` : ''}</span><span class="sr-sub">${esc(e.sub)}</span></li>`;
-  qList.innerHTML = !qShown.length ? `<li class="sr-none" role="presentation">Nothing found for “${esc(text.trim())}”</li>`
+  const mark = e => e.kind === 'pref' || e.kind === 'region' ? `<span class="swatch${e.kind === 'region' ? ' wide' : ''}" style="background:var(--r-${(e.region || e.pref).slug})"></span>` : `<span class="pmark ${e.kind}" aria-hidden="true"></span>`;
+  const option = (e, i) => `<li role="option" id="q-opt-${i}" data-i="${i}" aria-selected="${i === qActive}">${mark(e)}<span class="sr-nm">${esc(e.name)}${e.ja ? `<span lang="ja">${esc(e.ja)}</span>` : ''}</span><span class="sr-sub">${esc(e.sub)}</span></li>`;
+  qList.innerHTML = !qShown.length ? `<li class="sr-none" role="presentation">Nothing found for “${esc(text.trim())}”. Try a prefecture, city or landmark, in English, romaji, kanji or kana.</li>`
     : text.trim() ? qShown.map(option).join('')
     : REGIONS.map(r => `<li class="sr-group" role="presentation">${esc(r.key)} <span lang="ja">${esc(r.ja)}</span></li>` + qShown.map((e, i) => e.pref.region === r.key ? option(e, i) : '').join('')).join('');
   if (qActive >= 0) { qInput.setAttribute('aria-activedescendant', 'q-opt-' + qActive); $('#q-opt-' + qActive)?.scrollIntoView({ block: 'nearest' }); }
@@ -2624,18 +2653,32 @@ function renderSearchList() {
 }
 function openSearch() { qList.hidden = false; qInput.setAttribute('aria-expanded', 'true'); renderSearchList(); }
 function closeSearch() { qList.hidden = true; qActive = -1; qInput.setAttribute('aria-expanded', 'false'); qInput.removeAttribute('aria-activedescendant'); }
+const syncClear = () => $('#search').classList.toggle('has-text', !!qInput.value);
+function setActive(i) {                                // the pointer moves the highlight without rebuilding the list
+  if (i === qActive) return;
+  $('#q-opt-' + qActive)?.setAttribute('aria-selected', 'false');
+  qActive = i;
+  $('#q-opt-' + i)?.setAttribute('aria-selected', 'true');
+  qInput.setAttribute('aria-activedescendant', 'q-opt-' + i);
+}
 function chooseResult(e) {
   if (!e) return;
-  qInput.value = ''; closeSearch();
+  qInput.value = ''; syncClear(); closeSearch();
+  if (e.kind === 'region') {                           // the same as its chip: the region framed and listed in the card
+    const chip = $(`#legend [data-region="${e.id}"]`);
+    if (exploreRegion !== e.id) chip.click(); else fitBox(unionBox(PREFS.filter(p => p.region === e.id).map(p => p.id)), 0.1);
+    chip.focus({ preventScroll: true }); return;
+  }
   if (e.kind === 'pref') { selectPref(e.id, { zoom: true }); $('#co-more')?.focus({ preventScroll: true }); return; }
   if (e.id) { openPlace(e.id, true); frameSelection(e.pref.id, true, placeById[e.id].xy); return; }
   // a landmark with no marker (Ogasawara is beyond the map): its prefecture, open at Sights
   tab = 'sights'; store.set('tab', tab); selectPref(e.pref.id, { zoom: true }); setDrawer(true, true);
 }
-qInput.addEventListener('input', () => { qActive = qInput.value.trim() ? 0 : -1; openSearch(); });
+qInput.addEventListener('input', () => { qActive = qInput.value.trim() ? 0 : -1; syncClear(); openSearch(); qList.scrollTop = 0; });
 qInput.addEventListener('focus', () => { qActive = -1; openSearch(); });
 qInput.addEventListener('blur', () => closeSearch());
 qInput.addEventListener('keydown', e => {
+  if (e.isComposing || e.keyCode === 229) return;   // Enter that confirms Japanese input belongs to the input method, not to the results
   if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
     e.preventDefault();
     if (qList.hidden) return openSearch();
@@ -2647,11 +2690,14 @@ qInput.addEventListener('keydown', e => {
     if (!qList.hidden && qInput.value.trim()) chooseResult(qShown[Math.max(qActive, 0)]);
     else if (qActive >= 0) chooseResult(qShown[qActive]);
   } else if (e.key === 'Escape') {
-    if (qInput.value || !qList.hidden) { e.stopPropagation(); if (qList.hidden) qInput.value = ''; closeSearch(); }
+    if (qInput.value || !qList.hidden) { e.stopPropagation(); if (qList.hidden) { qInput.value = ''; syncClear(); } closeSearch(); }
   }
 });
 qList.addEventListener('mousedown', e => e.preventDefault());   // keep focus in the field while a result is clicked
 qList.addEventListener('click', e => { const li = e.target.closest('[role="option"]'); if (li) chooseResult(qShown[+li.dataset.i]); });
+qList.addEventListener('pointermove', e => { if (e.pointerType !== 'mouse') return; const li = e.target.closest('[role="option"]'); if (li) setActive(+li.dataset.i); });
+$('#q-clear').addEventListener('mousedown', e => e.preventDefault());
+$('#q-clear').onclick = () => { qInput.value = ''; syncClear(); qActive = -1; qInput.focus(); openSearch(); };
 // "/" goes to the search from anywhere outside a field, as on most sites
 document.addEventListener('keydown', e => {
   if (e.key !== '/' || mode !== 'explore' || e.ctrlKey || e.metaKey || e.altKey || (e.target.closest && e.target.closest('input, select, textarea'))) return;

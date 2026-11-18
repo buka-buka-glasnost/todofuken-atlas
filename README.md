@@ -3,7 +3,7 @@
 A single-page web app for learning Japan's 47 prefectures (都道府県).
 
 - **Explore** – click any prefecture for its capital, population, area, density, age structure, climate, history, landmarks, local food and omiyage. The chosen prefecture is drawn in its own prefectural flag. Region chips zoom to a region; the Names toggle shows romaji or kanji labels.
-  - **Search** – the box above the map finds any prefecture, capital or landmark by English name, romaji (long vowels optional, so "senso" or "sensouji" finds Sensō-ji), kanji or kana, and forgives a small typo in a prefecture name ("Hokaido"). Choosing a result zooms the map there and opens its card. Left empty, the box lists all 47 prefectures by region.
+  - **Search** – the box above the map finds any region, prefecture, capital or landmark by English name, romaji (long vowels optional, so "senso" or "sensouji" finds Sensō-ji), kanji or kana, and forgives a small typo in a prefecture name ("Hokaido"). Several words work in any order and can name the prefecture ("nagano castle", "mount fuji"), and "temple", "shrine" and "hot spring" find places whose names only say so in Japanese (-ji, -dera, Jingū, Onsen). Choosing a result zooms the map there and opens its card. Left empty, the box lists all 47 prefectures by region.
   - **Places** – every capital (◎) and 281 landmarks (six per prefecture; Tokyo's Ogasawara Islands lie outside the map) are marked on the map. Click one (or a capital link, or "Show on map" in the Sights tab) for its own card: Japanese and English name, a short note, the opening of its Wikipedia article, and the city population for capitals.
 - **Quiz** – three games, each playable for all of Japan or one region:
   - *Find it*: a prefecture is named, click it on the map (3 tries).
@@ -22,7 +22,7 @@ Phones get their own layout: the card docks under the map with its buttons kept 
 | Pan | drag | drag | |
 | Zoom | wheel, double-click, + / − buttons | pinch, double-tap | `+` / `−` |
 | Choose a prefecture | click | tap | arrow keys move between prefectures, `Enter` chooses |
-| Search | click the search box | tap the search box | `/` jumps to it; `↑` / `↓` move through the results, `Enter` opens one, `Esc` closes the list, then clears the text |
+| Search | click the search box, hover a result, × clears | tap the search box, × clears | `/` jumps to it; `↑` / `↓` move through the results, `Enter` opens one (an `Enter` that confirms Japanese input is left to the input method), `Esc` closes the list, then clears the text |
 | Close a card or the reading panel | ×, or click a chosen prefecture again | ×, swipe the sheet down, tap above it | `Esc` |
 | Answer *Name it* (multiple choice) | click | tap | `1`–`4` |
 
